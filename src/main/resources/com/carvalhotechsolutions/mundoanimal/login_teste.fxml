@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.carvalhotechsolutions.mundoanimal.HelloController">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="538.0" prefWidth="296.0" style="-fx-background-color: #FFFFFF;" VBox.vgrow="ALWAYS">
+      <children>
+            <ImageView fitHeight="109.0" fitWidth="200.0" layoutX="342.0" layoutY="26.0">
+               <image>
+                  <Image url="@assets/logo_sem_fundo.PNG" />
+               </image>
+            </ImageView>
+            <FlowPane alignment="CENTER_LEFT" layoutX="250.0" layoutY="171.0" orientation="VERTICAL" prefHeight="67.0" prefWidth="400.0">
+               <children>
+                  <Label prefHeight="28.0" prefWidth="54.0" text="CPF" />
+                  <TextField prefHeight="32.0" prefWidth="400.0" promptText="XXX.XXX.XXX-XX" style="-fx-background-color: #E9E9E9; -fx-border-color: #000000; -fx-border-radius: 8;" />
+               </children>
+            </FlowPane>
+            <FlowPane alignment="CENTER_LEFT" layoutX="250.0" layoutY="238.0" orientation="VERTICAL" prefHeight="67.0" prefWidth="400.0">
+               <children>
+                  <Label prefHeight="28.0" prefWidth="54.0" text="Senha" />
+                  <PasswordField prefHeight="32.0" prefWidth="400.0" promptText="**********" style="-fx-background-color: #E9E9E9; -fx-border-color: #000000; -fx-border-radius: 8;" />
+               </children>
+            </FlowPane>
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutX="250.0" layoutY="322.0" orientation="VERTICAL" prefHeight="42.0" prefWidth="348.0" style="-fx-border-radius: 20;">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="400.0" style="-fx-background-color: #1916A1; -fx-border-radius: 20;" text="LOGIN" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </FlowPane>
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutX="250.0" layoutY="364.0" orientation="VERTICAL" prefHeight="67.0" prefWidth="400.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="174.0" text="Esqueceu sua senha?" textAlignment="CENTER" textFill="#686aff">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </FlowPane>
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
