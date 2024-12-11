@@ -1,0 +1,53 @@
+/* CSS GENÉRICO - INÍCIO */
+
+.default_text_input {
+    -fx-background-color: transparent;
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 5px;
+}
+
+.default_label {
+    -fx-font-weight: bold;
+}
+
+/* CSS GENÉRICO - FIM */
+
+
+/*  CSS AUTENTICAÇÃO - INÍCIO  */
+
+.auth_screen{
+    -fx-background-color: #E9E9E9;
+}
+
+.auth_container{
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 5;
+}
+
+.login_btn {
+    -fx-background-color: #1916A1;
+    -fx-border-radius: 5px;
+    -fx-text-fill: white;
+}
+
+.login_btn:hover {
+    -fx-opacity: 0.85;
+    -fx-cursor: hand;
+}
+
+.hyperlink {
+    -fx-text-fill: black;
+    -fx-font-size: 18px;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #1916A1;
+    -fx-underline: false;
+}
+
+.hyperlink:visited {
+    -fx-underline: false;
+}
+
+/*  CSS AUTENTICAÇÃO - FIM  */

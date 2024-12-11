@@ -70,7 +70,7 @@
                     <archive>
                         <manifestEntries>
                             <Main-Class>
-                                com.carvalhotechsolutions.mundoanimal.HelloApplication
+                                com.carvalhotechsolutions.mundoanimal.Main
                             </Main-Class>
                         </manifestEntries>
                     </archive>
@@ -95,7 +95,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.carvalhotechsolutions.mundoanimal/com.carvalhotechsolutions.mundoanimal.HelloApplication
+                                com.carvalhotechsolutions.mundoanimal/com.carvalhotechsolutions.mundoanimal.Main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
