@@ -23,42 +23,24 @@
             </ImageView>
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="79.0" prefWidth="295.0" spacing="7.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_label" text="Usuário">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Text>
-                  <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="295.0" promptText="Digite seu nome de usuário" styleClass="default_text_input">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </TextField>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_label" text="Usuário"/>
+                  <TextField fx:id="login_user_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                             minWidth="-Infinity" prefHeight="49.0" prefWidth="295.0"
+                             promptText="Digite seu nome de usuário" styleClass="default_text_input"/>
                </children>
             </VBox>
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="79.0" prefWidth="295.0" spacing="7.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_label" text="Senha">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Text>
-                  <PasswordField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="295.0" promptText="Digite sua senha" styleClass="default_text_input">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </PasswordField>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_label" text="Senha"/>
+                  <PasswordField fx:id="login_password_field" maxHeight="-Infinity" maxWidth="-Infinity"
+                                 minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="295.0"
+                                 promptText="Digite sua senha" styleClass="default_text_input"/>
                </children>
             </VBox>
-            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="295.0" styleClass="login_btn" text="ENTRAR" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-            <Hyperlink styleClass="login_hyper_link" text="Esqueceu sua senha?" onAction="#handleForgotPassword">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Hyperlink>
+            <Button fx:id="login_enter_btn" mnemonicParsing="false" prefHeight="47.0" prefWidth="295.0"
+                    styleClass="login_btn" text="ENTRAR" textFill="WHITE"/>
+            <Hyperlink styleClass="login_hyper_link" fx:id="forget_password_link" text="Esqueceu sua senha?"
+                       onAction="#handleForgotPassword"/>
          </children>
          <padding>
             <Insets left="10.0" right="10.0" />
