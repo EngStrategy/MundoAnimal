@@ -1,13 +1,26 @@
+/* CSS PARA ADICIONAR FONTS - INÍCIO */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* CSS PARA ADICIONAR FONTS - FIM */
+
 /* CSS GENÉRICO - INÍCIO */
 
 .default_text_input {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 400;
+    -fx-font-style: normal;
+    -fx-font-size: 18px;
     -fx-background-color: transparent;
     -fx-border-color: #CCCCCC;
     -fx-border-radius: 5px;
 }
 
 .default_label {
-    -fx-font-weight: bold;
+    -fx-font-family: "Roboto", serif;
+    -fx-font-style: normal;
+    -fx-font-weight: 900;
+    -fx-font-size: 18px;
 }
 
 /* CSS GENÉRICO - FIM */
@@ -26,6 +39,10 @@
 }
 
 .login_btn {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-style: normal;
+    -fx-font-weight: 900;
+    -fx-font-size: 18px;
     -fx-background-color: #1916A1;
     -fx-border-radius: 5px;
     -fx-text-fill: white;
@@ -37,8 +54,11 @@
 }
 
 .hyperlink {
-    -fx-text-fill: black;
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 400;
+    -fx-font-style: normal;
     -fx-font-size: 18px;
+    -fx-text-fill: black;
 }
 
 .hyperlink:hover {
