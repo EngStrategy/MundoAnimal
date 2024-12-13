@@ -11,7 +11,7 @@ public class Animal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Long id;
 
     @Column(nullable = false)
     private String nome;
@@ -33,11 +33,11 @@ public class Animal {
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente dono;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

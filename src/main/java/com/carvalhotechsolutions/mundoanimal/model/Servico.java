@@ -3,15 +3,14 @@ package com.carvalhotechsolutions.mundoanimal.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_servicos")
 public class Servico {
 
     @Id
-    @GeneratedValue(GenerationType.IDENTITY)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false, unique = false)
     private String nomeServico;
@@ -21,11 +20,11 @@ public class Servico {
 
     private String descricao;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -3,15 +3,14 @@ package com.carvalhotechsolutions.mundoanimal.model;
 import jakarta.persistence.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_cliente")
 public class Cliente {
 
     @Id
-    @GeneratedValue(GenerationType.IDENTITY)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(unique = true, nullable = false)
     private String nome;
@@ -22,11 +21,11 @@ public class Cliente {
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Animal> pets;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

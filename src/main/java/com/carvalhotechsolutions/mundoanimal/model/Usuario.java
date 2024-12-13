@@ -10,7 +10,7 @@ public abstract class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Long id;
 
     @Column(unique = true, nullable = false)
     private String nomeUsuario;
@@ -22,11 +22,11 @@ public abstract class Usuario {
     @Column(nullable = false)
     private TipoUsuario tipoUsuario;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
