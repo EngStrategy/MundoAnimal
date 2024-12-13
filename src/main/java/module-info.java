@@ -5,6 +5,7 @@ module com.carvalhotechsolutions.mundoanimal {
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
+    requires jakarta.persistence;
 
     opens com.carvalhotechsolutions.mundoanimal to javafx.fxml;
     exports com.carvalhotechsolutions.mundoanimal;
