@@ -75,3 +75,24 @@
 }
 
 /*  CSS AUTENTICAÇÃO - FIM  */
+
+/* CSS MENU - INÍCIO */
+
+.top_pane {
+    -fx-background-color: FFF;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: transparent transparent #CCCCCC transparent;
+}
+
+.side_menu {
+    -fx-background-color: FFF;
+    -fx-border-width: 0 1px 0 0;
+    -fx-border-color: transparent #CCCCCC transparent transparent;
+}
+
+/* CSS MENU - FIM */
+
+.fa-icon {
+    -fx-font-family: "Font Awesome 5 Free"; /* Fonte específica para os ícones */
+    -fx-font-size: 32px; /* Tamanho do ícone */
+}

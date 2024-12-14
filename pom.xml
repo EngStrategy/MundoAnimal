@@ -80,6 +80,7 @@
             <version>42.6.0</version>
         </dependency>
 
+<<<<<<< Updated upstream
         <!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt -->
         <dependency>
             <groupId>org.mindrot</groupId>
@@ -88,6 +89,14 @@
         </dependency>
 
 
+=======
+        <!-- Icones -->
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx</artifactId>
+            <version>8.2</version>
+        </dependency>
+>>>>>>> Stashed changes
     </dependencies>
 
     <build>
