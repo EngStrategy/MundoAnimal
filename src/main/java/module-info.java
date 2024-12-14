@@ -6,6 +6,7 @@ module com.carvalhotechsolutions.mundoanimal {
     requires org.kordamp.bootstrapfx.core;
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
+    requires jbcrypt;
 
     // Export and open the controllers package
     opens com.carvalhotechsolutions.mundoanimal.controllers to javafx.fxml;

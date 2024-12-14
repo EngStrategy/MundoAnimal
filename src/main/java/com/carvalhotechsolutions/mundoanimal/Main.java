@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        boolean isConnected = DatabaseChecker.testConnection();
+        boolean isConnected = DatabaseChecker.testConnectionAndInitializeAdmin();
         if (!isConnected) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro de Conexão");
