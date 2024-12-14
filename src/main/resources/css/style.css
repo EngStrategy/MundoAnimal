@@ -1,6 +1,12 @@
+
+
 /* CSS PARA ADICIONAR FONTS - INÍCIO */
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+root {
+    -fx-font-family: "Roboto", serif;
+}
 
 /* CSS PARA ADICIONAR FONTS - FIM */
 
@@ -90,9 +96,27 @@
     -fx-border-color: transparent #CCCCCC transparent transparent;
 }
 
-/* CSS MENU - FIM */
-
-.fa-icon {
-    -fx-font-family: "Font Awesome 5 Free"; /* Fonte específica para os ícones */
-    -fx-font-size: 32px; /* Tamanho do ícone */
+.menu_text {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-style: normal;
+    -fx-font-weight: 400;
+    -fx-font-size: 26px;
 }
+
+#top_pane_user_name {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 900;
+    -fx-font-style: normal;
+    -fx-font-size: 24px;
+}
+
+#top_pane_user_role {
+    -fx-text-fill: #9C9C9C;
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 300;
+    -fx-font-style: normal;
+    -fx-font-size: 18px;
+}
+
+
+/* CSS MENU - FIM */

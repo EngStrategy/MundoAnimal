@@ -5,13 +5,15 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane stylesheets="@../../css/style.css" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.MenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.MenuController">
    <top>
       <Pane prefHeight="118.0" prefWidth="1920.0" styleClass="top_pane" BorderPane.alignment="CENTER">
          <children>
@@ -29,12 +31,12 @@
                   </ImageView>
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="51.0" prefWidth="116.0" spacing="4.0">
                      <children>
-                        <Label text="Fulano">
+                        <Label id="top_pane_user_name" text="Fulano">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label text="Administrador">
+                        <Label id="top_pane_user_role" text="Administrador">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -55,7 +57,7 @@
    <left>
       <Pane prefHeight="962.0" prefWidth="344.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox styleClass="side_menu" prefHeight="962.0" prefWidth="344.0" spacing="21.0">
+            <VBox prefHeight="962.0" prefWidth="344.0" spacing="21.0" styleClass="side_menu">
                <padding>
                   <Insets bottom="50.0" top="50.0" />
                </padding>
@@ -66,7 +68,7 @@
                      </padding>
                      <children>
                         <FontAwesomeIcon fill="#1916a1" glyphName="HOME" size="32px" />
-                        <Label text="Início" textFill="#1916a1">
+                        <Label styleClass="menu_text" text="Início" textFill="#1916a1">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -79,7 +81,7 @@
                      </padding>
                      <children>
                         <FontAwesomeIcon glyphName="USER" size="32px" text="" />
-                        <Label text="Clientes">
+                        <Label styleClass="menu_text" text="Clientes">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -92,7 +94,7 @@
                      </padding>
                      <children>
                         <FontAwesomeIcon glyphName="CALENDAR" size="32px" />
-                        <Label text="Agendamentos">
+                        <Label styleClass="menu_text" text="Agendamentos">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -105,7 +107,7 @@
                      </padding>
                      <children>
                         <FontAwesomeIcon glyphName="HISTORY" size="32px" />
-                        <Label text="Histórico">
+                        <Label styleClass="menu_text" text="Histórico">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -118,7 +120,7 @@
                      </padding>
                      <children>
                         <FontAwesomeIcon glyphName="FILE" size="32px" />
-                        <Label text="Relatório">
+                        <Label styleClass="menu_text" text="Relatório">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -131,7 +133,7 @@
                      </padding>
                      <children>
                         <FontAwesomeIcon glyphName="USER" size="32PX" />
-                        <Label text="Secretários">
+                        <Label styleClass="menu_text" text="Secretários">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -144,20 +146,20 @@
                      </padding>
                      <children>
                         <FontAwesomeIcon glyphName="COG" size="32px" />
-                        <Label text="Serviços">
+                        <Label styleClass="menu_text" text="Serviços">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="BOTTOM_LEFT" prefHeight="154.0" prefWidth="343.0" spacing="25.0">
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="190.0" prefWidth="344.0" spacing="25.0">
                      <padding>
                         <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
                      </padding>
                      <children>
                         <FontAwesomeIcon fill="RED" glyphName="SIGN_OUT" size="32px" />
-                        <Label text="Sair" textFill="RED">
+                        <Label styleClass="menu_text" text="Sair" textFill="RED">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -169,4 +171,11 @@
          </children>
       </Pane>
    </left>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>
