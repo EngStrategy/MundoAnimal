@@ -10,6 +10,6 @@ public class LoginController {
     // Método temporário, apenas para testar a troca de telas, não há lógica alguma aplicada
     @FXML
     private void handleForgotPassword(ActionEvent event) throws IOException {
-        NavigationManager.switchScene(event, "/fxml/recuperar-senha.fxml", "Recuperar senha");
+        NavigationManager.switchScene(event, "/fxml/autenticacao/recuperar-senha.fxml", "Recuperar senha");
     }
 }

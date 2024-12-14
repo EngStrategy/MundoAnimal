@@ -26,7 +26,7 @@ public class Main extends Application {
         }
 
         // Carrega o arquivo FXML da interface principal
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/autenticacao/login.fxml"));
         Parent root = fxmlLoader.load();
 
         // Define a cena com o layout carregado

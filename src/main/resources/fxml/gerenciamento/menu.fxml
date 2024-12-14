@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.MenuController">
+   <top>
+      <Pane prefHeight="118.0" prefWidth="1920.0" style="-fx-background-color: FFF; -fx-border-width: 0 0 1px 0; -fx-border-color: transparent transparent #CCCCCC transparent;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="90.0" fitWidth="164.0" layoutX="95.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/images/logo_sem_fundo.png" />
+               </image>
+            </ImageView>
+            <HBox alignment="CENTER_LEFT" layoutX="1627.0" layoutY="23.0" prefHeight="72.0" prefWidth="226.0" spacing="14.0">
+               <children>
+                  <ImageView fitHeight="72.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/images/profile.png" />
+                     </image>
+                  </ImageView>
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="51.0" prefWidth="116.0" spacing="4.0">
+                     <children>
+                        <Label text="Fulano">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label text="Administrador">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="12.0" right="12.0" />
+               </padding>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </Pane>
+   </top>
+   <left>
+      <Pane prefHeight="962.0" prefWidth="344.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="962.0" prefWidth="344.0" spacing="21.0" style="-fx-background-color: FFF; -fx-border-width: 0 1px 0 0; -fx-border-color: transparent #CCCCCC transparent transparent;">
+               <padding>
+                  <Insets bottom="50.0" top="50.0" />
+               </padding>
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="344.0" spacing="25.0" style="-fx-background-color: F2F5FA;">
+                     <padding>
+                        <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+                     </padding>
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/icons/home.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Início" textFill="#1916a1">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="344.0" spacing="25.0">
+                     <padding>
+                        <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+                     </padding>
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/icons/clientes.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Clientes">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="344.0" spacing="25.0">
+                     <padding>
+                        <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+                     </padding>
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/icons/agendamentos.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Agendamentos">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="344.0" spacing="25.0">
+                     <padding>
+                        <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+                     </padding>
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/icons/historico.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Histórico">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="344.0" spacing="28.0">
+                     <padding>
+                        <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+                     </padding>
+                     <children>
+                        <ImageView fitHeight="38.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/icons/relatorios.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Relatório">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="344.0" spacing="25.0">
+                     <padding>
+                        <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+                     </padding>
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/icons/secretarios.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Secretários">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="344.0" spacing="25.0">
+                     <padding>
+                        <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+                     </padding>
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/icons/servicos.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Serviços">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="113.0" prefWidth="343.0" spacing="25.0">
+                     <padding>
+                        <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+                     </padding>
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/icons/sair.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Sair">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </left>
+</BorderPane>

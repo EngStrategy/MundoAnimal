@@ -28,14 +28,18 @@
 
 /*  CSS AUTENTICAÇÃO - INÍCIO  */
 
-.auth_screen{
+.default_bg_color {
     -fx-background-color: #E9E9E9;
 }
 
-.auth_container{
+.white_bg_color {
     -fx-background-color: #FFFFFF;
+}
+
+.auth_container{
     -fx-border-color: #CCCCCC;
     -fx-border-radius: 5;
+    -fx-background-radius: 5px;
 }
 
 .login_btn {
