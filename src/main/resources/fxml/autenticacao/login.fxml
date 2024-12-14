@@ -37,7 +37,7 @@
                </children>
             </VBox>
             <Button fx:id="login_enter_btn" mnemonicParsing="false" prefHeight="47.0" prefWidth="295.0"
-                    styleClass="login_btn" text="ENTRAR" textFill="WHITE"/>
+                    styleClass="login_btn" text="ENTRAR" textFill="WHITE" onAction="#handleLogin"/>
             <Hyperlink styleClass="login_hyper_link" fx:id="forget_password_link" text="Esqueceu sua senha?"
                        onAction="#handleForgotPassword"/>
          </children>
