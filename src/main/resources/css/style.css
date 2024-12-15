@@ -118,5 +118,29 @@ root {
     -fx-font-size: 18px;
 }
 
+.menu_btn, .menu_btn_red {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.menu_btn:hover {
+    -fx-background-color: #F2F5FA;
+    -fx-text-fill: #1916a1;
+    -fx-cursor: hand;
+}
+
+.menu_btn_red:hover {
+    -fx-background-color: #FFEAEA;
+    -fx-cursor: hand;
+}
+
+.menu_btn:hover .menu_icon {
+    -fx-fill: #1916A1;
+}
+
+
+.menu_btn:hover .menu_text {
+    -fx-text-fill: #1916A1;
+}
 
 /* CSS MENU - FIM */
