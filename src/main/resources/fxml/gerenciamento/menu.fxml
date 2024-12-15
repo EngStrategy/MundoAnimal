@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.MenuController">
+   <top>
+      <Pane prefHeight="118.0" prefWidth="1920.0" styleClass="top_pane" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="90.0" fitWidth="164.0" layoutX="95.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/images/logo_sem_fundo.png" />
+               </image>
+            </ImageView>
+            <HBox alignment="CENTER_LEFT" layoutX="1627.0" layoutY="23.0" prefHeight="72.0" prefWidth="226.0" spacing="14.0">
+               <children>
+                  <ImageView fitHeight="72.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/images/profile.png" />
+                     </image>
+                  </ImageView>
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="51.0" prefWidth="116.0" spacing="4.0">
+                     <children>
+                        <Label id="top_pane_user_name" text="Fulano">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label id="top_pane_user_role" text="Administrador">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="12.0" right="12.0" />
+               </padding>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </Pane>
+   </top>
+   <left>
+      <Pane prefHeight="962.0" prefWidth="344.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="962.0" prefWidth="344.0" spacing="21.0" styleClass="side_menu">
+               <padding>
+                  <Insets bottom="50.0" top="50.0" />
+               </padding>
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="344.0" spacing="25.0" style="-fx-background-color: F2F5FA;">
+                     <padding>
+                        <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+                     </padding>
+                     <children>
+                        <FontAwesomeIcon fill="#1916a1" glyphName="HOME" size="32px" />
+                        <Label styleClass="menu_text" text="Início" textFill="#1916a1">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="344.0" spacing="25.0">
+                     <padding>
+                        <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+                     </padding>
+                     <children>
+                        <FontAwesomeIcon glyphName="USER" size="32px" text="" />
+                        <Label styleClass="menu_text" text="Clientes">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="344.0" spacing="25.0">
+                     <padding>
+                        <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+                     </padding>
+                     <children>
+                        <FontAwesomeIcon glyphName="CALENDAR" size="32px" />
+                        <Label styleClass="menu_text" text="Agendamentos">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="344.0" spacing="25.0">
+                     <padding>
+                        <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+                     </padding>
+                     <children>
+                        <FontAwesomeIcon glyphName="HISTORY" size="32px" />
+                        <Label styleClass="menu_text" text="Histórico">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="344.0" spacing="25.0">
+                     <padding>
+                        <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+                     </padding>
+                     <children>
+                        <FontAwesomeIcon glyphName="FILE" size="32px" />
+                        <Label styleClass="menu_text" text="Relatório">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="344.0" spacing="25.0">
+                     <padding>
+                        <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+                     </padding>
+                     <children>
+                        <FontAwesomeIcon glyphName="USER" size="32PX" />
+                        <Label styleClass="menu_text" text="Secretários">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="344.0" spacing="25.0">
+                     <padding>
+                        <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+                     </padding>
+                     <children>
+                        <FontAwesomeIcon glyphName="COG" size="32px" />
+                        <Label styleClass="menu_text" text="Serviços">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="190.0" prefWidth="344.0" spacing="25.0">
+                     <padding>
+                        <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+                     </padding>
+                     <children>
+                        <FontAwesomeIcon fill="RED" glyphName="SIGN_OUT" size="32px" />
+                        <Label styleClass="menu_text" text="Sair" textFill="RED">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </left>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

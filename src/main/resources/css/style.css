@@ -1,0 +1,122 @@
+
+
+/* CSS PARA ADICIONAR FONTS - INÍCIO */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+root {
+    -fx-font-family: "Roboto", serif;
+}
+
+/* CSS PARA ADICIONAR FONTS - FIM */
+
+/* CSS GENÉRICO - INÍCIO */
+
+.default_text_input {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 400;
+    -fx-font-style: normal;
+    -fx-font-size: 18px;
+    -fx-background-color: transparent;
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 5px;
+}
+
+.default_label {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-style: normal;
+    -fx-font-weight: 900;
+    -fx-font-size: 18px;
+}
+
+/* CSS GENÉRICO - FIM */
+
+
+/*  CSS AUTENTICAÇÃO - INÍCIO  */
+
+.default_bg_color {
+    -fx-background-color: #E9E9E9;
+}
+
+.white_bg_color {
+    -fx-background-color: #FFFFFF;
+}
+
+.auth_container{
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5px;
+}
+
+.login_btn {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-style: normal;
+    -fx-font-weight: 900;
+    -fx-font-size: 18px;
+    -fx-background-color: #1916A1;
+    -fx-border-radius: 5px;
+    -fx-text-fill: white;
+}
+
+.login_btn:hover {
+    -fx-opacity: 0.85;
+    -fx-cursor: hand;
+}
+
+.hyperlink {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 400;
+    -fx-font-style: normal;
+    -fx-font-size: 18px;
+    -fx-text-fill: black;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #1916A1;
+    -fx-underline: false;
+}
+
+.hyperlink:visited {
+    -fx-underline: false;
+}
+
+/*  CSS AUTENTICAÇÃO - FIM  */
+
+/* CSS MENU - INÍCIO */
+
+.top_pane {
+    -fx-background-color: FFF;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: transparent transparent #CCCCCC transparent;
+}
+
+.side_menu {
+    -fx-background-color: FFF;
+    -fx-border-width: 0 1px 0 0;
+    -fx-border-color: transparent #CCCCCC transparent transparent;
+}
+
+.menu_text {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-style: normal;
+    -fx-font-weight: 400;
+    -fx-font-size: 26px;
+}
+
+#top_pane_user_name {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 900;
+    -fx-font-style: normal;
+    -fx-font-size: 24px;
+}
+
+#top_pane_user_role {
+    -fx-text-fill: #9C9C9C;
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 300;
+    -fx-font-style: normal;
+    -fx-font-size: 18px;
+}
+
+
+/* CSS MENU - FIM */
