@@ -41,6 +41,7 @@ public class MenuController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Set up button actions
         servicos_btn.setOnAction(event -> loadPage("servicos.fxml"));
+        secretarios_btn.setOnAction(event -> loadPage("secretarios.fxml"));
     }
 
     private void loadPage(String fxmlFile) {
