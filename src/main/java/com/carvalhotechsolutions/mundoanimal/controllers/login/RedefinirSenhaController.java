@@ -1,4 +1,4 @@
-package com.carvalhotechsolutions.mundoanimal.controllers;
+package com.carvalhotechsolutions.mundoanimal.controllers.login;
 
 import com.carvalhotechsolutions.mundoanimal.utils.NavigationManager;
 import javafx.event.ActionEvent;
