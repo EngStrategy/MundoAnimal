@@ -6,11 +6,18 @@
 
 root {
     -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 400;
+    -fx-font-style: normal;
+    -fx-font-size: 18px;
 }
 
 /* CSS PARA ADICIONAR FONTS - FIM */
 
 /* CSS GENÉRICO - INÍCIO */
+
+.root * {
+    -fx-font-family: "Roboto", serif;
+}
 
 .default_text_input {
     -fx-font-family: "Roboto", serif;
@@ -142,6 +149,7 @@ root {
 .menu_btn, .menu_btn_red {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
+    -fx-font-size: 24px;
 }
 
 .menu_btn:hover {
@@ -162,6 +170,19 @@ root {
 
 .menu_btn:hover .menu_text {
     -fx-text-fill: #1916A1;
+}
+
+.menu_btn.active {
+    -fx-background-color: #E8EAF6; /* Cor de fundo */
+    -fx-text-fill: #1916A1; /* Cor do texto */
+}
+
+.menu_btn.active .menu_icon {
+    -fx-fill: #1916A1; /* Cor do ícone */
+}
+
+.menu_btn.active .menu_text {
+    -fx-text-fill: #1916A1; /* Cor do texto */
 }
 
 /* CSS MENU - FIM */
@@ -190,3 +211,38 @@ root {
 }
 
 /* CSS TABELAS - FIM */
+
+/* CSS MODALS - INÍCIO */
+
+.modal_title {
+    -fx-font-weight: 900;
+    -fx-font-size: 20px;
+}
+
+.modal_label {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-style: normal;
+    -fx-font-size: 18px;
+}
+
+.modal_btn {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: 800;
+    -fx-font-size: 18px;
+    -fx-background-color: #1916a1;;
+}
+
+.modal_btn:hover {
+    -fx-opacity: 0.85;
+    -fx-cursor: hand;
+}
+
+.delete_btn {
+    -fx-background-color: #FF0000;
+}
+
+.cancel_btn {
+    -fx-background-color: #848484;
+}
+
+/* CSS MODALS - FIM */

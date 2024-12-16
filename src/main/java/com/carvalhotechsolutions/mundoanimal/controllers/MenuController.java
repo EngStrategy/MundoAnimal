@@ -36,22 +36,51 @@ public class MenuController implements Initializable {
     @FXML
     private Button servicos_btn;
 
+    private Button activeButton; // Botão atualmente ativo
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Set up button actions
-        servicos_btn.setOnAction(event -> loadPage("servicos.fxml"));
-        secretarios_btn.setOnAction(event -> loadPage("secretarios.fxml"));
+        // Configure ações para cada botão
+        configureButton(inicio_btn, "inicio.fxml");
+        configureButton(clientes_btn, "clientes.fxml");
+        configureButton(agendamentos_btn, "agendamentos.fxml");
+        configureButton(historico_btn, "historico.fxml");
+        configureButton(relatorio_btn, "relatorio.fxml");
+        configureButton(secretarios_btn, "secretarios.fxml");
+        configureButton(servicos_btn, "servicos.fxml");
+    }
+
+    private void configureButton(Button button, String fxmlFile) {
+        button.setOnAction(event -> {
+            // Gerenciar o botão ativo
+            setActiveButton(button);
+
+            // Carregar a página no contentArea
+            loadPage(fxmlFile);
+        });
+    }
+
+    private void setActiveButton(Button button) {
+        // Remover a classe 'active' do botão anteriormente ativo, se houver
+        if (activeButton != null) {
+            activeButton.getStyleClass().remove("active");
+        }
+
+        // Adicionar a classe 'active' ao botão atual
+        button.getStyleClass().add("active");
+
+        // Atualizar o botão atualmente ativo
+        activeButton = button;
     }
 
     private void loadPage(String fxmlFile) {
         try {
-            // Load the new fragment into contentArea
+            // Carregar a nova página dentro do contentArea
             Node page = FXMLLoader.load(getClass().getResource("/fxml/gerenciamento/" + fxmlFile));
             contentArea.getChildren().clear();
             contentArea.getChildren().add(page);
         } catch (IOException e) {
-            e.printStackTrace(); // For debugging purposes
+            e.printStackTrace();
         }
     }
 }

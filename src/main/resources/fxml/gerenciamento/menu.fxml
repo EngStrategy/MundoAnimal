@@ -193,9 +193,6 @@
                                  <children>
                                     <FontAwesomeIcon fill="RED" glyphName="SIGN_OUT" size="32px" />
                                     <Label text="Sair" textFill="RED">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
                                     </Label>
                                  </children>
                               </HBox>

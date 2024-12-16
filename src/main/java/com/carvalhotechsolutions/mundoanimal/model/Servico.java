@@ -12,12 +12,13 @@ public class Servico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = false)
+    @Column(name = "nome_servico", nullable = false, unique = false)
     private String nomeServico;
 
-    @Column(nullable = false)
+    @Column(name = "valor_servico", nullable = false)
     private BigDecimal valorServico;
 
+    @Column(name = "descricao_servico")
     private String descricao;
 
     public Long getId() {
