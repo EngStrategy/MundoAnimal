@@ -186,7 +186,7 @@
                      <children>
                         <Button fx:id="sair_btn" mnemonicParsing="false" prefHeight="70.0" prefWidth="344.0" styleClass="menu_btn_red">
                            <graphic>
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="25.0">
+                              <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
                                  <padding>
                                     <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
                                  </padding>

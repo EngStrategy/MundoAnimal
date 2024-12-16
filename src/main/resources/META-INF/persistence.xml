@@ -12,10 +12,10 @@
         <class>com.carvalhotechsolutions.mundoanimal.model.Servico</class>
         <properties>
             <!-- Altere os valores de acordo com as configurações do seu postgres -->
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/mundoanimal" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/mundoanimalteste" />
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
             <property name="jakarta.persistence.jdbc.user" value="postgres" />
-            <property name="jakarta.persistence.jdbc.password" value="password" />
+            <property name="jakarta.persistence.jdbc.password" value="12345678" />
 
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />

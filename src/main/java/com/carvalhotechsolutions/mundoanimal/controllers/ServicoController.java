@@ -21,6 +21,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -35,14 +36,80 @@ public class ServicoController implements Initializable {
     private TableColumn<Servico, String> descricaoColumn;
 
     @FXML
-    private TableColumn<Servico, Double> valorColumn;
+    private TableColumn<Servico, BigDecimal> valorColumn;
 
     @FXML
     private TableColumn<Servico, Void> acaoColumn;
 
     private ServicoRepository servicoRepository = new ServicoRepository();
 
-    private ObservableList<Servico> servicosList;
+    private ObservableList<Servico> servicosList = FXCollections.observableArrayList();
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nomeServico"));
+        descricaoColumn.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        valorColumn.setCellValueFactory(new PropertyValueFactory<>("valorServico"));
+
+        configurarColunaValor();
+        configurarColunaAcao();
+        atualizarTableView();
+    }
+
+    private void configurarColunaAcao() {
+        acaoColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button editarButton = new Button("Editar");
+            private final Button deletarButton = new Button("Deletar");
+            private final HBox container = new HBox(editarButton, deletarButton);
+
+            {
+                // Estilize os botões
+                editarButton.setStyle("-fx-background-color: #2E86C1; -fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: 800; -fx-cursor: hand;");
+                deletarButton.setStyle("-fx-background-color: #C0392B; -fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: 800; -fx-cursor: hand;");
+                container.setSpacing(18);
+                container.setPadding(new Insets(10, 24, 10, 24));
+                container.setAlignment(Pos.CENTER);
+
+                // Configurar evento para deletar
+                deletarButton.setOnAction(event -> {
+                    Servico servico = getTableView().getItems().get(getIndex());
+                    abrirModalExcluir(servico.getId());
+                });
+
+                // Configurar evento para editar
+                editarButton.setOnAction(event -> {
+                    Servico servico = getTableView().getItems().get(getIndex());
+                    abrirModalEditar(servico.getId());
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(container);
+                }
+            }
+        });
+    }
+
+    private void configurarColunaValor() {
+        valorColumn.setCellFactory(column -> new TableCell<Servico, BigDecimal>() {
+            @Override
+            protected void updateItem(BigDecimal item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    // Formatar valor para exibição com "R$"
+                    setText("R$ " + item.setScale(2, BigDecimal.ROUND_HALF_UP).toString().replace(".", ","));
+                }
+            }
+        });
+    }
 
     @FXML
     public void abrirModalCadastrarServico() {
@@ -68,65 +135,33 @@ public class ServicoController implements Initializable {
         }
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nomeServico"));
-        descricaoColumn.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-        valorColumn.setCellValueFactory(new PropertyValueFactory<>("valorServico"));
+    private void abrirModalEditar(Long servicoId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modal-novo-servico.fxml"));
+            Parent modalContent = loader.load();
 
-        configurarColunaAcao();
+            // Obter o controlador do modal
+            ModalCriarServicoController modalController = loader.getController();
 
-        atualizarTableView();
-    }
+            // Buscar o serviço pelo ID
+            Servico servico = servicoRepository.findById(servicoId);
 
-    public void atualizarTableView() {
-        servicosList = FXCollections.observableArrayList(servicoRepository.findAll());
-        tableView.setItems(servicosList);
-    }
+            // Configurar o modal para edição
+            modalController.configurarParaEdicao(servico);
 
-    private void configurarColunaAcao() {
-        acaoColumn.setCellFactory(param -> new TableCell<>() {
-            private final Button editarButton = new Button("Editar");
-            private final Button deletarButton = new Button("Deletar");
-            private final HBox container = new HBox(editarButton, deletarButton);
+            // Configurar o Stage do modal
+            Stage modalStage = new Stage();
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.setTitle("Editar Serviço");
+            modalStage.setScene(new Scene(modalContent));
+            modalStage.setResizable(false);
+            modalStage.showAndWait();
 
-            {
-                // Estilize os botões
-                editarButton.setStyle("-fx-background-color: #2E86C1; -fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: 800; -fx-cursor: hand;");
-                deletarButton.setStyle("-fx-background-color: #C0392B; -fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: 800; -fx-cursor: hand;");
-                container.setSpacing(18);
-                container.setPadding(new Insets(10, 24, 10, 24));
-                container.setAlignment(Pos.CENTER);
+            atualizarTableView();
 
-                // Configurar evento para deletar
-                deletarButton.setOnAction(event -> {
-                    Servico servico = getTableView().getItems().get(getIndex());
-                    abrirModalExcluir(servico.getId());
-                });
-
-                // Configurar evento para editar
-//                editarButton.setOnAction(event -> {
-//                    Servico servico = getTableView().getItems().get(getIndex());
-//                    editarServico(servico);
-//                });
-
-                // Configurar evento para deletar
-//                deletarButton.setOnAction(event -> {
-//                    Servico servico = getTableView().getItems().get(getIndex());
-//                    deletarServico(servico);
-//                });
-            }
-
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(container);
-                }
-            }
-        });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void abrirModalExcluir(Long servicoId) {
@@ -155,4 +190,7 @@ public class ServicoController implements Initializable {
         }
     }
 
-}
+    public void atualizarTableView() {
+        servicosList = FXCollections.observableArrayList(servicoRepository.findAll());
+        tableView.setItems(servicosList);
+    }
