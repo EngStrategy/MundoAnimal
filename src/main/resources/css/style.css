@@ -6,11 +6,18 @@
 
 root {
     -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 400;
+    -fx-font-style: normal;
+    -fx-font-size: 18px;
 }
 
 /* CSS PARA ADICIONAR FONTS - FIM */
 
 /* CSS GENÉRICO - INÍCIO */
+
+.root * {
+    -fx-font-family: "Roboto", serif;
+}
 
 .default_text_input {
     -fx-font-family: "Roboto", serif;
@@ -27,6 +34,27 @@ root {
     -fx-font-style: normal;
     -fx-font-weight: 900;
     -fx-font-size: 18px;
+}
+
+.white_bold_text {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 800;
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+}
+
+.white_icon {
+    -fx-fill: white;
+}
+
+.default_btn {
+    -fx-background-color: #1916A1;
+    -fx-border-radius: 5px;
+}
+
+.default_btn:hover {
+    -fx-opacity: 0.85;
+    -fx-cursor: hand;
 }
 
 /* CSS GENÉRICO - FIM */
@@ -118,5 +146,103 @@ root {
     -fx-font-size: 18px;
 }
 
+.menu_btn, .menu_btn_red {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 24px;
+}
+
+.menu_btn:hover {
+    -fx-background-color: #F2F5FA;
+    -fx-text-fill: #1916a1;
+    -fx-cursor: hand;
+}
+
+.menu_btn_red:hover {
+    -fx-background-color: #FFEAEA;
+    -fx-cursor: hand;
+}
+
+.menu_btn:hover .menu_icon {
+    -fx-fill: #1916A1;
+}
+
+
+.menu_btn:hover .menu_text {
+    -fx-text-fill: #1916A1;
+}
+
+.menu_btn.active {
+    -fx-background-color: #E8EAF6; /* Cor de fundo */
+    -fx-text-fill: #1916A1; /* Cor do texto */
+}
+
+.menu_btn.active .menu_icon {
+    -fx-fill: #1916A1; /* Cor do ícone */
+}
+
+.menu_btn.active .menu_text {
+    -fx-text-fill: #1916A1; /* Cor do texto */
+}
 
 /* CSS MENU - FIM */
+
+
+/* CSS TABELAS - INÍCIO */
+
+.table-column {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-size: 18px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 0 0 16px;
+    -fx-pref-height: 79px;
+}
+
+.column-header {
+    -fx-background-color: #F2F5FA;
+    -fx-font-weight: 800;
+    -fx-alignment: CENTER_LEFT;
+    -fx-text-fill: #828282;
+    -fx-border-color: transparent #cccccc #cccccc transparent;
+}
+
+#acaoColumn.column-header {
+    -fx-border-color: transparent transparent #cccccc transparent;
+}
+
+/* CSS TABELAS - FIM */
+
+/* CSS MODALS - INÍCIO */
+
+.modal_title {
+    -fx-font-weight: 900;
+    -fx-font-size: 20px;
+}
+
+.modal_label {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-style: normal;
+    -fx-font-size: 18px;
+}
+
+.modal_btn {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: 800;
+    -fx-font-size: 18px;
+    -fx-background-color: #1916a1;;
+}
+
+.modal_btn:hover {
+    -fx-opacity: 0.85;
+    -fx-cursor: hand;
+}
+
+.delete_btn {
+    -fx-background-color: #FF0000;
+}
+
+.cancel_btn {
+    -fx-background-color: #848484;
+}
+
+/* CSS MODALS - FIM */
