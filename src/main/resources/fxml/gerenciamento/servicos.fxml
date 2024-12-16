@@ -12,19 +12,19 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="962.0" prefWidth="1576.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.ServicoController">
+<AnchorPane stylesheets="@../../css/style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="962.0" prefWidth="1576.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.ServicoController">
    <children>
       <VBox prefHeight="962.0" prefWidth="1576.0" spacing="39.0">
          <padding>
             <Insets left="37.0" right="37.0" top="37.0" />
          </padding>
          <children>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="49.0" prefWidth="260.0" onAction="#abrirModalCadastrarServico">
+            <Button styleClass="default_btn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="49.0" prefWidth="260.0" onAction="#abrirModalCadastrarServico">
                <graphic>
                   <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="260.0" spacing="5.0">
                      <children>
-                        <FontAwesomeIcon glyphName="PLUS" size="32px" />
-                        <Label text="Cadastrar Serviço">
+                        <FontAwesomeIcon styleClass="white_icon" glyphName="PLUS" size="32px" />
+                        <Label text="Cadastrar Serviço" styleClass="white_bold_text">
                            <font>
                               <Font size="21.0" />
                            </font>
@@ -33,12 +33,12 @@
                   </HBox>
                </graphic>
             </Button>
-            <TableView fx:id="tableView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="711.0" prefWidth="1502.0">
+            <TableView style="-fx-border-radius: 5px" fx:id="tableView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="711.0" prefWidth="1502.0">
               <columns>
                   <TableColumn fx:id="nomeColumn" maxWidth="408.0" minWidth="408.0" prefWidth="79.0" text="Nome" />
                   <TableColumn fx:id="descricaoColumn" maxWidth="686.0" minWidth="686.0" prefWidth="686.0" text="Descrição" />
                   <TableColumn fx:id="valorColumn" maxWidth="160.0" minWidth="160.0" prefWidth="160.0" text="Valor" />
-                  <TableColumn maxWidth="246.0" minWidth="246.0" prefWidth="246.0" text="Ação" />
+                  <TableColumn fx:id="acaoColumn" maxWidth="246.0" minWidth="246.0" prefWidth="246.0" text="Ação" />
               </columns>
             </TableView>
          </children>
