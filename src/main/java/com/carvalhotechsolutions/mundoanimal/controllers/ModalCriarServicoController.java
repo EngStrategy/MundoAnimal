@@ -80,7 +80,7 @@ public class ModalCriarServicoController {
             fecharModal();
 
         } catch (NumberFormatException e) {
-            System.err.println("O valor deve ser numérico!");
+            mostrarAlerta("Erro", "O valor deve ser numérico!", Alert.AlertType.ERROR);
         }
     }
 
@@ -104,6 +104,15 @@ public class ModalCriarServicoController {
             mostrarAlerta("Erro", "Campo(s) obrigatório(s) vazio(s)!", Alert.AlertType.ERROR);
             return false;
         }
+
+        // Verificar se o valor é numérico
+        try {
+            new BigDecimal(valor.replace(",", "."));
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Erro", "O campo 'Valor' deve ser numérico!", Alert.AlertType.ERROR);
+            return false;
+        }
+
         return true;
     }
 

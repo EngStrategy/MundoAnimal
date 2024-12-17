@@ -14,24 +14,6 @@ import javafx.stage.Stage;
 
 public class ModalCriarSecretarioController {
     @FXML
-    private Label titleLabel;
-
-    @FXML
-    private Button actionButton;
-
-    @FXML
-    private HBox secretary_password_container;
-
-    @FXML
-    private VBox modal_secretary_container;
-
-    @FXML
-    private HBox secretary_editable_fields_container;
-
-    @FXML
-    private TextField secretary_id_field;
-
-    @FXML
     private TextField create_secretary_name_field;
 
     @FXML
@@ -68,14 +50,7 @@ public class ModalCriarSecretarioController {
 
         try {
 
-            Secretario secretario;
-
-            if (secretary_id_field.getText() != null && !secretary_id_field.getText().isEmpty()) {
-                Long id = Long.parseLong(secretary_id_field.getText());
-                secretario = secretarioRepository.findById(id);
-            } else {
-                secretario = new Secretario();
-            }
+            Secretario secretario = new Secretario();
 
             secretario.setNomeUsuario(nome);
             secretario.setTelefone(telefone);
@@ -114,38 +89,11 @@ public class ModalCriarSecretarioController {
         return true;
     }
 
-
     private void mostrarAlerta(String titulo, String mensagem, Alert.AlertType tipo) {
         Alert alerta = new Alert(tipo);
         alerta.setTitle(titulo);
         alerta.setHeaderText(null);
         alerta.setContentText(mensagem);
         alerta.showAndWait();
-    }
-
-    public void configurarParaEdicao(Secretario secretario) {
-        this.secretarioAtual = secretario;
-
-        // Remover campos de senha
-        secretary_password_container.setVisible(false);
-        secretary_password_container.setManaged(false);
-
-        // Reajustando altura do modal
-        modal_secretary_container.setPrefHeight(255.0);
-
-        // Ajustando css do container de campos editáveis
-        secretary_editable_fields_container.setStyle("-fx-border-color: #cccccc transparent #cccccc transparent;");
-        secretary_editable_fields_container.setPrefHeight(115.0);
-
-        // Atualizar campos
-        secretary_id_field.setText(secretario.getId().toString()); // Preencher o ID invisível
-        create_secretary_name_field.setText(secretario.getNomeUsuario());
-        create_secretary_phone_field.setText(secretario.getTelefone());
-        create_secretary_password_field.setText(secretario.getSenha());
-        create_secretary_password_confirmation_field.setText(secretario.getSenha());
-
-        // Alterar título e botão
-        titleLabel.setText("Editar Secretário(a)");
-        actionButton.setText("Salvar");
     }
 }
