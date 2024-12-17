@@ -58,6 +58,41 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Hibernate ORM -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.2.7.Final</version>
+        </dependency>
+
+        <!-- Jakarta Persistence API -->
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
+        <!-- PostgreSQL JDBC Driver -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.6.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
+
+        <!-- Icones -->
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx</artifactId>
+            <version>8.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -70,7 +105,7 @@
                     <archive>
                         <manifestEntries>
                             <Main-Class>
-                                com.carvalhotechsolutions.mundoanimal.HelloApplication
+                                com.carvalhotechsolutions.mundoanimal.Main
                             </Main-Class>
                         </manifestEntries>
                     </archive>
@@ -95,7 +130,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.carvalhotechsolutions.mundoanimal/com.carvalhotechsolutions.mundoanimal.HelloApplication
+                                com.carvalhotechsolutions.mundoanimal/com.carvalhotechsolutions.mundoanimal.Main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
