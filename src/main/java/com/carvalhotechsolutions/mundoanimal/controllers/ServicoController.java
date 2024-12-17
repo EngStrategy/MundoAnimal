@@ -21,6 +21,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -35,7 +36,7 @@ public class ServicoController implements Initializable {
     private TableColumn<Servico, String> descricaoColumn;
 
     @FXML
-    private TableColumn<Servico, Double> valorColumn;
+    private TableColumn<Servico, BigDecimal> valorColumn;
 
     @FXML
     private TableColumn<Servico, Void> acaoColumn;
@@ -50,6 +51,7 @@ public class ServicoController implements Initializable {
         descricaoColumn.setCellValueFactory(new PropertyValueFactory<>("descricao"));
         valorColumn.setCellValueFactory(new PropertyValueFactory<>("valorServico"));
 
+        configurarColunaValor();
         configurarColunaAcao();
         atualizarTableView();
     }
@@ -92,6 +94,23 @@ public class ServicoController implements Initializable {
             }
         });
     }
+
+    private void configurarColunaValor() {
+        valorColumn.setCellFactory(column -> new TableCell<Servico, BigDecimal>() {
+            @Override
+            protected void updateItem(BigDecimal item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    // Formatar valor para exibição com "R$"
+                    setText("R$ " + item.setScale(2, BigDecimal.ROUND_HALF_UP).toString().replace(".", ","));
+                }
+            }
+        });
+    }
+
 
     @FXML
     public void abrirModalCadastrarServico() {
@@ -178,3 +197,4 @@ public class ServicoController implements Initializable {
     }
 
 }
+

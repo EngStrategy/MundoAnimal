@@ -1,8 +1,10 @@
-package com.carvalhotechsolutions.mundoanimal.controllers;
+package com.carvalhotechsolutions.mundoanimal.controllers.login;
 
 import com.carvalhotechsolutions.mundoanimal.JPAutil;
+import com.carvalhotechsolutions.mundoanimal.model.Usuario;
 import com.carvalhotechsolutions.mundoanimal.security.PasswordUtils;
 import com.carvalhotechsolutions.mundoanimal.utils.NavigationManager;
+import com.carvalhotechsolutions.mundoanimal.utils.SessionManager;
 import jakarta.persistence.EntityManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,30 +31,41 @@ public class LoginController {
             return;
         }
 
-        try(EntityManager em = JPAutil.getEntityManager()) {
+        try (EntityManager em = JPAutil.getEntityManager()) {
 
-            // Verifica o usuário e senha no banco de dados
-            Long count = em.createQuery("SELECT COUNT(a) FROM Administrador a WHERE a.nomeUsuario = :username", Long.class)
+            // Verifica se o usuário é Administrador
+            Usuario usuario = em.createQuery(
+                            "SELECT u FROM Administrador u WHERE u.nomeUsuario = :username", Usuario.class)
                     .setParameter("username", username)
-                    .getSingleResult();
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
 
-            if (count == 0) {
+            // Se não for Administrador, verifica se é Secretário
+            if (usuario == null) {
+                usuario = em.createQuery(
+                                "SELECT u FROM Secretario u WHERE u.nomeUsuario = :username", Usuario.class)
+                        .setParameter("username", username)
+                        .getResultStream()
+                        .findFirst()
+                        .orElse(null);
+            }
+
+            if (usuario == null) {
                 showAlert("Erro", "Usuário não encontrado.");
                 return;
             }
 
-            // Recupera o administrador para verificar a senha
-            String storedPasswordHash = em.createQuery("SELECT a.senha FROM Administrador a WHERE a.nomeUsuario = :username", String.class)
-                    .setParameter("username", username)
-                    .getSingleResult();
-
-            if (!PasswordUtils.checkPassword(password, storedPasswordHash)) {
+            // Verifica a senha
+            if (!PasswordUtils.checkPassword(password, usuario.getSenha())) {
                 showAlert("Erro", "Senha incorreta.");
                 return;
             }
 
-            // Login bem-sucedido, troca para a tela do menu
+            // Login bem-sucedido - Direciona para o menu principal
+            SessionManager.setCurrentUser(usuario);
             NavigationManager.switchScene(event, "/fxml/gerenciamento/menu.fxml", "Pet Shop Mundo Animal");
+
         } catch (Exception e) {
             showAlert("Erro", "Ocorreu um erro ao verificar as credenciais: " + e.getMessage());
             e.printStackTrace();

@@ -32,12 +32,12 @@
                   </ImageView>
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="51.0" prefWidth="116.0" spacing="4.0">
                      <children>
-                        <Label id="top_pane_user_name" text="Fulano">
+                        <Label id="top_pane_user_name" fx:id="userNameLabel" text="Fulano">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label id="top_pane_user_role" text="Administrador">
+                        <Label id="top_pane_user_role" fx:id="userTypeLabel" text="Administrador">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -186,7 +186,7 @@
                      <children>
                         <Button fx:id="sair_btn" mnemonicParsing="false" prefHeight="70.0" prefWidth="344.0" styleClass="menu_btn_red">
                            <graphic>
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="25.0">
+                              <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
                                  <padding>
                                     <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
                                  </padding>

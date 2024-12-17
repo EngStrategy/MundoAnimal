@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane styleClass="default_bg_color" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21.0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.RecuperarSenhaController">
+<AnchorPane styleClass="default_bg_color" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21.0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.login.RecuperarSenhaController">
    <children>
       <VBox styleClass="auth_container, white_bg_color" alignment="CENTER" focusTraversable="true" layoutX="749.0" layoutY="259.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="563.0" prefWidth="422.0" scaleShape="false" spacing="29.0">
          <children>
