@@ -43,29 +43,6 @@ public class SecretarioController implements Initializable {
 
     private ObservableList<Secretario> secretariosList;
 
-    @FXML
-    public void abrirModalCadastrarSecretario() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modal-novo-secretario.fxml"));
-            Parent modalContent = loader.load();
-
-            // Configurar o controlador do modal
-            ModalCriarSecretarioController modalController = loader.getController();
-            modalController.setSecretarioController(this); // Passa referência do controlador principal
-
-            // Configurar o Stage do modal
-            Stage modalStage = new Stage();
-            modalStage.initModality(Modality.APPLICATION_MODAL);
-            modalStage.setTitle("Cadastrar Secretario");
-            modalStage.setScene(new Scene(modalContent));
-            modalStage.setResizable(false);
-            modalStage.showAndWait();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Erro ao abrir o modal: " + e.getMessage());
-        }
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -102,11 +79,11 @@ public class SecretarioController implements Initializable {
                     abrirModalExcluir(secretario.getId());
                 });
 
-                // Evento para editar (caso necessário)
-//                editarButton.setOnAction(event -> {
-//                Secretario secretario = getTableView().getItems().get(getIndex());
-//                abrirModalEditar(secretario);
-//            });
+                // Configurar evento para editar
+                editarButton.setOnAction(event -> {
+                    Secretario secretario = getTableView().getItems().get(getIndex());
+                    abrirModalEditar(secretario.getId());
+                });
             }
 
             @Override
@@ -119,6 +96,59 @@ public class SecretarioController implements Initializable {
                 }
             }
         });
+    }
+
+    @FXML
+    public void abrirModalCadastrarSecretario() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modal-novo-secretario.fxml"));
+            Parent modalContent = loader.load();
+
+            // Configurar o controlador do modal
+            ModalCriarSecretarioController modalController = loader.getController();
+            modalController.setSecretarioController(this); // Passa referência do controlador principal
+
+            // Configurar o Stage do modal
+            Stage modalStage = new Stage();
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.setTitle("Cadastrar Secretario");
+            modalStage.setScene(new Scene(modalContent));
+            modalStage.setResizable(false);
+            modalStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Erro ao abrir o modal: " + e.getMessage());
+        }
+    }
+
+    private void abrirModalEditar(Long secretarioId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modal-novo-secretario.fxml"));
+            Parent modalContent = loader.load();
+
+            // Obter o controlador do modal
+            ModalCriarSecretarioController modalController = loader.getController();
+
+            // Buscar o serviço pelo ID
+            Secretario secretario = secretarioRepository.findById(secretarioId);
+
+            // Configurar o modal para edição
+            modalController.configurarParaEdicao(secretario);
+
+            // Configurar o Stage do modal
+            Stage modalStage = new Stage();
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.setTitle("Editar Secretário(a)");
+            modalStage.setScene(new Scene(modalContent));
+            modalStage.setResizable(false);
+            modalStage.showAndWait();
+
+            atualizarTableView();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void abrirModalExcluir(Long secretarioId) {

@@ -111,6 +111,7 @@ public class ServicoController implements Initializable {
         });
     }
 
+
     @FXML
     public void abrirModalCadastrarServico() {
         try {
@@ -194,3 +195,6 @@ public class ServicoController implements Initializable {
         servicosList = FXCollections.observableArrayList(servicoRepository.findAll());
         tableView.setItems(servicosList);
     }
+
+}
+
