@@ -57,10 +57,6 @@ public class MenuController implements Initializable {
     @FXML
     private Label userTypeLabel;
 
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        
     private Button activeButton; // Botão atualmente ativo
 
     @Override
