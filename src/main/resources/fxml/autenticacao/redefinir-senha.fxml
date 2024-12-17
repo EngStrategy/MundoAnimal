@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane styleClass="default_bg_color" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.login.RedefinirSenhaController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" styleClass="default_bg_color" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.login.RedefinirSenhaController">
    <children>
-      <VBox styleClass="auth_container, white_bg_color" alignment="CENTER" focusTraversable="true" layoutX="749.0" layoutY="259.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="563.0" prefWidth="422.0" scaleShape="false" spacing="29.0">
+      <VBox alignment="CENTER" focusTraversable="true" layoutX="749.0" layoutY="259.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="563.0" prefWidth="422.0" scaleShape="false" spacing="29.0" styleClass="auth_container, white_bg_color">
          <children>
             <ImageView fitHeight="130.78" fitWidth="244.86" pickOnBounds="true" preserveRatio="true" styleClass="auth_logo">
                <image>
@@ -21,21 +21,18 @@
             </ImageView>
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="79.0" prefWidth="295.0" spacing="7.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_label" text="Nova senha"/>
-                  <PasswordField fx:id="reset_new_password" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="295.0" promptText="Digite sua nova senha" styleClass="default_text_input"/>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_label" text="Nova senha" />
+                  <PasswordField fx:id="reset_new_password" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="295.0" promptText="Digite sua nova senha" styleClass="default_text_input" />
                </children>
             </VBox>
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="79.0" prefWidth="295.0" spacing="7.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_label" text="Confirme sua senha"/>
-                  <PasswordField fx:id="reset_confirm_password" maxHeight="-Infinity" maxWidth="-Infinity"
-                                 minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="295.0"
-                                 promptText="Confirme sua nova senha" styleClass="default_text_input"/>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_label" text="Confirme sua senha" />
+                  <PasswordField fx:id="reset_confirm_password" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="295.0" promptText="Confirme sua nova senha" styleClass="default_text_input" />
                </children>
             </VBox>
-            <Button fx:id="reset_btn" mnemonicParsing="false" prefHeight="47.0" prefWidth="295.0" styleClass="login_btn"
-                    text="REDEFINIR" textFill="WHITE"/>
-            <Hyperlink fx:id="reset_return_btn" styleClass="login_hyper_link" text="Voltar" onAction="#backToRecovery"/>
+            <Button fx:id="reset_btn" mnemonicParsing="false" onAction="#handleResetPassword" prefHeight="47.0" prefWidth="295.0" styleClass="login_btn" text="REDEFINIR" textFill="WHITE" />
+            <Hyperlink fx:id="reset_return_btn" onAction="#backToRecovery" styleClass="login_hyper_link" text="Voltar" />
          </children>
          <padding>
             <Insets left="10.0" right="10.0" />
