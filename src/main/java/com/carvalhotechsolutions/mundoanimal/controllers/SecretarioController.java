@@ -124,11 +124,11 @@ public class SecretarioController implements Initializable {
 
     private void abrirModalEditar(Long secretarioId) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modal-novo-secretario.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modal-editar-secretario.fxml"));
             Parent modalContent = loader.load();
 
             // Obter o controlador do modal
-            ModalCriarSecretarioController modalController = loader.getController();
+            ModalEditarSecretarioController modalController = loader.getController();
 
             // Buscar o serviço pelo ID
             Secretario secretario = secretarioRepository.findById(secretarioId);
