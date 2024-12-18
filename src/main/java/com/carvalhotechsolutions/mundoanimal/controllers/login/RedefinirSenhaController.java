@@ -81,7 +81,6 @@ public class RedefinirSenhaController {
     }
 
 
-    // Método temporário, apenas para testar a troca de telas, não há lógica alguma aplicada
     @FXML
     private void backToRecovery(ActionEvent event) throws IOException {
         SessionManager.clearSession(); // Se ele desistir de redefinir a senha, deverá ser limpa a sessão

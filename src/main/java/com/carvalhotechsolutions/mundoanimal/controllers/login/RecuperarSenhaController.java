@@ -32,7 +32,6 @@ public class RecuperarSenhaController {
         NavigationManager.switchScene(event, "/fxml/autenticacao/login.fxml", "Login");
     }
 
-    // Método temporário, apenas para testar a troca de telas, não há lógica alguma aplicada
     @FXML
     private void handleResetBtn(ActionEvent event) throws IOException {
 
@@ -112,5 +111,4 @@ public class RecuperarSenhaController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 }
