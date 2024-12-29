@@ -19,6 +19,6 @@ module com.carvalhotechsolutions.mundoanimal {
             org.hibernate.orm.core,
             jakarta.persistence;
     exports com.carvalhotechsolutions.mundoanimal.model;
-    exports com.carvalhotechsolutions.mundoanimal.controllers.login;
-    opens com.carvalhotechsolutions.mundoanimal.controllers.login to javafx.fxml;
+    exports com.carvalhotechsolutions.mundoanimal.controllers.autenticacao;
+    opens com.carvalhotechsolutions.mundoanimal.controllers.autenticacao to javafx.fxml;
 }

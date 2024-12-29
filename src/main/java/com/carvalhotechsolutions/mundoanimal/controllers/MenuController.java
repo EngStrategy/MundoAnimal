@@ -1,14 +1,13 @@
 package com.carvalhotechsolutions.mundoanimal.controllers;
 
+import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.model.Usuario;
 import com.carvalhotechsolutions.mundoanimal.model.enums.TipoUsuario;
+import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
 import com.carvalhotechsolutions.mundoanimal.utils.SessionManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -16,9 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -61,35 +58,42 @@ public class MenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Usuario usuarioLogado = SessionManager.getCurrentUser();
-        if (usuarioLogado.getTipoUsuario() == TipoUsuario.SECRETARIO) {
-            servicos_btn.setVisible(false);
-            secretarios_btn.setVisible(false);
-            userTypeLabel.setText("Secretário");
-        }
-        userNameLabel.setText(usuarioLogado.getNomeUsuario());
         // Set up button actions
-        servicos_btn.setOnAction(event -> loadPage("servicos.fxml"));
-        secretarios_btn.setOnAction(event -> loadPage("secretarios.fxml"));
         sair_btn.setOnAction(event -> logout());
+
         // Configure ações para cada botão
-        configureButton(inicio_btn, "inicio.fxml");
-        configureButton(clientes_btn, "clientes.fxml");
-        configureButton(agendamentos_btn, "agendamentos.fxml");
-        configureButton(historico_btn, "historico.fxml");
-        configureButton(relatorio_btn, "relatorio.fxml");
-        configureButton(secretarios_btn, "secretarios.fxml");
-        configureButton(servicos_btn, "servicos.fxml");
+//        configureButton(inicio_btn, "inicio.fxml");
+//        configureButton(clientes_btn, "clientes.fxml");
+//        configureButton(agendamentos_btn, "agendamentos.fxml");
+//        configureButton(historico_btn, "historico.fxml");
+//        configureButton(relatorio_btn, "relatorio.fxml");
+        configureButton(secretarios_btn, ScreenEnum.SECRETARIOS);
+        configureButton(servicos_btn, ScreenEnum.SERVICOS);
     }
 
-    private void configureButton(Button button, String fxmlFile) {
+    public void updateUserInterface(Usuario usuario) {
+        Platform.runLater(() -> {
+            userNameLabel.setText(usuario.getNomeUsuario());
+            userTypeLabel.setText(usuario.getTipoUsuario() == TipoUsuario.SECRETARIO ? "Secretário(a)" : "Administrador(a)");
+
+            boolean isSecretario = usuario.getTipoUsuario() == TipoUsuario.SECRETARIO;
+            servicos_btn.setVisible(!isSecretario);
+            secretarios_btn.setVisible(!isSecretario);
+        });
+    }
+
+    private void configureButton(Button button, ScreenEnum screen) {
         button.setOnAction(event -> {
             // Gerenciar o botão ativo
             setActiveButton(button);
 
             // Carregar a página no contentArea
-            loadPage(fxmlFile);
+            ScreenManagerHolder.getInstance().switchTo(screen);
         });
+    }
+
+    public Button getActiveButton() {
+        return activeButton;
     }
 
     private void setActiveButton(Button button) {
@@ -103,17 +107,6 @@ public class MenuController implements Initializable {
 
         // Atualizar o botão atualmente ativo
         activeButton = button;
-    }
-
-    private void loadPage(String fxmlFile) {
-        try {
-            // Carregar a nova página dentro do contentArea
-            Node page = FXMLLoader.load(getClass().getResource("/fxml/gerenciamento/" + fxmlFile));
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(page);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void logout() {
@@ -135,17 +128,11 @@ public class MenuController implements Initializable {
 
         // Verifica a escolha
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            try {
-                Stage stage = (Stage) contentArea.getScene().getWindow(); // Obtém o estágio atual a partir do contentArea
-                Parent loginPage = FXMLLoader.load(getClass().getResource("/fxml/autenticacao/login.fxml")); // Carrega a página de login
-                Scene newScene = new Scene(loginPage); // Cria uma nova cena com a página de login carregada
-                stage.setScene(newScene); // Define a nova cena no estágio
-                stage.show(); // Exibe o estágio atualizado
-
-                SessionManager.setCurrentUser(null); // Limpa o usuário logado
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (activeButton != null) {
+                activeButton.getStyleClass().remove("active");
             }
+            ScreenManagerHolder.getInstance().switchTo(ScreenEnum.LOGIN);
+            SessionManager.setCurrentUser(null); // Limpa o usuário logado
         } else {
             // Usuário cancelou a ação
             alert.close();

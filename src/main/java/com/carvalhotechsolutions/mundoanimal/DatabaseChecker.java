@@ -4,6 +4,8 @@ import com.carvalhotechsolutions.mundoanimal.model.Administrador;
 import com.carvalhotechsolutions.mundoanimal.model.enums.TipoUsuario;
 import com.carvalhotechsolutions.mundoanimal.security.PasswordUtils;
 import jakarta.persistence.EntityManager;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 
 public class DatabaseChecker {
 
@@ -12,8 +14,7 @@ public class DatabaseChecker {
         throw new UnsupportedOperationException("Esta classe não pode ser instanciada");
     }
 
-    public static boolean testConnectionAndInitializeAdmin() {
-
+    public static void testConnectionAndInitializeAdmin() {
         try (EntityManager em = JPAutil.getEntityManager()) {
 
             em.getTransaction().begin();
@@ -24,11 +25,15 @@ public class DatabaseChecker {
 
             // Após verificar a conexão, inicializa o administrador padrão
             initializeAdmin(em);
-            return true;
 
         } catch (Exception e) {
             System.err.println("Erro ao conectar ao banco de dados: " + e.getMessage());
-            return false;
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro de Conexão");
+            alert.setHeaderText("Não foi possível conectar ao banco de dados.");
+            alert.setContentText("Verifique as configurações do banco e tente novamente.");
+            alert.showAndWait();
+            Platform.exit(); // Encerra a aplicação
         }
     }
 

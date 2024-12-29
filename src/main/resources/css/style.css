@@ -38,9 +38,9 @@ root {
 
 .white_bold_text {
     -fx-font-family: "Roboto", serif;
-    -fx-font-weight: 800;
+    -fx-font-weight: 700;
     -fx-text-fill: white;
-    -fx-font-size: 24px;
+    -fx-font-size: 22px;
 }
 
 .white_icon {
@@ -128,14 +128,14 @@ root {
     -fx-font-family: "Roboto", serif;
     -fx-font-style: normal;
     -fx-font-weight: 400;
-    -fx-font-size: 26px;
+    -fx-font-size: 20px;
 }
 
 #top_pane_user_name {
     -fx-font-family: "Roboto", serif;
     -fx-font-weight: 900;
     -fx-font-style: normal;
-    -fx-font-size: 24px;
+    -fx-font-size: 20px;
 }
 
 #top_pane_user_role {
@@ -143,7 +143,7 @@ root {
     -fx-font-family: "Roboto", serif;
     -fx-font-weight: 300;
     -fx-font-style: normal;
-    -fx-font-size: 18px;
+    -fx-font-size: 14px;
 }
 
 .menu_btn, .menu_btn_red {
@@ -196,18 +196,21 @@ root {
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 0 0 0 16px;
     -fx-pref-height: 79px;
+    -fx-border-color: transparent #e2e2e2 #e2e2e2 transparent;
 }
 
 .column-header {
     -fx-background-color: #F2F5FA;
-    -fx-font-weight: 800;
     -fx-alignment: CENTER_LEFT;
-    -fx-text-fill: #828282;
-    -fx-border-color: transparent #cccccc #cccccc transparent;
+    -fx-border-color: transparent #e2e2e2 #e2e2e2 transparent;
+}
+
+#acaoColumn.table-column {
+    -fx-border-color: transparent transparent #e2e2e2 transparent;
 }
 
 #acaoColumn.column-header {
-    -fx-border-color: transparent transparent #cccccc transparent;
+    -fx-border-color: transparent transparent #e2e2e2 transparent;
 }
 
 /* CSS TABELAS - FIM */
