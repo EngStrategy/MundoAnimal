@@ -13,5 +13,9 @@ public class SessionManager {
     public static void setCurrentUser(Usuario user) {
         currentUser = user;
     }
+  
+    public static void clearSession() {
+        currentUser = null;
+    }
 
 }

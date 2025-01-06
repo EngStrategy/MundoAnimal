@@ -10,26 +10,29 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane styleClass="default_bg_color" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21.0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.login.RecuperarSenhaController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" styleClass="default_bg_color" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.login.RecuperarSenhaController">
    <children>
-      <VBox styleClass="auth_container, white_bg_color" alignment="CENTER" focusTraversable="true" layoutX="749.0" layoutY="259.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="563.0" prefWidth="422.0" scaleShape="false" spacing="29.0">
+      <VBox alignment="CENTER" focusTraversable="true" layoutX="749.0" layoutY="259.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="563.0" prefWidth="422.0" scaleShape="false" spacing="29.0" styleClass="auth_container, white_bg_color">
          <children>
             <ImageView fx:id="auth_logo" fitHeight="130.78" fitWidth="244.86" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../assets/images/logo_sem_fundo.png" />
                </image>
             </ImageView>
-            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="79.0" prefWidth="295.0" spacing="7.0">
+            <VBox layoutX="74.0" layoutY="264.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="79.0" prefWidth="295.0" spacing="7.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_label, default-font" text="CPF"/>
-                  <TextField fx:id="recovery_cpf_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                             minWidth="-Infinity" prefHeight="49.0" prefWidth="295.0"
-                             promptText="Digite o CPF do administrador" styleClass="default_text_input, default-font"/>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_label, default-font" text="Usuário" />
+                  <TextField fx:id="recovery_username_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="295.0" promptText="Digite o nome de usuário" styleClass="default_text_input, default-font" />
                </children>
             </VBox>
-            <Button fx:id="recovery_btn" mnemonicParsing="false" prefHeight="47.0" prefWidth="295.0"
-                    styleClass="login_btn, default-font" text="RECUPERAR" textFill="WHITE" onAction="#handleResetBtn"/>
-            <Hyperlink fx:id="recovery_return_btn" styleClass="login_hyper_link" text="Voltar" onAction="#backToLogin"/>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="79.0" prefWidth="295.0" spacing="7.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_label, default-font" text="CPF" />
+                  <TextField fx:id="recovery_cpf_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="295.0" promptText="Digite o CPF do administrador" styleClass="default_text_input, default-font" />
+               </children>
+            </VBox>
+            <Button fx:id="recovery_btn" mnemonicParsing="false" onAction="#handleResetBtn" prefHeight="47.0" prefWidth="295.0" styleClass="login_btn, default-font" text="RECUPERAR" textFill="WHITE" />
+            <Hyperlink fx:id="recovery_return_btn" onAction="#backToLogin" styleClass="login_hyper_link" text="Voltar" />
          </children>
          <padding>
             <Insets left="10.0" right="10.0" />
