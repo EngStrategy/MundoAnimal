@@ -1,23 +1,18 @@
-package com.carvalhotechsolutions.mundoanimal.controllers.login;
+package com.carvalhotechsolutions.mundoanimal.controllers.autenticacao;
 
 import com.carvalhotechsolutions.mundoanimal.JPAutil;
+import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.model.Usuario;
 import com.carvalhotechsolutions.mundoanimal.security.PasswordUtils;
-import com.carvalhotechsolutions.mundoanimal.utils.NavigationManager;
+import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
 import com.carvalhotechsolutions.mundoanimal.utils.SessionManager;
 import jakarta.persistence.EntityManager;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 
-import java.io.IOException;
 
 public class RedefinirSenhaController {
-
-    @FXML
-    private Button reset_btn;
 
     @FXML
     private PasswordField reset_confirm_password;
@@ -26,7 +21,7 @@ public class RedefinirSenhaController {
     private PasswordField reset_new_password;
 
     @FXML
-    private void handleResetPassword(ActionEvent event) throws IOException {
+    private void handleResetPassword() {
         String newPassword = reset_new_password.getText();
         String confirmPassword = reset_confirm_password.getText();
 
@@ -53,7 +48,7 @@ public class RedefinirSenhaController {
 
             if (usuario == null) {
                 showAlert("Erro", "Nenhum usuário autenticado. Tente novamente.");
-                NavigationManager.switchScene(event, "/fxml/autenticacao/login.fxml", "Login");
+                ScreenManagerHolder.getInstance().switchTo(ScreenEnum.LOGIN);
                 return;
             }
 
@@ -64,7 +59,7 @@ public class RedefinirSenhaController {
 
             showAlert("Sucesso", "Senha redefinida com sucesso!");
             SessionManager.clearSession();
-            NavigationManager.switchScene(event, "/fxml/autenticacao/login.fxml", "Login");
+            ScreenManagerHolder.getInstance().switchTo(ScreenEnum.LOGIN);
 
         } catch (Exception e) {
             showAlert("Erro", "Erro ao redefinir a senha: " + e.getMessage());
@@ -82,8 +77,8 @@ public class RedefinirSenhaController {
 
 
     @FXML
-    private void backToRecovery(ActionEvent event) throws IOException {
+    private void backToRecovery() {
         SessionManager.clearSession(); // Se ele desistir de redefinir a senha, deverá ser limpa a sessão
-        NavigationManager.switchScene(event, "/fxml/autenticacao/recuperar-senha.fxml", "Recuperar senha");
+        ScreenManagerHolder.getInstance().switchTo(ScreenEnum.RECUPERAR_SENHA);
     }
 }

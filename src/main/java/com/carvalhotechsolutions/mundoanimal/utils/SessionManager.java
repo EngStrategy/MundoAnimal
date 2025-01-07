@@ -3,7 +3,6 @@ package com.carvalhotechsolutions.mundoanimal.utils;
 import com.carvalhotechsolutions.mundoanimal.model.Usuario;
 
 public class SessionManager {
-
     private static Usuario currentUser;
 
     public static Usuario getCurrentUser() {

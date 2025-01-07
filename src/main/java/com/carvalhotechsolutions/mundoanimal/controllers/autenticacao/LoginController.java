@@ -1,18 +1,15 @@
-package com.carvalhotechsolutions.mundoanimal.controllers.login;
+package com.carvalhotechsolutions.mundoanimal.controllers.autenticacao;
 
 import com.carvalhotechsolutions.mundoanimal.JPAutil;
+import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.model.Usuario;
 import com.carvalhotechsolutions.mundoanimal.security.PasswordUtils;
-import com.carvalhotechsolutions.mundoanimal.utils.NavigationManager;
+import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
 import com.carvalhotechsolutions.mundoanimal.utils.SessionManager;
 import jakarta.persistence.EntityManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-
-import java.io.IOException;
+import javafx.scene.control.*;
 
 public class LoginController {
     @FXML
@@ -62,9 +59,14 @@ public class LoginController {
                 return;
             }
 
-            // Login bem-sucedido - Direciona para o menu principal
+            // Login bem-sucedido
             SessionManager.setCurrentUser(usuario);
-            NavigationManager.switchScene(event, "/fxml/gerenciamento/menu.fxml", "Pet Shop Mundo Animal");
+
+            // Atualiza a interface do menu através do ScreenManagerHolder
+            ScreenManagerHolder.getInstance().getMenuController().updateUserInterface(usuario);
+
+            // Chamando tela de menu
+            ScreenManagerHolder.getInstance().switchTo(ScreenEnum.MENU);
 
         } catch (Exception e) {
             showAlert("Erro", "Ocorreu um erro ao verificar as credenciais: " + e.getMessage());
@@ -72,10 +74,9 @@ public class LoginController {
         }
     }
 
-    // Método temporário, apenas para testar a troca de telas, não há lógica alguma aplicada
     @FXML
-    private void handleForgotPassword(ActionEvent event) throws IOException {
-        NavigationManager.switchScene(event, "/fxml/autenticacao/recuperar-senha.fxml", "Recuperar senha");
+    private void handleForgotPassword() {
+        ScreenManagerHolder.getInstance().switchTo(ScreenEnum.RECUPERAR_SENHA);
     }
 
     private void showAlert(String title, String message) {

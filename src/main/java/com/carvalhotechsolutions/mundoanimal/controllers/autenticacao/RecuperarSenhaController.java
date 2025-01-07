@@ -1,24 +1,21 @@
-package com.carvalhotechsolutions.mundoanimal.controllers.login;
+package com.carvalhotechsolutions.mundoanimal.controllers.autenticacao;
 
 import com.carvalhotechsolutions.mundoanimal.JPAutil;
+import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.model.Administrador;
 import com.carvalhotechsolutions.mundoanimal.model.Secretario;
 import com.carvalhotechsolutions.mundoanimal.model.Usuario;
-import com.carvalhotechsolutions.mundoanimal.utils.NavigationManager;
+import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
 import com.carvalhotechsolutions.mundoanimal.utils.SessionManager;
 import jakarta.persistence.EntityManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
 public class RecuperarSenhaController {
-
-    @FXML
-    private Button recovery_btn;
 
     @FXML
     private TextField recovery_cpf_field;
@@ -28,12 +25,12 @@ public class RecuperarSenhaController {
 
     // Método temporário, apenas para testar a troca de telas, não há lógica alguma aplicada
     @FXML
-    private void backToLogin(ActionEvent event) throws IOException {
-        NavigationManager.switchScene(event, "/fxml/autenticacao/login.fxml", "Login");
+    private void backToLogin() throws IOException {
+        ScreenManagerHolder.getInstance().switchTo(ScreenEnum.LOGIN);
     }
 
     @FXML
-    private void handleResetBtn(ActionEvent event) throws IOException {
+    private void handleResetBtn() throws IOException {
 
         String cpf = recovery_cpf_field.getText();
         String username = recovery_username_field.getText();
@@ -95,7 +92,7 @@ public class RecuperarSenhaController {
 
             // Se passou todas as validações
             SessionManager.setCurrentUser(usuario);
-            NavigationManager.switchScene(event, "/fxml/autenticacao/redefinir-senha.fxml", "Redefinir senha");
+            ScreenManagerHolder.getInstance().switchTo(ScreenEnum.REDEFINIR_SENHA);
 
         } catch (Exception e) {
             showAlert("Erro", "Erro ao buscar usuário: " + e.getMessage());

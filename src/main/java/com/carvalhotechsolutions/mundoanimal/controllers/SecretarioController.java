@@ -1,9 +1,8 @@
 package com.carvalhotechsolutions.mundoanimal.controllers;
 
 import com.carvalhotechsolutions.mundoanimal.model.Secretario;
-import com.carvalhotechsolutions.mundoanimal.model.Servico;
 import com.carvalhotechsolutions.mundoanimal.repositories.SecretarioRepository;
-import com.carvalhotechsolutions.mundoanimal.repositories.ServicoRepository;
+import javafx.beans.binding.DoubleBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,7 +27,7 @@ import java.util.ResourceBundle;
 
 public class SecretarioController implements Initializable {
     @FXML
-    private TableView<Secretario> tableViewSecretarios;
+    private TableView<Secretario> tableView;
 
     @FXML
     private TableColumn<Secretario, String> nomeColumn; // Nome de Usuario
@@ -46,17 +45,30 @@ public class SecretarioController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+
+        // Define a largura fixa da coluna de ação
+        acaoColumn.setPrefWidth(246);
+        acaoColumn.setMinWidth(246);
+        acaoColumn.setMaxWidth(246);
+
+        // Faz um bind da largura disponível (largura total da tabela menos a largura fixa da coluna de ação)
+        DoubleBinding larguraDisponivel = tableView.widthProperty().subtract(246);
+
+        // Configura as outras colunas para se redimensionarem proporcionalmente
+        nomeColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.50));  // 50% do espaço restante
+        phoneColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.50)); // 50% do espaço restante
+
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nomeUsuario"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("telefone"));
 
         configurarColunaAcao();
-
         atualizarTableView();
     }
 
     public void atualizarTableView() {
         secretariosList = FXCollections.observableArrayList(secretarioRepository.findAll());
-        tableViewSecretarios.setItems(secretariosList);
+        tableView.setItems(secretariosList);
     }
 
     private void configurarColunaAcao() {
@@ -67,10 +79,13 @@ public class SecretarioController implements Initializable {
 
             {
                 // Estilize os botões
-                editarButton.setStyle("-fx-background-color: #2E86C1; -fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: 800; -fx-cursor: hand;");
-                deletarButton.setStyle("-fx-background-color: #C0392B; -fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: 800; -fx-cursor: hand;");
-                container.setSpacing(18);
-                container.setPadding(new Insets(10, 24, 10, 24));
+                editarButton.setStyle(
+                        "-fx-background-color: #686AFF; -fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: 800; -fx-cursor: hand; -fx-min-width: 90px;");
+                deletarButton.setStyle(
+                        "-fx-background-color: #FF6F6F; -fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: 800; -fx-cursor: hand; -fx-min-width: 90px;");
+
+                container.setSpacing(16);
+                container.setPadding(new Insets(0, 16, 0, 0));
                 container.setAlignment(Pos.CENTER);
 
                 // Configurar evento para deletar
@@ -101,7 +116,7 @@ public class SecretarioController implements Initializable {
     @FXML
     public void abrirModalCadastrarSecretario() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modal-novo-secretario.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalNovoSecretario.fxml"));
             Parent modalContent = loader.load();
 
             // Configurar o controlador do modal
@@ -124,7 +139,7 @@ public class SecretarioController implements Initializable {
 
     private void abrirModalEditar(Long secretarioId) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modal-editar-secretario.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalEditarSecretario.fxml"));
             Parent modalContent = loader.load();
 
             // Obter o controlador do modal
@@ -153,7 +168,7 @@ public class SecretarioController implements Initializable {
 
     private void abrirModalExcluir(Long secretarioId) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modal-confirmar-remocao.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalConfirmarRemocao.fxml"));
             Parent modalContent = loader.load();
 
             // Configurar o controlador do modal
