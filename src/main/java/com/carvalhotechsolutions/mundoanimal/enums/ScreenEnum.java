@@ -6,7 +6,8 @@ public enum ScreenEnum {
     REDEFINIR_SENHA("/fxml/autenticacao/redefinirSenha.fxml", "Redefinir Senha", ScreenType.FULL),
     MENU("/fxml/gerenciamento/menu.fxml", "Menu Principal", ScreenType.TEMPLATE),
     SECRETARIOS("/fxml/gerenciamento/secretarios.fxml", "Secretários", ScreenType.CONTENT),
-    SERVICOS("/fxml/gerenciamento/servicos.fxml", "Serviços", ScreenType.CONTENT);
+    SERVICOS("/fxml/gerenciamento/servicos.fxml", "Serviços", ScreenType.CONTENT),
+    CLIENTES("/fxml/gerenciamento/clientes.fxml", "Clientes", ScreenType.CONTENT);
 
     private final String fxmlPath;
     private final String title;

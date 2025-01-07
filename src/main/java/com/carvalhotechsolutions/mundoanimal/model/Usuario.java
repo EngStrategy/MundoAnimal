@@ -1,9 +1,7 @@
 package com.carvalhotechsolutions.mundoanimal.model;
 
-import com.carvalhotechsolutions.mundoanimal.model.enums.TipoUsuario;
+import com.carvalhotechsolutions.mundoanimal.enums.TipoUsuario;
 import jakarta.persistence.*;
-
-import java.util.UUID;
 
 @MappedSuperclass
 public abstract class Usuario {

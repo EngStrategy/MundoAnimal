@@ -1,9 +1,7 @@
 package com.carvalhotechsolutions.mundoanimal.model;
 
-import com.carvalhotechsolutions.mundoanimal.model.enums.EspecieAnimal;
+import com.carvalhotechsolutions.mundoanimal.enums.EspecieAnimal;
 import jakarta.persistence.*;
-
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_animais")

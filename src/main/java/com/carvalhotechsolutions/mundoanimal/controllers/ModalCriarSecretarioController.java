@@ -1,15 +1,11 @@
 package com.carvalhotechsolutions.mundoanimal.controllers;
 
 import com.carvalhotechsolutions.mundoanimal.model.Secretario;
-import com.carvalhotechsolutions.mundoanimal.model.Servico;
-import com.carvalhotechsolutions.mundoanimal.model.enums.TipoUsuario;
+import com.carvalhotechsolutions.mundoanimal.enums.TipoUsuario;
 import com.carvalhotechsolutions.mundoanimal.repositories.SecretarioRepository;
 import com.carvalhotechsolutions.mundoanimal.security.PasswordUtils;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ModalCriarSecretarioController {

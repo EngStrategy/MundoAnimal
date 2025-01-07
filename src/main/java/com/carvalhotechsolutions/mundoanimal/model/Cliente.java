@@ -2,6 +2,7 @@ package com.carvalhotechsolutions.mundoanimal.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,8 +19,8 @@ public class Cliente {
     @Column(unique = true, nullable = false)
     private String telefone;
 
-    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Animal> pets;
+    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Animal> pets = new ArrayList<>();
 
     public Long getId() {
         return id;

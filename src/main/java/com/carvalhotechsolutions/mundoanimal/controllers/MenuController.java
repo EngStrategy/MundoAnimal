@@ -2,7 +2,7 @@ package com.carvalhotechsolutions.mundoanimal.controllers;
 
 import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.model.Usuario;
-import com.carvalhotechsolutions.mundoanimal.model.enums.TipoUsuario;
+import com.carvalhotechsolutions.mundoanimal.enums.TipoUsuario;
 import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
 import com.carvalhotechsolutions.mundoanimal.utils.SessionManager;
 import javafx.application.Platform;
@@ -63,12 +63,12 @@ public class MenuController implements Initializable {
 
         // Configure ações para cada botão
 //        configureButton(inicio_btn, "inicio.fxml");
-//        configureButton(clientes_btn, "clientes.fxml");
 //        configureButton(agendamentos_btn, "agendamentos.fxml");
 //        configureButton(historico_btn, "historico.fxml");
 //        configureButton(relatorio_btn, "relatorio.fxml");
         configureButton(secretarios_btn, ScreenEnum.SECRETARIOS);
         configureButton(servicos_btn, ScreenEnum.SERVICOS);
+        configureButton(clientes_btn, ScreenEnum.CLIENTES);
     }
 
     public void updateUserInterface(Usuario usuario) {

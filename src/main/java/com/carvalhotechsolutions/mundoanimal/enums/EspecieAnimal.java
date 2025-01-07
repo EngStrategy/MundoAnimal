@@ -1,4 +1,4 @@
-package com.carvalhotechsolutions.mundoanimal.model.enums;
+package com.carvalhotechsolutions.mundoanimal.enums;
 
 public enum EspecieAnimal {
     CACHORRO,

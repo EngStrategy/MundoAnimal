@@ -1,7 +1,7 @@
 package com.carvalhotechsolutions.mundoanimal;
 
 import com.carvalhotechsolutions.mundoanimal.model.Administrador;
-import com.carvalhotechsolutions.mundoanimal.model.enums.TipoUsuario;
+import com.carvalhotechsolutions.mundoanimal.enums.TipoUsuario;
 import com.carvalhotechsolutions.mundoanimal.security.PasswordUtils;
 import jakarta.persistence.EntityManager;
 import javafx.application.Platform;
