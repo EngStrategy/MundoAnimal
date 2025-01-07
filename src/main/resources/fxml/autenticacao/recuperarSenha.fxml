@@ -19,7 +19,13 @@
                         <Image url="@../../assets/images/logo_sem_fundo.png" />
                     </image>
                 </ImageView>
-                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="79.0" prefWidth="295.0" spacing="7.0">
+                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="73.0" prefWidth="295.0" spacing="7.0">
+                    <children>
+                        <Label styleClass="default_label, default-font" text="Usuário" />
+                        <TextField fx:id="recovery_username_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="295.0" promptText="Digite o nome de usuário" styleClass="default_text_input, default-font" />
+                    </children>
+                </VBox>
+                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="73.0" prefWidth="295.0" spacing="7.0">
                     <children>
                         <Label styleClass="default_label, default-font" text="CPF" />
                         <TextField fx:id="recovery_cpf_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="295.0" promptText="Digite o CPF do administrador" styleClass="default_text_input, default-font" />

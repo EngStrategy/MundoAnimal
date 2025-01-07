@@ -20,19 +20,19 @@
                         <Image url="@../../assets/images/logo_sem_fundo.png" />
                     </image>
                 </ImageView>
-                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="79.0" prefWidth="295.0" spacing="7.0">
+                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="73.0" prefWidth="295.0" spacing="7.0">
                     <children>
                         <Label styleClass="default_label" text="Nova senha" />
                         <PasswordField fx:id="reset_new_password" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="295.0" promptText="Digite sua nova senha" styleClass="default_text_input" />
                     </children>
                 </VBox>
-                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="79.0" prefWidth="295.0" spacing="7.0">
+                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="73.0" prefWidth="295.0" spacing="7.0">
                     <children>
                         <Label styleClass="default_label" text="Confirme sua senha" />
                         <PasswordField fx:id="reset_confirm_password" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="295.0" promptText="Confirme sua nova senha" styleClass="default_text_input" />
                     </children>
                 </VBox>
-                <Button fx:id="reset_btn" mnemonicParsing="false" prefHeight="47.0" prefWidth="295.0" styleClass="login_btn" text="REDEFINIR" textFill="WHITE" />
+                <Button fx:id="reset_btn" onAction="#handleResetPassword" mnemonicParsing="false" prefHeight="47.0" prefWidth="295.0" styleClass="login_btn" text="REDEFINIR" textFill="WHITE" />
                 <Hyperlink fx:id="reset_return_btn" onAction="#backToRecovery" styleClass="login_hyper_link" text="Voltar" />
             </children>
             <padding>
