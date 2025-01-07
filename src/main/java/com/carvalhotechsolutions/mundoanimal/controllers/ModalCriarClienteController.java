@@ -73,6 +73,20 @@ public class ModalCriarClienteController {
         }
     }
 
+    // Configurar o modal para edição
+    public void configurarParaEdicao(Cliente cliente) {
+        this.clienteAtual = cliente;
+
+        // Atualizar campos
+        client_id_field.setText(cliente.getId().toString()); // Preencher o campo de ID invisível
+        create_client_name_field.setText(cliente.getNome());
+        create_client_phone_field.setText(cliente.getTelefone());
+
+        // Alterar título e botão
+        titleLabel.setText("Editar Cliente");
+        actionButton.setText("Salvar");
+    }
+
     private boolean validarInputs(String nome, String telefone) {
         if (nome.isEmpty() || telefone.isEmpty()) {
             mostrarAlerta("Erro", "Campo(s) obrigatório(s) vazio(s)!", Alert.AlertType.ERROR);

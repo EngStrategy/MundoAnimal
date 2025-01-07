@@ -81,7 +81,7 @@ public class ClienteController implements Initializable {
             private final HBox container = new HBox(editarButton, deletarButton, novoPetButton, verPetsButton);
 
             {
-                // Estilize os botões
+                // Estilizando os botões
                 editarButton.setStyle(
                         "-fx-background-color: #686AFF; -fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: 800; -fx-cursor: hand; -fx-min-width: 90px;");
                 deletarButton.setStyle(
@@ -96,16 +96,16 @@ public class ClienteController implements Initializable {
                 container.setAlignment(Pos.CENTER);
 
                 // Configurar evento para deletar
-//                deletarButton.setOnAction(event -> {
-//                    Servico servico = getTableView().getItems().get(getIndex());
-//                    abrirModalExcluir(servico.getId());
-//                });
+                deletarButton.setOnAction(event -> {
+                    Cliente cliente = getTableView().getItems().get(getIndex());
+                    abrirModalExcluir(cliente.getId());
+                });
 
                 // Configurar evento para editar
-//                editarButton.setOnAction(event -> {
-//                    Cliente cliente = getTableView().getItems().get(getIndex());
-//                    abrirModalEditar(cliente.getId());
-//                });
+                editarButton.setOnAction(event -> {
+                    Cliente cliente = getTableView().getItems().get(getIndex());
+                    abrirModalEditar(cliente.getId());
+                });
             }
 
             @Override
@@ -144,34 +144,59 @@ public class ClienteController implements Initializable {
         }
     }
 
-//    private void abrirModalEditar(Long clienteId) {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalNovoCliente.fxml"));
-//            Parent modalContent = loader.load();
-//
-//            // Obter o controlador do modal
-//            ModalCriarClienteController modalController = loader.getController();
-//
-//            // Buscar o serviço pelo ID
-//            Cliente cliente = clienteRepository.findById(clienteId);
-//
-//            // Configurar o modal para edição
-//            modalController.configurarParaEdicao(servico);
-//
-//            // Configurar o Stage do modal
-//            Stage modalStage = new Stage();
-//            modalStage.initModality(Modality.APPLICATION_MODAL);
-//            modalStage.setTitle("Editar Serviço");
-//            modalStage.setScene(new Scene(modalContent));
-//            modalStage.setResizable(false);
-//            modalStage.showAndWait();
-//
-//            atualizarTableView();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private void abrirModalEditar(Long clienteId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalNovoCliente.fxml"));
+            Parent modalContent = loader.load();
+
+            // Obter o controlador do modal
+            ModalCriarClienteController modalController = loader.getController();
+
+            // Buscar o serviço pelo ID
+            Cliente cliente = clienteRepository.findById(clienteId);
+
+            // Configurar o modal para edição
+            modalController.configurarParaEdicao(cliente);
+
+            // Configurar o Stage do modal
+            Stage modalStage = new Stage();
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.setTitle("Editar Serviço");
+            modalStage.setScene(new Scene(modalContent));
+            modalStage.setResizable(false);
+            modalStage.showAndWait();
+
+            atualizarTableView();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void abrirModalExcluir(Long clienteId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalConfirmarRemocao.fxml"));
+            Parent modalContent = loader.load();
+
+            // Configurar o controlador do modal
+            ModalConfirmarRemocaoController modalController = loader.getController();
+            modalController.setRegisterId(clienteId);
+            modalController.setConfirmCallback(() -> {
+                clienteRepository.deleteById(clienteId);
+                atualizarTableView(); // Atualizar tabela após exclusão
+            });
+
+            // Configurar o Stage do modal
+            Stage modalStage = new Stage();
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.setTitle("Confirmar Exclusão");
+            modalStage.setScene(new Scene(modalContent));
+            modalStage.setResizable(false);
+            modalStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void atualizarTableView() {
         clientesList = FXCollections.observableArrayList(clienteRepository.findAll());

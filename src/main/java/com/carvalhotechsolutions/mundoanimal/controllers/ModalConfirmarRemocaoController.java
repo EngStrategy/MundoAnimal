@@ -11,13 +11,13 @@ public class ModalConfirmarRemocaoController {
     @FXML
     private Button deletarButton;
 
-    private Long servicoId; // Armazena o ID do serviço a ser excluído
+    private Long registerId; // Armazena o ID do registro a ser excluído
 
     private Runnable confirmCallback; // Função para executar após confirmação
 
     // Define o ID do serviço
-    public void setServicoId(Long servicoId) {
-        this.servicoId = servicoId;
+    public void setRegisterId(Long registerIdId) {
+        this.registerId = registerId;
     }
 
     // Define a ação a ser executada após confirmação

@@ -173,7 +173,7 @@ public class SecretarioController implements Initializable {
 
             // Configurar o controlador do modal
             ModalConfirmarRemocaoController modalController = loader.getController();
-            modalController.setServicoId(secretarioId);
+            modalController.setRegisterId(secretarioId);
             modalController.setConfirmCallback(() -> {
                 secretarioRepository.deleteById(secretarioId);
                 atualizarTableView(); // Atualizar tabela após exclusão

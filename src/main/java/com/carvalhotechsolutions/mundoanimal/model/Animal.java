@@ -86,4 +86,9 @@ public class Animal {
     public void setDono(Cliente dono) {
         this.dono = dono;
     }
+
+    @Override
+    public String toString() {
+        return this.nome;
+    }
 }

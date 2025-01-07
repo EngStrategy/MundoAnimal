@@ -191,7 +191,7 @@ public class ServicoController implements Initializable {
 
             // Configurar o controlador do modal
             ModalConfirmarRemocaoController modalController = loader.getController();
-            modalController.setServicoId(servicoId);
+            modalController.setRegisterId(servicoId);
             modalController.setConfirmCallback(() -> {
                 servicoRepository.deleteById(servicoId);
                 atualizarTableView(); // Atualizar tabela após exclusão
