@@ -1,5 +1,6 @@
 package com.carvalhotechsolutions.mundoanimal;
 
+import com.carvalhotechsolutions.mundoanimal.database.DatabaseChecker;
 import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
 import com.carvalhotechsolutions.mundoanimal.utils.ScreenManager;

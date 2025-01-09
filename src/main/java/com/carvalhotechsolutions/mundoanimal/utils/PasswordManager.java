@@ -1,10 +1,10 @@
-package com.carvalhotechsolutions.mundoanimal.security;
+package com.carvalhotechsolutions.mundoanimal.utils;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public class PasswordUtils {
+public class PasswordManager {
 
-    private PasswordUtils() {
+    private PasswordManager() {
         throw new UnsupportedOperationException("Esta classe não pode ser instanciada");
     }
 

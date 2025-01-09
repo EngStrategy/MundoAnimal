@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "tb_cliente")
@@ -52,5 +53,14 @@ public class Cliente {
 
     public void setPets(List<Animal> pets) {
         this.pets = pets;
+    }
+
+    public String getPetsFormatados() {
+        if (pets.isEmpty()) {
+            return "";
+        }
+        return pets.stream()
+                .map(Animal::getNome)
+                .collect(Collectors.joining(", "));
     }
 }

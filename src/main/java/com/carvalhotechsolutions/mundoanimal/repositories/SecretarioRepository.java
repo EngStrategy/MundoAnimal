@@ -1,6 +1,6 @@
 package com.carvalhotechsolutions.mundoanimal.repositories;
 
-import com.carvalhotechsolutions.mundoanimal.JPAutil;
+import com.carvalhotechsolutions.mundoanimal.database.JPAutil;
 import com.carvalhotechsolutions.mundoanimal.model.Secretario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;

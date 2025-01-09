@@ -1,8 +1,12 @@
-package com.carvalhotechsolutions.mundoanimal.controllers;
+package com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento;
 
+import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalConfirmarRemocaoController;
+import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarClienteController;
+import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarPetController;
 import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.repositories.ClienteRepository;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,7 +26,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -37,7 +40,7 @@ public class ClienteController implements Initializable {
     private TableColumn<Cliente, String> telefoneColumn;
 
     @FXML
-    private TableColumn<Cliente, BigDecimal> petsColumn;
+    private TableColumn<Cliente, String> petsColumn;
 
     @FXML
     private TableColumn<Cliente, Void> acaoColumn;
@@ -65,7 +68,9 @@ public class ClienteController implements Initializable {
 
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
         telefoneColumn.setCellValueFactory(new PropertyValueFactory<>("telefone"));
-        petsColumn.setCellValueFactory(new PropertyValueFactory<>("pets"));
+        petsColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getPetsFormatados())
+        );
 
         configurarColunaAcao();
         atualizarTableView();
@@ -106,6 +111,11 @@ public class ClienteController implements Initializable {
                     Cliente cliente = getTableView().getItems().get(getIndex());
                     abrirModalEditar(cliente.getId());
                 });
+
+                novoPetButton.setOnAction(event -> {
+                    Cliente cliente = getTableView().getItems().get(getIndex());
+                    abrirModalCadastrarPet(cliente.getId());
+                });
             }
 
             @Override
@@ -123,7 +133,7 @@ public class ClienteController implements Initializable {
     @FXML
     public void abrirModalCadastrarCliente() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalNovoCliente.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalCriarCliente.fxml"));
             Parent modalContent = loader.load();
 
             // Configurar o controlador do modal
@@ -146,7 +156,7 @@ public class ClienteController implements Initializable {
 
     private void abrirModalEditar(Long clienteId) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalNovoCliente.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalCriarCliente.fxml"));
             Parent modalContent = loader.load();
 
             // Obter o controlador do modal
@@ -195,6 +205,32 @@ public class ClienteController implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void abrirModalCadastrarPet(Long clienteId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalCriarPet.fxml"));
+            Parent modalContent = loader.load();
+
+            // Configurar o controlador do modal
+            ModalCriarPetController modalController = loader.getController();
+            modalController.setClienteController(this); // Passa referência do controlador principal
+
+            // Configurar campos do cliente no modal
+            modalController.configurarParaCadastro(clienteId);
+
+            // Configurar o Stage do modal
+            Stage modalStage = new Stage();
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.setTitle("Cadastrar Pet");
+            modalStage.setScene(new Scene(modalContent));
+            modalStage.setResizable(false);
+            modalStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Erro ao abrir o modal: " + e.getMessage());
         }
     }
 

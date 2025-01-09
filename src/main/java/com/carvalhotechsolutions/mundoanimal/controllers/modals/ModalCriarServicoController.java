@@ -1,6 +1,7 @@
-package com.carvalhotechsolutions.mundoanimal.controllers;
+package com.carvalhotechsolutions.mundoanimal.controllers.modals;
 
 
+import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.ServicoController;
 import com.carvalhotechsolutions.mundoanimal.model.Servico;
 import com.carvalhotechsolutions.mundoanimal.repositories.ServicoRepository;
 import javafx.fxml.FXML;

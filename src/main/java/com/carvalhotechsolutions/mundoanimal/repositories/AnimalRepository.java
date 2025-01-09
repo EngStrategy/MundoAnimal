@@ -1,51 +1,51 @@
 package com.carvalhotechsolutions.mundoanimal.repositories;
 
 import com.carvalhotechsolutions.mundoanimal.database.JPAutil;
-import com.carvalhotechsolutions.mundoanimal.model.Cliente;
+import com.carvalhotechsolutions.mundoanimal.model.Animal;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
-public class ClienteRepository {
-    public Cliente save(Cliente cliente) {
+public class AnimalRepository {
+    public Animal save(Animal animal) {
         try(EntityManager em = JPAutil.getEntityManager()) {
             em.getTransaction().begin();
-            if (cliente.getId() == null) {
-                em.persist(cliente);
+            if (animal.getId() == null) {
+                em.persist(animal);
             } else {
-                em.merge(cliente);
+                em.merge(animal);
             }
             em.getTransaction().commit();
-            return cliente;
+            return animal;
         }
     }
 
-    public Cliente findById(Long id) {
+    public Animal findById(Long id) {
         try(EntityManager em = JPAutil.getEntityManager()) {
-            TypedQuery<Cliente> query = em.createQuery("SELECT c FROM Cliente c WHERE c.id = :id", Cliente.class);
+            TypedQuery<Animal> query = em.createQuery("SELECT a FROM Animal a WHERE a.id = :id", Animal.class);
             query.setParameter("id", id);
             return query.getSingleResult();
         }
     }
 
-    public List<Cliente> findAll() {
+    public List<Animal> findAll() {
         try(EntityManager em = JPAutil.getEntityManager()) {
-            TypedQuery<Cliente> query = em.createQuery("SELECT c FROM Cliente c", Cliente.class);
+            TypedQuery<Animal> query = em.createQuery("SELECT a FROM Animal a", Animal.class);
             return query.getResultList();
         }
     }
 
     public void deleteById(Long id) {
         try(EntityManager em = JPAutil.getEntityManager()) {
-            Cliente cliente = em.find(Cliente.class, id);
-            if(cliente != null) {
+            Animal animal = em.find(Animal.class, id);
+            if(animal != null) {
                 em.getTransaction().begin();
-                em.remove(cliente);
+                em.remove(animal);
                 em.getTransaction().commit();
             }
             else {
-                throw new IllegalArgumentException("Cliente not found!");
+                throw new IllegalArgumentException("Animal not found!");
             }
         }
     }

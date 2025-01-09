@@ -1,6 +1,6 @@
 package com.carvalhotechsolutions.mundoanimal.controllers.autenticacao;
 
-import com.carvalhotechsolutions.mundoanimal.JPAutil;
+import com.carvalhotechsolutions.mundoanimal.database.JPAutil;
 import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.model.Administrador;
 import com.carvalhotechsolutions.mundoanimal.model.Secretario;
@@ -8,7 +8,6 @@ import com.carvalhotechsolutions.mundoanimal.model.Usuario;
 import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
 import com.carvalhotechsolutions.mundoanimal.utils.SessionManager;
 import jakarta.persistence.EntityManager;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;

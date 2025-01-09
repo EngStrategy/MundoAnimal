@@ -1,4 +1,4 @@
-package com.carvalhotechsolutions.mundoanimal;
+package com.carvalhotechsolutions.mundoanimal.database;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

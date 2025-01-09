@@ -10,7 +10,7 @@
 <?import javafx.scene.text.TextFlow?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="255.0" prefWidth="610.0" spacing="20.0" styleClass="white_bg_color"
-      stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21.0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.ModalCriarClienteController">
+      stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21.0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarClienteController">
     <padding>
         <Insets bottom="20.0" top="20.0" />
     </padding>

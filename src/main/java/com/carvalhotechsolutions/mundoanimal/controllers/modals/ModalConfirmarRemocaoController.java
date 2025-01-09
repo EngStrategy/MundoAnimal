@@ -1,4 +1,4 @@
-package com.carvalhotechsolutions.mundoanimal.controllers;
+package com.carvalhotechsolutions.mundoanimal.controllers.modals;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

@@ -1,4 +1,4 @@
-package com.carvalhotechsolutions.mundoanimal.controllers;
+package com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento;
 
 import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.model.Usuario;

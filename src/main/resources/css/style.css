@@ -29,6 +29,11 @@ root {
     -fx-border-radius: 5px;
 }
 
+.text-area .content {
+    -fx-background-insets: 0;
+    -fx-background-color:white;
+}
+
 .default_label {
     -fx-font-family: "Roboto", serif;
     -fx-font-style: normal;

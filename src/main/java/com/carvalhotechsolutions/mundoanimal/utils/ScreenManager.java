@@ -1,6 +1,6 @@
 package com.carvalhotechsolutions.mundoanimal.utils;
 
-import com.carvalhotechsolutions.mundoanimal.controllers.MenuController;
+import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.MenuController;
 import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

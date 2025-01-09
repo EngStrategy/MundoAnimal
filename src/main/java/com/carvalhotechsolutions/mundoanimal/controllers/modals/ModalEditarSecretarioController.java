@@ -1,5 +1,6 @@
-package com.carvalhotechsolutions.mundoanimal.controllers;
+package com.carvalhotechsolutions.mundoanimal.controllers.modals;
 
+import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.SecretarioController;
 import com.carvalhotechsolutions.mundoanimal.model.Secretario;
 import com.carvalhotechsolutions.mundoanimal.repositories.SecretarioRepository;
 import javafx.fxml.FXML;

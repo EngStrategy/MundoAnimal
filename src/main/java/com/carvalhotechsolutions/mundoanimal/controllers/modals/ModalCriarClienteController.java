@@ -1,5 +1,6 @@
-package com.carvalhotechsolutions.mundoanimal.controllers;
+package com.carvalhotechsolutions.mundoanimal.controllers.modals;
 
+import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.ClienteController;
 import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.repositories.ClienteRepository;
 import javafx.fxml.FXML;
