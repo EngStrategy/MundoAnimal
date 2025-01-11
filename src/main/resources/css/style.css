@@ -204,6 +204,10 @@ root {
     -fx-border-color: transparent #e2e2e2 #e2e2e2 transparent;
 }
 
+.pets_table .table-column {
+    -fx-pref-height: 60px;
+}
+
 .column-header {
     -fx-background-color: #F2F5FA;
     -fx-alignment: CENTER_LEFT;
