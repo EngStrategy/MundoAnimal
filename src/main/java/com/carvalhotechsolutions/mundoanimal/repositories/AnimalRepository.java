@@ -2,6 +2,7 @@ package com.carvalhotechsolutions.mundoanimal.repositories;
 
 import com.carvalhotechsolutions.mundoanimal.database.JPAutil;
 import com.carvalhotechsolutions.mundoanimal.model.Animal;
+import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
@@ -41,6 +42,13 @@ public class AnimalRepository {
             Animal animal = em.find(Animal.class, id);
             if(animal != null) {
                 em.getTransaction().begin();
+
+                // Remover o animal da lista de pets do cliente
+                Cliente dono = animal.getDono();
+                dono.getPets().remove(animal);
+
+                em.remove(animal);
+
                 em.remove(animal);
                 em.getTransaction().commit();
             }

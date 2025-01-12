@@ -3,9 +3,10 @@ package com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento;
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalConfirmarRemocaoController;
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarClienteController;
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarPetController;
-import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalVerPetsController;
+import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.repositories.ClienteRepository;
+import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -117,7 +118,7 @@ public class ClienteController implements Initializable {
 
                 verPetsButton.setOnAction(event -> {
                     Cliente cliente = getTableView().getItems().get(getIndex());
-                    abrirModalVerPets(cliente);
+                    abrirPaginaVerPets(cliente);
                 });
             }
 
@@ -237,37 +238,22 @@ public class ClienteController implements Initializable {
         }
     }
 
-    private void abrirModalVerPets(Cliente cliente) {
-        try {
-            if (cliente.getPets().isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Informação");
-                alert.setHeaderText(null);
-                alert.setContentText("Este cliente não possui pets cadastrados.");
-                alert.showAndWait();
-                return;
-            }
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalVerPets.fxml"));
-            Parent modalContent = loader.load();
-
-            // Configurar o controlador do modal
-            ModalVerPetsController modalController = loader.getController();
-            modalController.setCliente(cliente);
-            modalController.inicializarTabela();
-
-            // Configurar o Stage do modal
-            Stage modalStage = new Stage();
-            modalStage.initModality(Modality.APPLICATION_MODAL);
-            modalStage.setTitle("Pets do Cliente");
-            modalStage.setScene(new Scene(modalContent));
-            modalStage.setResizable(false);
-            modalStage.showAndWait();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Erro ao abrir o modal: " + e.getMessage());
+    private void abrirPaginaVerPets(Cliente cliente) {
+        if (cliente.getPets().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Este cliente não possui pets cadastrados.");
+            alert.showAndWait();
+            return;
         }
+
+        // Configurar o controlador do modal
+        AnimalController animalController = ScreenManagerHolder.getInstance().getAnimalController();
+        animalController.setCliente(cliente);
+        animalController.inicializarTabela();
+
+        ScreenManagerHolder.getInstance().switchTo(ScreenEnum.PETS);
     }
 
     public void atualizarTableView() {

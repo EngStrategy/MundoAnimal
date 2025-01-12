@@ -1,5 +1,7 @@
 package com.carvalhotechsolutions.mundoanimal.utils;
 
+import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.AnimalController;
+import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.ClienteController;
 import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.MenuController;
 import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +15,7 @@ import java.io.IOException;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 public class ScreenManager {
     private final Stage stage;
@@ -137,5 +140,13 @@ public class ScreenManager {
 
     public MenuController getMenuController() {
         return (MenuController) controllers.get(ScreenEnum.MENU);
+    }
+
+    public AnimalController getAnimalController() {
+        return (AnimalController) controllers.get(ScreenEnum.PETS);
+    }
+
+    public ClienteController getClienteController() {
+        return (ClienteController) controllers.get(ScreenEnum.CLIENTES);
     }
 }

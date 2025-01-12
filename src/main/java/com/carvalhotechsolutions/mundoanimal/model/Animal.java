@@ -18,13 +18,13 @@ public class Animal {
     @Column(nullable = false)
     private EspecieAnimal especie;
 
-    @Column(nullable = false)
+    @Column()
     private String raca;
 
-    @Column(nullable = false)
+    @Column()
     private Integer idade;
 
-    @Column(nullable = false)
+    @Column()
     private String observacoes;
 
     @ManyToOne
