@@ -1,5 +1,6 @@
 package com.carvalhotechsolutions.mundoanimal.controllers.autenticacao;
 
+import animatefx.animation.FadeIn;
 import com.carvalhotechsolutions.mundoanimal.database.JPAutil;
 import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.model.Usuario;
@@ -9,6 +10,7 @@ import com.carvalhotechsolutions.mundoanimal.utils.SessionManager;
 import jakarta.persistence.EntityManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 
 public class LoginController {
@@ -65,7 +67,9 @@ public class LoginController {
             // Atualiza a interface do menu através do ScreenManagerHolder
             ScreenManagerHolder.getInstance().getMenuController().updateUserInterface(usuario);
 
-            // Chamando tela de menu
+            // Chamando tela de menu e aplicando FadeIn
+            Node menuScreen = ScreenManagerHolder.getInstance().getScreen(ScreenEnum.MENU);
+            new FadeIn(menuScreen).play();
             ScreenManagerHolder.getInstance().switchTo(ScreenEnum.MENU);
 
         } catch (Exception e) {

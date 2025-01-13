@@ -93,6 +93,13 @@
             <artifactId>fontawesomefx</artifactId>
             <version>8.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.github.typhon0</groupId>
+            <artifactId>AnimateFX</artifactId>
+            <version>1.3.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>

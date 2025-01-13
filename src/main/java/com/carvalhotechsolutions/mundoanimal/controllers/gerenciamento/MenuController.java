@@ -1,5 +1,6 @@
 package com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento;
 
+import animatefx.animation.FadeIn;
 import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.model.Usuario;
 import com.carvalhotechsolutions.mundoanimal.enums.TipoUsuario;
@@ -8,6 +9,7 @@ import com.carvalhotechsolutions.mundoanimal.utils.SessionManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -88,6 +90,8 @@ public class MenuController implements Initializable {
             setActiveButton(button);
 
             // Carregar a página no contentArea
+            Node animatedScreen = ScreenManagerHolder.getInstance().getScreen(screen);
+            new FadeIn(animatedScreen).play();
             ScreenManagerHolder.getInstance().switchTo(screen);
         });
     }
