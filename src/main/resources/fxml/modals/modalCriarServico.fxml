@@ -7,10 +7,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
-<?import javafx.scene.text.TextFlow?>
 <?import javafx.scene.text.Text?>
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="381.0" prefWidth="610.0" spacing="20.0" styleClass="white_bg_color" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21.0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.ModalCriarServicoController">
+<?import javafx.scene.text.TextFlow?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="381.0" prefWidth="610.0" spacing="20.0" styleClass="white_bg_color" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarServicoController">
    <padding>
       <Insets bottom="20.0" top="20.0" />
    </padding>
@@ -54,7 +54,7 @@
             <VBox alignment="BOTTOM_LEFT" prefHeight="75.0" prefWidth="265.0" spacing="5.0">
                <children>
                   <Label styleClass="modal_label" text="Descrição (opcional)" />
-                  <TextArea fx:id="create_service_description_field" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="550.0" promptText="Digite uma descrição para o serviço" styleClass="default_text_input" />
+                  <TextArea fx:id="create_service_description_field" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="550.0" promptText="Digite uma descrição para o serviço" styleClass="default_text_input" wrapText="true" />
                </children>
             </VBox>
          </children>

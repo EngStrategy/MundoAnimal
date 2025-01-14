@@ -9,8 +9,6 @@ module com.carvalhotechsolutions.mundoanimal {
     requires jbcrypt;
 
     // Export and open the controllers package
-    opens com.carvalhotechsolutions.mundoanimal.controllers to javafx.fxml;
-    exports com.carvalhotechsolutions.mundoanimal.controllers;
 
     opens com.carvalhotechsolutions.mundoanimal to javafx.fxml;
     exports com.carvalhotechsolutions.mundoanimal;
@@ -21,4 +19,10 @@ module com.carvalhotechsolutions.mundoanimal {
     exports com.carvalhotechsolutions.mundoanimal.model;
     exports com.carvalhotechsolutions.mundoanimal.controllers.autenticacao;
     opens com.carvalhotechsolutions.mundoanimal.controllers.autenticacao to javafx.fxml;
+    exports com.carvalhotechsolutions.mundoanimal.controllers.modals;
+    opens com.carvalhotechsolutions.mundoanimal.controllers.modals to javafx.fxml;
+    exports com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento;
+    opens com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento to javafx.fxml;
+    exports com.carvalhotechsolutions.mundoanimal.database;
+    opens com.carvalhotechsolutions.mundoanimal.database to javafx.fxml;
 }

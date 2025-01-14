@@ -29,10 +29,22 @@ root {
     -fx-border-radius: 5px;
 }
 
+.text-area .content {
+    -fx-background-insets: 0;
+    -fx-background-color:white;
+}
+
 .default_label {
     -fx-font-family: "Roboto", serif;
     -fx-font-style: normal;
     -fx-font-weight: 900;
+    -fx-font-size: 18px;
+}
+
+.default_text {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-style: normal;
+    -fx-font-weight: 200;
     -fx-font-size: 18px;
 }
 
@@ -190,6 +202,16 @@ root {
 
 /* CSS TABELAS - INÍCIO */
 
+.table-view .scroll-bar * {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}
+
 .table-column {
     -fx-font-family: "Roboto", serif;
     -fx-font-size: 18px;
@@ -197,6 +219,10 @@ root {
     -fx-padding: 0 0 0 16px;
     -fx-pref-height: 79px;
     -fx-border-color: transparent #e2e2e2 #e2e2e2 transparent;
+}
+
+.pets_table .table-column {
+    -fx-pref-height: 60px;
 }
 
 .column-header {

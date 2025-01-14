@@ -1,54 +1,52 @@
 package com.carvalhotechsolutions.mundoanimal.repositories;
 
 import com.carvalhotechsolutions.mundoanimal.database.JPAutil;
-import com.carvalhotechsolutions.mundoanimal.model.Secretario;
+import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
-public class SecretarioRepository {
-
-    public Secretario save(Secretario secretario) {
+public class ClienteRepository {
+    public Cliente save(Cliente cliente) {
         try(EntityManager em = JPAutil.getEntityManager()) {
             em.getTransaction().begin();
-            if (secretario.getId() == null) {
-                em.persist(secretario);
+            if (cliente.getId() == null) {
+                em.persist(cliente);
             } else {
-                em.merge(secretario);
+                em.merge(cliente);
             }
             em.getTransaction().commit();
-            return secretario;
+            return cliente;
         }
     }
 
-    public Secretario findById(Long id) {
+    public Cliente findById(Long id) {
         try(EntityManager em = JPAutil.getEntityManager()) {
-            TypedQuery<Secretario> query = em.createQuery("SELECT s FROM Secretario s WHERE s.id = :id", Secretario.class);
+            TypedQuery<Cliente> query = em.createQuery("SELECT c FROM Cliente c WHERE c.id = :id", Cliente.class);
             query.setParameter("id", id);
             return query.getSingleResult();
         }
     }
 
-    public List<Secretario> findAll() {
+    public List<Cliente> findAll() {
         try(EntityManager em = JPAutil.getEntityManager()) {
-            TypedQuery<Secretario> query = em.createQuery("SELECT s FROM Secretario s", Secretario.class);
+            TypedQuery<Cliente> query = em.createQuery("SELECT c FROM Cliente c", Cliente.class);
             return query.getResultList();
         }
     }
 
     public void deleteById(Long id) {
         try(EntityManager em = JPAutil.getEntityManager()) {
-            Secretario secretario = em.find(Secretario.class, id);
-            if(secretario != null) {
+            Cliente cliente = em.find(Cliente.class, id);
+            if(cliente != null) {
                 em.getTransaction().begin();
-                em.remove(secretario);
+                em.remove(cliente);
                 em.getTransaction().commit();
             }
             else {
-                throw new IllegalArgumentException("Secretario not found!");
+                throw new IllegalArgumentException("Cliente not found!");
             }
         }
     }
-
 }

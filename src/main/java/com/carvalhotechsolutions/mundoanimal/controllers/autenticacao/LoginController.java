@@ -1,9 +1,9 @@
 package com.carvalhotechsolutions.mundoanimal.controllers.autenticacao;
 
-import com.carvalhotechsolutions.mundoanimal.JPAutil;
+import com.carvalhotechsolutions.mundoanimal.database.JPAutil;
 import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.model.Usuario;
-import com.carvalhotechsolutions.mundoanimal.security.PasswordUtils;
+import com.carvalhotechsolutions.mundoanimal.utils.PasswordManager;
 import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
 import com.carvalhotechsolutions.mundoanimal.utils.SessionManager;
 import jakarta.persistence.EntityManager;
@@ -54,7 +54,7 @@ public class LoginController {
             }
 
             // Verifica a senha
-            if (!PasswordUtils.checkPassword(password, usuario.getSenha())) {
+            if (!PasswordManager.checkPassword(password, usuario.getSenha())) {
                 showAlert("Erro", "Senha incorreta.");
                 return;
             }

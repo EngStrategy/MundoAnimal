@@ -1,9 +1,9 @@
 package com.carvalhotechsolutions.mundoanimal.controllers.autenticacao;
 
-import com.carvalhotechsolutions.mundoanimal.JPAutil;
+import com.carvalhotechsolutions.mundoanimal.database.JPAutil;
 import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.model.Usuario;
-import com.carvalhotechsolutions.mundoanimal.security.PasswordUtils;
+import com.carvalhotechsolutions.mundoanimal.utils.PasswordManager;
 import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
 import com.carvalhotechsolutions.mundoanimal.utils.SessionManager;
 import jakarta.persistence.EntityManager;
@@ -53,7 +53,7 @@ public class RedefinirSenhaController {
             }
 
             // Atualiza a senha do usuário
-            usuario.setSenha(PasswordUtils.hashPassword(newPassword)); // Hash da senha
+            usuario.setSenha(PasswordManager.hashPassword(newPassword)); // Hash da senha
             em.merge(usuario); // Atualiza no banco
             em.getTransaction().commit();
 

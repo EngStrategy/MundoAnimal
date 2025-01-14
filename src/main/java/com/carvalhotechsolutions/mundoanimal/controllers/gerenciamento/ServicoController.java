@@ -1,7 +1,9 @@
-package com.carvalhotechsolutions.mundoanimal.controllers;
+package com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento;
 
-import com.carvalhotechsolutions.mundoanimal.model.Secretario;
-import com.carvalhotechsolutions.mundoanimal.repositories.SecretarioRepository;
+import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalConfirmarRemocaoController;
+import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarServicoController;
+import com.carvalhotechsolutions.mundoanimal.model.Servico;
+import com.carvalhotechsolutions.mundoanimal.repositories.ServicoRepository;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,26 +24,29 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SecretarioController implements Initializable {
+public class ServicoController implements Initializable {
     @FXML
-    private TableView<Secretario> tableView;
-
-    @FXML
-    private TableColumn<Secretario, String> nomeColumn; // Nome de Usuario
+    private TableView<Servico> tableView;
 
     @FXML
-    private TableColumn<Secretario, String> phoneColumn; // Telefone
+    private TableColumn<Servico, String> nomeColumn;
 
     @FXML
-    private TableColumn<Secretario, Void> acaoColumn; // Ação
+    private TableColumn<Servico, String> descricaoColumn;
 
-    private SecretarioRepository secretarioRepository = new SecretarioRepository();
+    @FXML
+    private TableColumn<Servico, BigDecimal> valorColumn;
 
-    private ObservableList<Secretario> secretariosList;
+    @FXML
+    private TableColumn<Servico, Void> acaoColumn;
 
+    private ServicoRepository servicoRepository = new ServicoRepository();
+
+    private ObservableList<Servico> servicosList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,19 +61,17 @@ public class SecretarioController implements Initializable {
         DoubleBinding larguraDisponivel = tableView.widthProperty().subtract(246);
 
         // Configura as outras colunas para se redimensionarem proporcionalmente
-        nomeColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.50));  // 50% do espaço restante
-        phoneColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.50)); // 50% do espaço restante
+        nomeColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.25));      // 25% do espaço restante
+        descricaoColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.60)); // 60% do espaço restante
+        valorColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.15));     // 15% do espaço restante
 
-        nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nomeUsuario"));
-        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+        nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nomeServico"));
+        descricaoColumn.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        valorColumn.setCellValueFactory(new PropertyValueFactory<>("valorServico"));
 
+        configurarColunaValor();
         configurarColunaAcao();
         atualizarTableView();
-    }
-
-    public void atualizarTableView() {
-        secretariosList = FXCollections.observableArrayList(secretarioRepository.findAll());
-        tableView.setItems(secretariosList);
     }
 
     private void configurarColunaAcao() {
@@ -90,14 +93,14 @@ public class SecretarioController implements Initializable {
 
                 // Configurar evento para deletar
                 deletarButton.setOnAction(event -> {
-                    Secretario secretario = getTableView().getItems().get(getIndex());
-                    abrirModalExcluir(secretario.getId());
+                    Servico servico = getTableView().getItems().get(getIndex());
+                    abrirModalExcluir(servico.getId());
                 });
 
                 // Configurar evento para editar
                 editarButton.setOnAction(event -> {
-                    Secretario secretario = getTableView().getItems().get(getIndex());
-                    abrirModalEditar(secretario.getId());
+                    Servico servico = getTableView().getItems().get(getIndex());
+                    abrirModalEditar(servico.getId());
                 });
             }
 
@@ -113,20 +116,37 @@ public class SecretarioController implements Initializable {
         });
     }
 
+    private void configurarColunaValor() {
+        valorColumn.setCellFactory(column -> new TableCell<Servico, BigDecimal>() {
+            @Override
+            protected void updateItem(BigDecimal item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    // Formatar valor para exibição com "R$"
+                    setText("R$ " + item.setScale(2, BigDecimal.ROUND_HALF_UP).toString().replace(".", ","));
+                }
+            }
+        });
+    }
+
+
     @FXML
-    public void abrirModalCadastrarSecretario() {
+    public void abrirModalCadastrarServico() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalNovoSecretario.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalCriarServico.fxml"));
             Parent modalContent = loader.load();
 
             // Configurar o controlador do modal
-            ModalCriarSecretarioController modalController = loader.getController();
-            modalController.setSecretarioController(this); // Passa referência do controlador principal
+            ModalCriarServicoController modalController = loader.getController();
+            modalController.setServicoController(this); // Passa referência do controlador principal
 
             // Configurar o Stage do modal
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
-            modalStage.setTitle("Cadastrar Secretario");
+            modalStage.setTitle("Cadastrar Serviço");
             modalStage.setScene(new Scene(modalContent));
             modalStage.setResizable(false);
             modalStage.showAndWait();
@@ -137,24 +157,24 @@ public class SecretarioController implements Initializable {
         }
     }
 
-    private void abrirModalEditar(Long secretarioId) {
+    private void abrirModalEditar(Long servicoId) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalEditarSecretario.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalCriarServico.fxml"));
             Parent modalContent = loader.load();
 
             // Obter o controlador do modal
-            ModalEditarSecretarioController modalController = loader.getController();
+            ModalCriarServicoController modalController = loader.getController();
 
             // Buscar o serviço pelo ID
-            Secretario secretario = secretarioRepository.findById(secretarioId);
+            Servico servico = servicoRepository.findById(servicoId);
 
             // Configurar o modal para edição
-            modalController.configurarParaEdicao(secretario);
+            modalController.configurarParaEdicao(servico);
 
             // Configurar o Stage do modal
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
-            modalStage.setTitle("Editar Secretário(a)");
+            modalStage.setTitle("Editar Serviço");
             modalStage.setScene(new Scene(modalContent));
             modalStage.setResizable(false);
             modalStage.showAndWait();
@@ -166,16 +186,16 @@ public class SecretarioController implements Initializable {
         }
     }
 
-    private void abrirModalExcluir(Long secretarioId) {
+    private void abrirModalExcluir(Long servicoId) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalConfirmarRemocao.fxml"));
             Parent modalContent = loader.load();
 
             // Configurar o controlador do modal
             ModalConfirmarRemocaoController modalController = loader.getController();
-            modalController.setServicoId(secretarioId);
+            modalController.setRegisterId(servicoId);
             modalController.setConfirmCallback(() -> {
-                secretarioRepository.deleteById(secretarioId);
+                servicoRepository.deleteById(servicoId);
                 atualizarTableView(); // Atualizar tabela após exclusão
             });
 
@@ -192,4 +212,10 @@ public class SecretarioController implements Initializable {
         }
     }
 
+    public void atualizarTableView() {
+        servicosList = FXCollections.observableArrayList(servicoRepository.findAll());
+        tableView.setItems(servicosList);
+    }
+
 }
+

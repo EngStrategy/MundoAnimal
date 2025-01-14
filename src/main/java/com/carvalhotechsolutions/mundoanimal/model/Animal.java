@@ -1,9 +1,7 @@
 package com.carvalhotechsolutions.mundoanimal.model;
 
-import com.carvalhotechsolutions.mundoanimal.model.enums.EspecieAnimal;
+import com.carvalhotechsolutions.mundoanimal.enums.EspecieAnimal;
 import jakarta.persistence.*;
-
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_animais")
@@ -20,13 +18,13 @@ public class Animal {
     @Column(nullable = false)
     private EspecieAnimal especie;
 
-    @Column(nullable = false)
+    @Column()
     private String raca;
 
-    @Column(nullable = false)
+    @Column()
     private Integer idade;
 
-    @Column(nullable = false)
+    @Column()
     private String observacoes;
 
     @ManyToOne
@@ -87,5 +85,10 @@ public class Animal {
 
     public void setDono(Cliente dono) {
         this.dono = dono;
+    }
+
+    @Override
+    public String toString() {
+        return this.nome;
     }
 }

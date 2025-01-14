@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxWidth="Infinity" spacing="37.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21.0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.ServicoController">
+<VBox maxWidth="Infinity" spacing="37.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.ServicoController">
    <padding>
       <Insets bottom="37.0" left="37.0" right="37.0" top="37.0" />
    </padding>
@@ -44,7 +44,7 @@
                   <Label text="Valor" />
                </graphic>
             </TableColumn>
-            <TableColumn fx:id="acaoColumn">
+            <TableColumn fx:id="acaoColumn" sortable="false">
                <graphic>
                   <Label text="Ação" />
                </graphic>

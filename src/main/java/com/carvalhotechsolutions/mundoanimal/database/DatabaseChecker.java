@@ -1,8 +1,8 @@
-package com.carvalhotechsolutions.mundoanimal;
+package com.carvalhotechsolutions.mundoanimal.database;
 
 import com.carvalhotechsolutions.mundoanimal.model.Administrador;
-import com.carvalhotechsolutions.mundoanimal.model.enums.TipoUsuario;
-import com.carvalhotechsolutions.mundoanimal.security.PasswordUtils;
+import com.carvalhotechsolutions.mundoanimal.enums.TipoUsuario;
+import com.carvalhotechsolutions.mundoanimal.utils.PasswordManager;
 import jakarta.persistence.EntityManager;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -50,7 +50,7 @@ public class DatabaseChecker {
                 Administrador admin = new Administrador();
                 admin.setCpf("123.456.789-10");
                 admin.setNomeUsuario("admin");
-                admin.setSenha(PasswordUtils.hashPassword("admin"));
+                admin.setSenha(PasswordManager.hashPassword("admin"));
                 admin.setTipoUsuario(TipoUsuario.ADMINISTRADOR);
 
                 // Persiste o administrador no banco

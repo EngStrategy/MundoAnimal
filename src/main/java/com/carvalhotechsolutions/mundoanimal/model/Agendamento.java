@@ -1,11 +1,10 @@
 package com.carvalhotechsolutions.mundoanimal.model;
 
-import com.carvalhotechsolutions.mundoanimal.model.enums.StatusAgendamento;
+import com.carvalhotechsolutions.mundoanimal.enums.StatusAgendamento;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_agendamentos")

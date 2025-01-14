@@ -1,15 +1,12 @@
-package com.carvalhotechsolutions.mundoanimal.controllers;
+package com.carvalhotechsolutions.mundoanimal.controllers.modals;
 
+import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.SecretarioController;
 import com.carvalhotechsolutions.mundoanimal.model.Secretario;
-import com.carvalhotechsolutions.mundoanimal.model.Servico;
-import com.carvalhotechsolutions.mundoanimal.model.enums.TipoUsuario;
+import com.carvalhotechsolutions.mundoanimal.enums.TipoUsuario;
 import com.carvalhotechsolutions.mundoanimal.repositories.SecretarioRepository;
-import com.carvalhotechsolutions.mundoanimal.security.PasswordUtils;
+import com.carvalhotechsolutions.mundoanimal.utils.PasswordManager;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ModalCriarSecretarioController {
@@ -54,7 +51,7 @@ public class ModalCriarSecretarioController {
 
             secretario.setNomeUsuario(nome);
             secretario.setTelefone(telefone);
-            secretario.setSenha(PasswordUtils.hashPassword(create_secretary_password_field.getText()));
+            secretario.setSenha(PasswordManager.hashPassword(create_secretary_password_field.getText()));
             secretario.setTipoUsuario(TipoUsuario.SECRETARIO);
 
             secretarioRepository.save(secretario);
