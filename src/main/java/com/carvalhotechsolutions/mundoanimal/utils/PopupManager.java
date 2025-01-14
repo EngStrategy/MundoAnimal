@@ -18,7 +18,7 @@ public class PopupManager {
 
     public static void showLoginSuccessPopup(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(PopupManager.class.getResource("/fxml/modals/ModalLoginSucesso.fxml"));
+            FXMLLoader loader = new FXMLLoader(PopupManager.class.getResource("/fxml/modals/modalLoginSucesso.fxml"));
             AnchorPane popupContent = loader.load();
 
             // Criar um Stage para o pop-up
