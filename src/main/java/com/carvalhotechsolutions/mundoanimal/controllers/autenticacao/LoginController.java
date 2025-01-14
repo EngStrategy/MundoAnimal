@@ -5,6 +5,7 @@ import com.carvalhotechsolutions.mundoanimal.database.JPAutil;
 import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.model.Usuario;
 import com.carvalhotechsolutions.mundoanimal.utils.PasswordManager;
+import com.carvalhotechsolutions.mundoanimal.utils.PopupManager;
 import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
 import com.carvalhotechsolutions.mundoanimal.utils.SessionManager;
 import jakarta.persistence.EntityManager;
@@ -63,6 +64,8 @@ public class LoginController {
 
             // Login bem-sucedido
             SessionManager.setCurrentUser(usuario);
+
+            PopupManager.showLoginSuccessPopup(ScreenManagerHolder.getInstance().getStage());
 
             // Atualiza a interface do menu através do ScreenManagerHolder
             ScreenManagerHolder.getInstance().getMenuController().updateUserInterface(usuario);

@@ -17,7 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -137,6 +136,8 @@ public class MenuController implements Initializable {
             }
             ScreenManagerHolder.getInstance().switchTo(ScreenEnum.LOGIN);
             SessionManager.setCurrentUser(null); // Limpa o usuário logado
+            Node loginScreen = ScreenManagerHolder.getInstance().getScreen(ScreenEnum.LOGIN);
+            new FadeIn(loginScreen).play();
         } else {
             // Usuário cancelou a ação
             alert.close();
