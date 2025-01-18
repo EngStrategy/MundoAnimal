@@ -46,30 +46,44 @@ public class ModalCriarClienteController {
 
         try {
             Cliente cliente;
+            boolean isEdicao = client_id_field.getText() != null && !client_id_field.getText().isEmpty();
 
-            // Verificar se o cliente já existe (edição)
-            if (client_id_field.getText() != null && !client_id_field.getText().isEmpty()) {
+            if (isEdicao) {
                 Long id = Long.parseLong(client_id_field.getText());
-                cliente = clienteRepository.findById(id); // Recupera o cliente existente
+                cliente = clienteRepository.findById(id);
+                System.out.println("Editando cliente com ID: " + id); // Log para debug
             } else {
-                cliente = new Cliente(); // Novo cliente
+                cliente = new Cliente();
+                System.out.println("Criando novo cliente"); // Log para debug
             }
 
             cliente.setNome(nome);
             cliente.setTelefone(telefone);
-
-            // Persistir no banco de dados
             clienteRepository.save(cliente);
 
-            // Atualizar a TableView no controlador principal
-            if (clienteController != null) {
-                clienteController.atualizarTableView();
+            if (clienteController == null) {
+                System.out.println("ERRO: clienteController é nulo!"); // Log para debug
+                return;
             }
 
-            // Fechar modal
-            fecharModal();
+            // Atualizar a TableView e mostrar feedback
+            clienteController.atualizarTableView();
 
+            String mensagem = isEdicao ?
+                    "Cliente atualizado com sucesso!" :
+                    "Cliente cadastrado com sucesso!";
+
+            System.out.println("Exibindo mensagem: " + mensagem); // Log para debug
+            clienteController.handleSuccessfulOperation(mensagem);
+
+            fecharModal();
         } catch (Exception e) {
+            System.out.println("Erro ao salvar cliente: " + e.getMessage()); // Log para debug
+            if (clienteController != null) {
+                clienteController.handleError("Erro ao " +
+                        (client_id_field.getText().isEmpty() ? "cadastrar" : "atualizar") +
+                        " cliente!");
+            }
             e.printStackTrace();
         }
     }

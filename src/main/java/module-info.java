@@ -8,6 +8,7 @@ module com.carvalhotechsolutions.mundoanimal {
     requires org.hibernate.orm.core;
     requires jbcrypt;
     requires animatefx;
+    requires fontawesomefx;
 
     // Export and open the controllers package
 

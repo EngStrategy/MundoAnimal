@@ -54,15 +54,16 @@ public class ModalCriarServicoController {
 
         try {
             BigDecimal valor = new BigDecimal(valorStr.replace(",", "."));
-
             Servico servico;
+            boolean isEdicao = service_id_field.getText() != null && !service_id_field.getText().isEmpty();
 
-            // Verificar se o serviço já existe (edição)
-            if (service_id_field.getText() != null && !service_id_field.getText().isEmpty()) {
+            if (isEdicao) {
                 Long id = Long.parseLong(service_id_field.getText());
                 servico = servicoRepository.findById(id); // Recupera o serviço existente
+                System.out.println("Editando serviço com ID: " + id); // Log para debug
             } else {
                 servico = new Servico(); // Novo serviço
+                System.out.println("Criando novo serviço"); // Log para debug
             }
 
             servico.setNomeServico(nome);
@@ -72,12 +73,20 @@ public class ModalCriarServicoController {
             // Persistir no banco de dados
             servicoRepository.save(servico);
 
-            // Atualizar a TableView no controlador principal
-            if (servicoController != null) {
-                servicoController.atualizarTableView();
+            if (servicoController == null) {
+                System.out.println("ERRO: servicoController é nulo!"); // Log para debug
+                return;
             }
 
-            // Fechar modal
+            servicoController.atualizarTableView();
+
+            String mensagem = isEdicao ?
+                    "Serviço atualizado com sucesso!" :
+                    "Serviço cadastrado com sucesso!";
+
+            System.out.println("Exibindo mensagem: " + mensagem); // Log para debug
+            servicoController.handleSuccessfulOperation(mensagem);
+
             fecharModal();
 
         } catch (NumberFormatException e) {

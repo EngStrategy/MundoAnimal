@@ -35,7 +35,6 @@ public class ModalCriarSecretarioController {
 
     @FXML
     public void cadastrarSecretario() {
-
         String nome = create_secretary_name_field.getText();
         String telefone = create_secretary_phone_field.getText();
         String password = create_secretary_password_field.getText();
@@ -58,6 +57,7 @@ public class ModalCriarSecretarioController {
 
             if (secretarioController != null) {
                 secretarioController.atualizarTableView();
+                secretarioController.handleSuccessfulOperation("Secretário(a) cadastrado(a) com sucesso!");
             }
 
             fecharModal();

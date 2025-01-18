@@ -221,10 +221,6 @@ root {
     -fx-border-color: transparent #e2e2e2 #e2e2e2 transparent;
 }
 
-.pets_table .table-column {
-    -fx-pref-height: 60px;
-}
-
 .column-header {
     -fx-background-color: #F2F5FA;
     -fx-alignment: CENTER_LEFT;
@@ -275,3 +271,13 @@ root {
 }
 
 /* CSS MODALS - FIM */
+
+/* CSS POPUP - INÍCIO */
+
+.popup {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+/* CSS POPUP - FIM */

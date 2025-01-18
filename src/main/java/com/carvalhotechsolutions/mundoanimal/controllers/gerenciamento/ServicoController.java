@@ -4,6 +4,7 @@ import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalConfirmarRe
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarServicoController;
 import com.carvalhotechsolutions.mundoanimal.model.Servico;
 import com.carvalhotechsolutions.mundoanimal.repositories.ServicoRepository;
+import com.carvalhotechsolutions.mundoanimal.utils.FeedbackManager;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +30,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ServicoController implements Initializable {
+    @FXML
+    private HBox feedbackContainer;
+
     @FXML
     private TableView<Servico> tableView;
 
@@ -164,6 +168,7 @@ public class ServicoController implements Initializable {
 
             // Obter o controlador do modal
             ModalCriarServicoController modalController = loader.getController();
+            modalController.setServicoController(this);
 
             // Buscar o serviço pelo ID
             Servico servico = servicoRepository.findById(servicoId);
@@ -197,6 +202,7 @@ public class ServicoController implements Initializable {
             modalController.setConfirmCallback(() -> {
                 servicoRepository.deleteById(servicoId);
                 atualizarTableView(); // Atualizar tabela após exclusão
+                handleSuccessfulOperation("Serviço removido com sucesso!");
             });
 
             // Configurar o Stage do modal
@@ -217,5 +223,20 @@ public class ServicoController implements Initializable {
         tableView.setItems(servicosList);
     }
 
+    public void handleSuccessfulOperation(String message) {
+        FeedbackManager.showFeedback(
+                feedbackContainer,
+                message,
+                FeedbackManager.FeedbackType.SUCCESS
+        );
+    }
+
+    public void handleError(String message) {
+        FeedbackManager.showFeedback(
+                feedbackContainer,
+                message,
+                FeedbackManager.FeedbackType.ERROR
+        );
+    }
 }
 

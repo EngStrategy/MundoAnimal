@@ -77,13 +77,15 @@ public class ModalCriarPetController implements Initializable {
 
         try {
             Animal animal;
+            boolean isEdicao = pet_id_field.getText() != null && !pet_id_field.getText().isEmpty();
 
-            // Verificar se o animal já existe (edição)
-            if (pet_id_field.getText() != null && !pet_id_field.getText().isEmpty()) {
+            if (isEdicao) {
                 Long id = Long.parseLong(pet_id_field.getText());
                 animal = animalRepository.findById(id); // Recupera o animal existente
+                System.out.println("Editando animal com ID: " + id); // Log para debug
             } else {
                 animal = new Animal(); // Novo animal
+                System.out.println("Criando novo animal"); // Log para debug
             }
 
             animal.setNome(nome);
@@ -92,16 +94,26 @@ public class ModalCriarPetController implements Initializable {
             animal.setIdade(idade.isEmpty() ? null : Integer.parseInt(idade));
             animal.setObservacoes(observacoes.isEmpty() ? null : observacoes);
             animal.setDono(this.cliente);
-
-            // Persistir no banco de dados
             animalRepository.save(animal);
 
-            // Atualizar a TableView de clientes
             if (clienteController != null) {
                 clienteController.atualizarTableView();
             }
 
-            // Fechar modal
+            String mensagem = isEdicao ?
+                    "Pet atualizado com sucesso!" :
+                    "Pet cadastrado com sucesso!";
+
+
+            System.out.println("Exibindo mensagem: " + mensagem); // Log para debug
+
+            if(isEdicao) {
+                animalController.handleSuccessfulOperation(mensagem);
+            }
+            else {
+                clienteController.handleSuccessfulOperation(mensagem);
+            }
+
             fecharModal();
 
         } catch (NumberFormatException e) {
