@@ -9,6 +9,7 @@ module com.carvalhotechsolutions.mundoanimal {
     requires jbcrypt;
     requires animatefx;
     requires fontawesomefx;
+    requires java.desktop;
 
     // Export and open the controllers package
 
