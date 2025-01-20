@@ -5,6 +5,7 @@ import com.carvalhotechsolutions.mundoanimal.model.Secretario;
 import com.carvalhotechsolutions.mundoanimal.enums.TipoUsuario;
 import com.carvalhotechsolutions.mundoanimal.repositories.SecretarioRepository;
 import com.carvalhotechsolutions.mundoanimal.utils.PasswordManager;
+import com.carvalhotechsolutions.mundoanimal.utils.TextFormatterManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -75,6 +76,8 @@ public class ModalCriarSecretarioController {
     }
 
     private boolean validarInputs(String nome, String telefone, String password, String passwordConfirmation) {
+        nome = nome.trim();
+        telefone = telefone.trim();
         if (nome.isEmpty() || telefone.isEmpty() || password.isEmpty() || passwordConfirmation.isEmpty()) {
             mostrarAlerta("Erro", "Campo(s) obrigatório(s) vazio(s)!", Alert.AlertType.ERROR);
             return false;
@@ -83,7 +86,33 @@ public class ModalCriarSecretarioController {
             mostrarAlerta("Erro", "Senhas não estão iguais.", Alert.AlertType.ERROR);
             return false;
         }
+        String finalTelefone = telefone;
+        boolean telefoneJaCadastrado = secretarioRepository.findAll().stream()
+                .anyMatch(secretario -> secretario.getTelefone().equals(finalTelefone) &&
+                        (secretarioAtual == null || !secretario.getId().equals(secretarioAtual.getId())));
+        if (telefoneJaCadastrado) {
+            mostrarAlerta("Erro", "O telefone informado já está cadastrado no sistema.", Alert.AlertType.ERROR);
+            return false;
+        }
+
+        String finalNome = nome;
+        boolean nomeJaCadastrado = secretarioRepository.findAll().stream()
+                .anyMatch(secretario -> secretario.getNomeUsuario().equalsIgnoreCase(finalNome) &&
+                        (secretarioAtual == null || !secretario.getId().equals(secretarioAtual.getId())));
+        if (nomeJaCadastrado) {
+            mostrarAlerta("Erro", "Já existe um secretário cadastrado com esse nome.", Alert.AlertType.ERROR);
+            return false;
+        }
         return true;
+    }
+
+    @FXML
+    private void phoneKeyReleased(){
+        TextFormatterManager tfm = new TextFormatterManager();
+        tfm.setMask("(##)#####-####");
+        tfm.setCaracteresValidos("0123456789");
+        tfm.setTf(create_secretary_phone_field);
+        tfm.formatter();
     }
 
     private void mostrarAlerta(String titulo, String mensagem, Alert.AlertType tipo) {
