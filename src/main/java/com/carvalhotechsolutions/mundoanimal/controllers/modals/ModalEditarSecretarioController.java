@@ -44,9 +44,13 @@ public class ModalEditarSecretarioController {
 
         secretarioRepository.save(secretario);
 
-        if (secretarioController != null) {
-            secretarioController.atualizarTableView();
+        if (secretarioController == null) {
+            System.out.println("ERRO: secretarioController é nulo!"); // Log para debug
+            return;
         }
+
+        secretarioController.atualizarTableView();
+        secretarioController.handleSuccessfulOperation("Secretário(a) atualizado(a) com sucesso!");
 
         fecharModal();
     }

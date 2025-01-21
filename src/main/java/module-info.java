@@ -7,6 +7,8 @@ module com.carvalhotechsolutions.mundoanimal {
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
     requires jbcrypt;
+    requires animatefx;
+    requires fontawesomefx;
 
     // Export and open the controllers package
 

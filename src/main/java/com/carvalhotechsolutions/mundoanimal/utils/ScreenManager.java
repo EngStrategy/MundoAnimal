@@ -134,6 +134,10 @@ public class ScreenManager {
         }
     }
 
+    public Stage getStage() {
+        return this.stage;
+    }
+
     public Node getScreen(ScreenEnum screen) {
         return screens.get(screen);
     }

@@ -6,7 +6,11 @@ import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarPetCon
 import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.repositories.ClienteRepository;
+import com.carvalhotechsolutions.mundoanimal.utils.FeedbackManager;
 import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -21,14 +25,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ClienteController implements Initializable {
+    @FXML
+    private HBox feedbackContainer;
+
     @FXML
     private TableView<Cliente> tableView;
 
@@ -165,6 +174,7 @@ public class ClienteController implements Initializable {
 
             // Obter o controlador do modal
             ModalCriarClienteController modalController = loader.getController();
+            modalController.setClienteController(this); // Passa referência do controlador principal
 
             // Buscar o serviço pelo ID
             Cliente cliente = clienteRepository.findById(clienteId);
@@ -197,6 +207,7 @@ public class ClienteController implements Initializable {
             modalController.setConfirmCallback(() -> {
                 clienteRepository.deleteById(clienteId);
                 atualizarTableView(); // Atualizar tabela após exclusão
+                handleSuccessfulOperation("Cliente removido com sucesso!");
             });
 
             // Configurar o Stage do modal
@@ -259,5 +270,21 @@ public class ClienteController implements Initializable {
     public void atualizarTableView() {
         clientesList = FXCollections.observableArrayList(clienteRepository.findAll());
         tableView.setItems(clientesList);
+    }
+
+    public void handleSuccessfulOperation(String message) {
+        FeedbackManager.showFeedback(
+                feedbackContainer,
+                message,
+                FeedbackManager.FeedbackType.SUCCESS
+        );
+    }
+
+    public void handleError(String message) {
+        FeedbackManager.showFeedback(
+                feedbackContainer,
+                message,
+                FeedbackManager.FeedbackType.ERROR
+        );
     }
 }

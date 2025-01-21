@@ -10,6 +10,7 @@ import com.carvalhotechsolutions.mundoanimal.model.Animal;
 import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.repositories.AnimalRepository;
 import com.carvalhotechsolutions.mundoanimal.repositories.ClienteRepository;
+import com.carvalhotechsolutions.mundoanimal.utils.FeedbackManager;
 import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.FXCollections;
@@ -35,6 +36,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AnimalController implements Initializable {
+    @FXML
+    private HBox feedbackContainer;
+
     @FXML
     private TableView<Animal> tableView;
 
@@ -208,6 +212,7 @@ public class AnimalController implements Initializable {
                 // Atualiza a página de clientes
                 ScreenManagerHolder.getInstance().getClienteController().atualizarTableView();
                 atualizarTableView();
+                handleSuccessfulOperation("Pet removido com sucesso!");
             });
 
             // Configurar o Stage do modal
@@ -244,6 +249,22 @@ public class AnimalController implements Initializable {
         petsList.addAll(cliente.getPets());
         // Força um refresh na TableView
         tableView.refresh();
+    }
+
+    public void handleSuccessfulOperation(String message) {
+        FeedbackManager.showFeedback(
+                feedbackContainer,
+                message,
+                FeedbackManager.FeedbackType.SUCCESS
+        );
+    }
+
+    public void handleError(String message) {
+        FeedbackManager.showFeedback(
+                feedbackContainer,
+                message,
+                FeedbackManager.FeedbackType.ERROR
+        );
     }
 }
 

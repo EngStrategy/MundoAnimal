@@ -5,6 +5,7 @@ import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarSecret
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalEditarSecretarioController;
 import com.carvalhotechsolutions.mundoanimal.model.Secretario;
 import com.carvalhotechsolutions.mundoanimal.repositories.SecretarioRepository;
+import com.carvalhotechsolutions.mundoanimal.utils.FeedbackManager;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +30,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SecretarioController implements Initializable {
+    @FXML
+    private HBox feedbackContainer;
+
     @FXML
     private TableView<Secretario> tableView;
 
@@ -147,6 +151,7 @@ public class SecretarioController implements Initializable {
 
             // Obter o controlador do modal
             ModalEditarSecretarioController modalController = loader.getController();
+            modalController.setSecretarioController(this);
 
             // Buscar o serviço pelo ID
             Secretario secretario = secretarioRepository.findById(secretarioId);
@@ -180,6 +185,7 @@ public class SecretarioController implements Initializable {
             modalController.setConfirmCallback(() -> {
                 secretarioRepository.deleteById(secretarioId);
                 atualizarTableView(); // Atualizar tabela após exclusão
+                handleSuccessfulOperation("Secretário(a) removido(a) com sucesso!");
             });
 
             // Configurar o Stage do modal
@@ -193,6 +199,22 @@ public class SecretarioController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void handleSuccessfulOperation(String message) {
+        FeedbackManager.showFeedback(
+                feedbackContainer,
+                message,
+                FeedbackManager.FeedbackType.SUCCESS
+        );
+    }
+
+    public void handleError(String message) {
+        FeedbackManager.showFeedback(
+                feedbackContainer,
+                message,
+                FeedbackManager.FeedbackType.ERROR
+        );
     }
 
 }

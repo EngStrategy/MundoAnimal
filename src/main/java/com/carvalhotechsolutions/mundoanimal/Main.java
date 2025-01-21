@@ -1,5 +1,6 @@
 package com.carvalhotechsolutions.mundoanimal;
 
+import animatefx.animation.FadeIn;
 import com.carvalhotechsolutions.mundoanimal.database.DatabaseChecker;
 import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
@@ -21,6 +22,8 @@ public class Main extends Application {
         sceneManager.switchTo(ScreenEnum.LOGIN);
         // Exibe a tela
         stage.show();
+        // Aplicando FadeIn (AnimateFX)
+        new FadeIn(sceneManager.getScreen(ScreenEnum.LOGIN)).play();
     }
 
     public static void main(String[] args) {
