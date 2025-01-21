@@ -4,6 +4,7 @@ package com.carvalhotechsolutions.mundoanimal.controllers.modals;
 import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.ServicoController;
 import com.carvalhotechsolutions.mundoanimal.model.Servico;
 import com.carvalhotechsolutions.mundoanimal.repositories.ServicoRepository;
+import com.carvalhotechsolutions.mundoanimal.utils.TextFormatterManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -29,7 +30,7 @@ public class ModalCriarServicoController {
     @FXML
     private TextArea create_service_description_field;
 
-    private ServicoRepository servicoRepository = new ServicoRepository();
+    private final ServicoRepository servicoRepository = new ServicoRepository();
 
     // Referência para o controlador principal
     private ServicoController servicoController;
@@ -110,16 +111,25 @@ public class ModalCriarServicoController {
     }
 
     private boolean validarInputs(String nome, String valor) {
+        nome = nome.trim();
+        valor = valor.trim();
         if (nome.isEmpty() || valor.isEmpty()) {
             mostrarAlerta("Erro", "Campo(s) obrigatório(s) vazio(s)!", Alert.AlertType.ERROR);
             return false;
         }
-
         // Verificar se o valor é numérico
         try {
             new BigDecimal(valor.replace(",", "."));
         } catch (NumberFormatException e) {
             mostrarAlerta("Erro", "O campo 'Valor' deve ser numérico!", Alert.AlertType.ERROR);
+            return false;
+        }
+        String nomeServico = nome;
+        boolean servicoJaCadastrado = servicoRepository.findAll().stream().anyMatch(s ->
+                nomeServico.equalsIgnoreCase(s.getNomeServico()) && (servicoAtual == null ||
+                        !servicoAtual.getId().equals(s.getId())));
+        if (servicoJaCadastrado) {
+            mostrarAlerta("Erro", "Já existe um serviço cadastrado com esse nome.", Alert.AlertType.ERROR);
             return false;
         }
 
