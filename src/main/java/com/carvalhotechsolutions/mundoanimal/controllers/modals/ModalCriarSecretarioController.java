@@ -90,6 +90,11 @@ public class ModalCriarSecretarioController {
             return false;
         }
 
+        if (password.length() < 6) {
+            mostrarAlerta("Erro", "A senha deve ter no mínimo 6 caracteres.", Alert.AlertType.ERROR);
+            return false;
+        }
+
         String finalTelefone = telefone;
 
         boolean telefoneJaCadastrado = secretarioRepository.findAll().stream()
