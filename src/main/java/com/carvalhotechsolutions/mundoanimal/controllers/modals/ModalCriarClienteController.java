@@ -3,10 +3,15 @@ package com.carvalhotechsolutions.mundoanimal.controllers.modals;
 import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.ClienteController;
 import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.repositories.ClienteRepository;
+import com.carvalhotechsolutions.mundoanimal.utils.MaskedTextField;
 import com.carvalhotechsolutions.mundoanimal.utils.TextFormatterManager;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class ModalCriarClienteController {
     @FXML
@@ -22,7 +27,7 @@ public class ModalCriarClienteController {
     private TextField create_client_name_field;
 
     @FXML
-    private TextField create_client_phone_field;
+    private MaskedTextField create_client_phone_field;
 
     private final ClienteRepository clienteRepository = new ClienteRepository();
 

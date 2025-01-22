@@ -28,4 +28,6 @@ module com.carvalhotechsolutions.mundoanimal {
     opens com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento to javafx.fxml;
     exports com.carvalhotechsolutions.mundoanimal.database;
     opens com.carvalhotechsolutions.mundoanimal.database to javafx.fxml;
+    exports com.carvalhotechsolutions.mundoanimal.utils;
+    opens com.carvalhotechsolutions.mundoanimal.utils to javafx.fxml;
 }

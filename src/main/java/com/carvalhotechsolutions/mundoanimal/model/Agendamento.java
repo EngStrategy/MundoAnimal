@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "tb_agendamentos")
@@ -116,5 +117,13 @@ public class Agendamento {
 
     public void setStatus(StatusAgendamento status) {
         this.status = status;
+    }
+
+    public String getDataHoraFormatada() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        return dataAgendamento.format(dateFormatter) + " - " +
+                horarioAgendamento.format(timeFormatter);
     }
 }
