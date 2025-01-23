@@ -3,9 +3,15 @@ package com.carvalhotechsolutions.mundoanimal.controllers.modals;
 import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.ClienteController;
 import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.repositories.ClienteRepository;
+import com.carvalhotechsolutions.mundoanimal.utils.MaskedTextField;
+import com.carvalhotechsolutions.mundoanimal.utils.TextFormatterManager;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class ModalCriarClienteController {
     @FXML
@@ -21,9 +27,9 @@ public class ModalCriarClienteController {
     private TextField create_client_name_field;
 
     @FXML
-    private TextField create_client_phone_field;
+    private MaskedTextField create_client_phone_field;
 
-    private ClienteRepository clienteRepository = new ClienteRepository();
+    private final ClienteRepository clienteRepository = new ClienteRepository();
 
     // Referência para o controlador principal
     private ClienteController clienteController;
@@ -103,11 +109,42 @@ public class ModalCriarClienteController {
     }
 
     private boolean validarInputs(String nome, String telefone) {
+
+        nome = nome.trim();
+        telefone = telefone.trim(); // trim() usado para remover espaços desnecessários
+
         if (nome.isEmpty() || telefone.isEmpty()) {
             mostrarAlerta("Erro", "Campo(s) obrigatório(s) vazio(s)!", Alert.AlertType.ERROR);
             return false;
         }
+        String finalTelefone = telefone;
+        boolean telefoneJaCadastrado = clienteRepository.findAll().stream()
+                .anyMatch(cliente -> cliente.getTelefone().equals(finalTelefone) &&
+                        (clienteAtual == null || !cliente.getId().equals(clienteAtual.getId())));
+        if (telefoneJaCadastrado){
+            mostrarAlerta("Erro", "O telefone informado já está cadastrado no sistema.", Alert.AlertType.ERROR);
+            return false;
+        }
+        String finalNome = nome;
+        boolean nomeJaCadastrado = clienteRepository.findAll().stream()
+                .anyMatch(cliente -> cliente.getNome().equalsIgnoreCase(finalNome) &&
+                        (clienteAtual == null || !cliente.getId().equals(clienteAtual.getId())));
+
+        if (nomeJaCadastrado) {
+            mostrarAlerta("Erro", "Já existe um cliente cadastrado com esse nome.", Alert.AlertType.ERROR);
+            return false;
+        }
+
         return true;
+    }
+
+    @FXML
+    private void phoneKeyReleased(){
+        TextFormatterManager tfm = new TextFormatterManager();
+        tfm.setMask("(##)#####-####");
+        tfm.setCaracteresValidos("0123456789");
+        tfm.setTf(create_client_phone_field);
+        tfm.formatter();
     }
 
     @FXML
