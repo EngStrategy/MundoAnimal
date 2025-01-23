@@ -9,6 +9,7 @@ import com.carvalhotechsolutions.mundoanimal.utils.FeedbackManager;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,10 +17,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -45,9 +43,14 @@ public class SecretarioController implements Initializable {
     @FXML
     private TableColumn<Secretario, Void> acaoColumn; // Ação
 
+    @FXML
+    private TextField filterField;
+
     private SecretarioRepository secretarioRepository = new SecretarioRepository();
 
     private ObservableList<Secretario> secretariosList;
+
+    private FilteredList<Secretario> filteredData;
 
 
     @Override
@@ -71,11 +74,13 @@ public class SecretarioController implements Initializable {
 
         configurarColunaAcao();
         atualizarTableView();
+        configurarBuscaClientes();
     }
 
     public void atualizarTableView() {
         secretariosList = FXCollections.observableArrayList(secretarioRepository.findAll());
-        tableView.setItems(secretariosList);
+        filteredData = new FilteredList<>(secretariosList, p -> true);
+        tableView.setItems(filteredData);
     }
 
     private void configurarColunaAcao() {
@@ -199,6 +204,19 @@ public class SecretarioController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void configurarBuscaClientes() {
+        filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(secretario -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                return secretario.getNomeUsuario().toLowerCase().contains(lowerCaseFilter)
+                        || secretario.getTelefone().toLowerCase().contains(lowerCaseFilter);
+            });
+        });
     }
 
     public void handleSuccessfulOperation(String message) {

@@ -8,6 +8,7 @@ import com.carvalhotechsolutions.mundoanimal.utils.FeedbackManager;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,10 +16,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -48,9 +46,14 @@ public class ServicoController implements Initializable {
     @FXML
     private TableColumn<Servico, Void> acaoColumn;
 
+    @FXML
+    private TextField filterField;
+
     private ServicoRepository servicoRepository = new ServicoRepository();
 
     private ObservableList<Servico> servicosList = FXCollections.observableArrayList();
+
+    private FilteredList<Servico> filteredData;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -219,9 +222,34 @@ public class ServicoController implements Initializable {
     }
 
     public void atualizarTableView() {
-        servicosList = FXCollections.observableArrayList(servicoRepository.findAll());
-        tableView.setItems(servicosList);
+        servicosList.setAll(servicoRepository.findAll());  // Atualiza a lista com os serviços
+        configurarBuscaServicos();  // Configura a busca
     }
+
+    private void configurarBuscaServicos() {
+        filteredData = new FilteredList<>(servicosList, p -> true);
+
+        filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(servico -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true; // Se o campo de busca estiver vazio, mostra todos os serviços
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                // Verificando se o nome do serviço, descrição ou preço contém o termo de busca
+                boolean matchesNome = servico.getNomeServico().toLowerCase().contains(lowerCaseFilter);
+                boolean matchesDescricao = servico.getDescricao() != null && servico.getDescricao().toLowerCase().contains(lowerCaseFilter);
+                boolean matchesPreco = servico.getValorServico().toString().contains(newValue); // Comparando com o preço
+
+                // Retorna true se qualquer um dos campos for um match
+                return matchesNome || matchesDescricao || matchesPreco;
+            });
+        });
+
+        tableView.setItems(filteredData);  // Aplica a lista filtrada à tabela
+    }
+
+
 
     public void handleSuccessfulOperation(String message) {
         FeedbackManager.showFeedback(

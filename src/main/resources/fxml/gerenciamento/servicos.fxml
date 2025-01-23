@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -30,7 +31,10 @@
                </padding>
             </Button>
             <!-- Container para o popup -->
-            <HBox fx:id="feedbackContainer" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
+            <HBox fx:id="feedbackContainer" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+               <children>
+                  <TextField fx:id="filterField" />
+               </children></HBox>
          </children>
       </HBox>
       <TableView fx:id="tableView" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
