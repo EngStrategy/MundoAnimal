@@ -17,6 +17,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -57,8 +60,11 @@ public class MenuController implements Initializable {
 
     private Button activeButton; // Botão atualmente ativo
 
+    private static final Logger logger = LogManager.getLogger(MenuController.class);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        logger.info("Inicializando MenuController.");
         // Set up button actions
         sair_btn.setOnAction(event -> logout());
 
@@ -70,10 +76,12 @@ public class MenuController implements Initializable {
         configureButton(secretarios_btn, ScreenEnum.SECRETARIOS);
         configureButton(servicos_btn, ScreenEnum.SERVICOS);
         configureButton(clientes_btn, ScreenEnum.CLIENTES);
+        logger.info("Menu Controller inicializado com sucesso.");
     }
 
     public void updateUserInterface(Usuario usuario) {
         Platform.runLater(() -> {
+            logger.info("Atualizando a interface do usuário para: " + usuario.getNomeUsuario());
             userNameLabel.setText(usuario.getNomeUsuario());
             userTypeLabel.setText(usuario.getTipoUsuario() == TipoUsuario.SECRETARIO ? "Secretário(a)" : "Administrador(a)");
 
@@ -92,6 +100,7 @@ public class MenuController implements Initializable {
             Node animatedScreen = ScreenManagerHolder.getInstance().getScreen(screen);
             new FadeIn(animatedScreen).play();
             ScreenManagerHolder.getInstance().switchTo(screen);
+            logger.info("Tela " + screen + " carregada com sucesso.");
         });
     }
 
@@ -113,6 +122,7 @@ public class MenuController implements Initializable {
     }
 
     private void logout() {
+        logger.info("Iniciando o processo de logout.");
         // Cria um alerta de confirmação
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmação de Saída");
@@ -131,6 +141,7 @@ public class MenuController implements Initializable {
 
         // Verifica a escolha
         if (result.isPresent() && result.get() == ButtonType.OK) {
+            logger.info("Usuário confirmou o logout.");
             if (activeButton != null) {
                 activeButton.getStyleClass().remove("active");
             }
@@ -138,8 +149,10 @@ public class MenuController implements Initializable {
             SessionManager.setCurrentUser(null); // Limpa o usuário logado
             Node loginScreen = ScreenManagerHolder.getInstance().getScreen(ScreenEnum.LOGIN);
             new FadeIn(loginScreen).play();
+            logger.info("Usuário desconectado com sucesso e redirecionado para a tela de login.");
         } else {
             // Usuário cancelou a ação
+            logger.info("Usuário cancelou o processo de logout.");
             alert.close();
         }
     }

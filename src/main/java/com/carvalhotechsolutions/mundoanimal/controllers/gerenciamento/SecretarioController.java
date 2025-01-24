@@ -22,6 +22,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URL;
@@ -52,9 +54,12 @@ public class SecretarioController implements Initializable {
 
     private FilteredList<Secretario> filteredData;
 
+    private static final Logger logger = LogManager.getLogger(SecretarioController.class);
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        logger.info("Inicializando a tela do Secretário.");
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
 
         // Define a largura fixa da coluna de ação
@@ -75,12 +80,15 @@ public class SecretarioController implements Initializable {
         configurarColunaAcao();
         atualizarTableView();
         configurarBuscaClientes();
+        logger.info("Tela do Secretário inicializada com sucesso.");
     }
 
     public void atualizarTableView() {
+        logger.info("Atualizando a tabela de secretários.");
         secretariosList = FXCollections.observableArrayList(secretarioRepository.findAll());
         filteredData = new FilteredList<>(secretariosList, p -> true);
         tableView.setItems(filteredData);
+        logger.info("Tabela de secretários atualizada.");
     }
 
     private void configurarColunaAcao() {
@@ -103,12 +111,14 @@ public class SecretarioController implements Initializable {
                 // Configurar evento para deletar
                 deletarButton.setOnAction(event -> {
                     Secretario secretario = getTableView().getItems().get(getIndex());
+                    logger.info("Solicitação de exclusão de secretário com ID: " + secretario.getId());
                     abrirModalExcluir(secretario.getId());
                 });
 
                 // Configurar evento para editar
                 editarButton.setOnAction(event -> {
                     Secretario secretario = getTableView().getItems().get(getIndex());
+                    logger.info("Solicitação de edição de secretário com ID: " + secretario.getId());
                     abrirModalEditar(secretario.getId());
                 });
             }
@@ -127,6 +137,7 @@ public class SecretarioController implements Initializable {
 
     @FXML
     public void abrirModalCadastrarSecretario() {
+        logger.info("Abrindo modal para cadastrar novo secretário.");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalCriarSecretario.fxml"));
             Parent modalContent = loader.load();
@@ -144,8 +155,8 @@ public class SecretarioController implements Initializable {
             modalStage.showAndWait();
 
         } catch (IOException e) {
+            logger.error("Erro ao abrir o modal para cadastrar secretário: " + e.getMessage(), e);
             e.printStackTrace();
-            System.err.println("Erro ao abrir o modal: " + e.getMessage());
         }
     }
 
@@ -175,6 +186,7 @@ public class SecretarioController implements Initializable {
             atualizarTableView();
 
         } catch (IOException e) {
+            logger.error("Erro ao abrir o modal de edição do secretário: " + e.getMessage(), e);
             e.printStackTrace();
         }
     }
@@ -191,6 +203,7 @@ public class SecretarioController implements Initializable {
                 secretarioRepository.deleteById(secretarioId);
                 atualizarTableView(); // Atualizar tabela após exclusão
                 handleSuccessfulOperation("Secretário(a) removido(a) com sucesso!");
+                logger.info("Secretário(a) removido(a) com sucesso!");
             });
 
             // Configurar o Stage do modal
@@ -202,6 +215,7 @@ public class SecretarioController implements Initializable {
             modalStage.showAndWait();
 
         } catch (IOException e) {
+            logger.error("Erro ao abrir o modal de confirmação de remoção: " + e.getMessage(), e);
             e.printStackTrace();
         }
     }
@@ -225,6 +239,7 @@ public class SecretarioController implements Initializable {
                 message,
                 FeedbackManager.FeedbackType.SUCCESS
         );
+        logger.info("Operação bem-sucedida: " + message);
     }
 
     public void handleError(String message) {
@@ -233,6 +248,7 @@ public class SecretarioController implements Initializable {
                 message,
                 FeedbackManager.FeedbackType.ERROR
         );
+        logger.error("Erro: " + message);
     }
 
 }

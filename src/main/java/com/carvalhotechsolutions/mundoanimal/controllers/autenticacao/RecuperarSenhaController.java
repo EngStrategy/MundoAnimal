@@ -11,6 +11,8 @@ import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
@@ -21,6 +23,8 @@ public class RecuperarSenhaController {
 
     @FXML
     private TextField recovery_username_field;
+
+    private static final Logger logger = LogManager.getLogger(RecuperarSenhaController.class);
 
     // Método temporário, apenas para testar a troca de telas, não há lógica alguma aplicada
     @FXML
@@ -36,6 +40,7 @@ public class RecuperarSenhaController {
 
         if (cpf.isEmpty() || username.isEmpty()) {
             showAlert("Erro.", "Por favor preencha todos os campos.");
+            logger.warn("Campos vazios ao tentar recuperar senha: CPF ou nome de usuário.");
             return;
         }
 
@@ -49,6 +54,7 @@ public class RecuperarSenhaController {
 
             if (adminPadrao == null) {
                 showAlert("Erro", "Administrador padrão não encontrado no sistema.");
+                logger.info("Administrador padrão não encontrado no sistema.");
                 return;
             }
 
@@ -64,6 +70,7 @@ public class RecuperarSenhaController {
                 // Se for administrador, valida o CPF com o próprio admin padrão
                 if (!cpf.equals(admin.getCpf())) {
                     showAlert("Erro", "CPF inválido para o administrador.");
+                    logger.info("CPF inválido para o administrador {}. CPF informado: {}", username, cpf);
                     return;
                 }
                 usuario = admin;
@@ -78,12 +85,14 @@ public class RecuperarSenhaController {
 
                 if (secretario == null) {
                     showAlert("Erro", "Usuário não encontrado.");
+                    logger.info("Usuário não encontrado para o nome de usuário: {}", username);
                     return;
                 }
 
                 // Valida o CPF do secretário com o CPF do administrador padrão
                 if (!cpf.equals(adminPadrao.getCpf())) {
                     showAlert("Erro", "CPF inválido para recuperação de senha.");
+                    logger.info("CPF inválido para o secretário {}. CPF informado: {}", username, cpf);
                     return;
                 }
                 usuario = secretario;
@@ -95,6 +104,7 @@ public class RecuperarSenhaController {
 
         } catch (Exception e) {
             showAlert("Erro", "Erro ao buscar usuário: " + e.getMessage());
+            logger.error("Erro ao buscar usuário: {}", e.getMessage());
             e.printStackTrace();
         }
 

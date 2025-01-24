@@ -21,6 +21,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -49,6 +51,8 @@ public class ServicoController implements Initializable {
     @FXML
     private TextField filterField;
 
+    private static final Logger logger = LogManager.getLogger(ServicoController.class);
+
     private ServicoRepository servicoRepository = new ServicoRepository();
 
     private ObservableList<Servico> servicosList = FXCollections.observableArrayList();
@@ -57,6 +61,7 @@ public class ServicoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        logger.info("Inicializando servico");
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
 
         // Define a largura fixa da coluna de ação
@@ -79,6 +84,7 @@ public class ServicoController implements Initializable {
         configurarColunaValor();
         configurarColunaAcao();
         atualizarTableView();
+        logger.info("Serviço iniciada com sucesso");
     }
 
     private void configurarColunaAcao() {
@@ -160,7 +166,7 @@ public class ServicoController implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Erro ao abrir o modal: " + e.getMessage());
+            logger.error("Erro ao abrir modal cadastrar serviço");
         }
     }
 
@@ -190,6 +196,7 @@ public class ServicoController implements Initializable {
             atualizarTableView();
 
         } catch (IOException e) {
+            logger.error("Erro ao abrir Modal editar");
             e.printStackTrace();
         }
     }
@@ -217,6 +224,7 @@ public class ServicoController implements Initializable {
             modalStage.showAndWait();
 
         } catch (IOException e) {
+            logger.error("Erro ao abrir modal excluir");
             e.printStackTrace();
         }
     }
@@ -257,6 +265,7 @@ public class ServicoController implements Initializable {
                 message,
                 FeedbackManager.FeedbackType.SUCCESS
         );
+        logger.info("Operação realizada com sucesso: " + message);
     }
 
     public void handleError(String message) {
@@ -265,6 +274,7 @@ public class ServicoController implements Initializable {
                 message,
                 FeedbackManager.FeedbackType.ERROR
         );
+        logger.error("Erro: " + message);
     }
 }
 

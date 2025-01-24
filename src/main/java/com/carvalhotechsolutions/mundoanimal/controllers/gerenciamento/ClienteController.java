@@ -30,6 +30,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URL;
@@ -57,6 +59,8 @@ public class ClienteController implements Initializable {
     @FXML
     private TextField filterField;
 
+    private static final Logger logger = LogManager.getLogger(ClienteController.class);
+
     private ClienteRepository clienteRepository = new ClienteRepository();
 
     private ObservableList<Cliente> clientesList = FXCollections.observableArrayList();
@@ -65,6 +69,7 @@ public class ClienteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        logger.info("Inicializando a tabela de clientes");
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
 
         // Define a largura fixa da coluna de ação
@@ -118,22 +123,26 @@ public class ClienteController implements Initializable {
                 // Configurar evento para deletar
                 deletarButton.setOnAction(event -> {
                     Cliente cliente = getTableView().getItems().get(getIndex());
+                    logger.info("Tentando excluir o cliente com ID: " + cliente.getId());
                     abrirModalExcluir(cliente.getId());
                 });
 
                 // Configurar evento para editar
                 editarButton.setOnAction(event -> {
                     Cliente cliente = getTableView().getItems().get(getIndex());
+                    logger.info("Tentando editar o cliente com ID: " + cliente.getId());
                     abrirModalEditar(cliente.getId());
                 });
 
                 novoPetButton.setOnAction(event -> {
                     Cliente cliente = getTableView().getItems().get(getIndex());
+                    logger.info("Tentando adicionar um novo pet para o cliente com ID: " + cliente.getId());
                     abrirModalCadastrarPet(cliente.getId());
                 });
 
                 verPetsButton.setOnAction(event -> {
                     Cliente cliente = getTableView().getItems().get(getIndex());
+                    logger.info("Tentando visualizar os pets do cliente com ID: " + cliente.getId());
                     abrirPaginaVerPets(cliente);
                 });
             }
@@ -153,6 +162,7 @@ public class ClienteController implements Initializable {
     @FXML
     public void abrirModalCadastrarCliente() {
         try {
+            logger.info("Abrindo modal para cadastrar novo cliente.");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalCriarCliente.fxml"));
             Parent modalContent = loader.load();
 
@@ -170,12 +180,13 @@ public class ClienteController implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Erro ao abrir o modal: " + e.getMessage());
+            logger.error("Erro ao abrir o modal de cadastro: " + e.getMessage());
         }
     }
 
     private void abrirModalEditar(Long clienteId) {
         try {
+            logger.info("Abrindo modal para editar cliente com ID: " + clienteId);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalCriarCliente.fxml"));
             Parent modalContent = loader.load();
 
@@ -200,11 +211,13 @@ public class ClienteController implements Initializable {
             atualizarTableView();
         } catch (IOException e) {
             e.printStackTrace();
+            logger.error("Erro ao abrir o modal de edição: " + e.getMessage());
         }
     }
 
     private void abrirModalExcluir(Long clienteId) {
         try {
+            logger.info("Abrindo modal para confirmar exclusão do cliente com ID: " + clienteId);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalConfirmarRemocao.fxml"));
             Parent modalContent = loader.load();
 
@@ -214,6 +227,7 @@ public class ClienteController implements Initializable {
             modalController.setConfirmCallback(() -> {
                 clienteRepository.deleteById(clienteId);
                 atualizarTableView(); // Atualizar tabela após exclusão
+                logger.info("Cliente com ID " + clienteId + " removido com sucesso.");
                 handleSuccessfulOperation("Cliente removido com sucesso!");
             });
 
@@ -227,11 +241,13 @@ public class ClienteController implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
+            logger.error("Erro ao abrir o modal de confirmação de remoção: " + e.getMessage());
         }
     }
 
     public void abrirModalCadastrarPet(Long clienteId) {
         try {
+            logger.info("Abrindo modal para cadastrar pet para o cliente com ID: " + clienteId);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalCriarPet.fxml"));
             Parent modalContent = loader.load();
 
@@ -252,12 +268,13 @@ public class ClienteController implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Erro ao abrir o modal: " + e.getMessage());
+            logger.error("Erro ao abrir o modal de cadastro de pet: " + e.getMessage());
         }
     }
 
     private void abrirPaginaVerPets(Cliente cliente) {
         if (cliente.getPets().isEmpty()) {
+            logger.warn("O cliente com ID " + cliente.getId() + " não possui pets cadastrados.");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Informação");
             alert.setHeaderText(null);
@@ -275,6 +292,7 @@ public class ClienteController implements Initializable {
     }
 
     public void atualizarTableView() {
+        logger.info("Atualizando a lista de clientes na tabela.");logger.info("Atualizando a lista de clientes na tabela.");
         clientesList.setAll(clienteRepository.findAll());
     }
 
@@ -306,6 +324,7 @@ public class ClienteController implements Initializable {
 
 
     public void handleSuccessfulOperation(String message) {
+        logger.info("Operação bem-sucedida: " + message);
         FeedbackManager.showFeedback(
                 feedbackContainer,
                 message,
@@ -314,6 +333,7 @@ public class ClienteController implements Initializable {
     }
 
     public void handleError(String message) {
+        logger.error("Erro: " + message);
         FeedbackManager.showFeedback(
                 feedbackContainer,
                 message,

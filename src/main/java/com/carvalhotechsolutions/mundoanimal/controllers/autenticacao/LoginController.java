@@ -12,6 +12,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class LoginController {
     @FXML
@@ -20,6 +22,8 @@ public class LoginController {
     @FXML
     private PasswordField login_password_field;
 
+    private static final Logger logger = LogManager.getLogger(LoginController.class);
+
     @FXML
     private void handleLogin(ActionEvent event) {
         String username = login_user_field.getText();
@@ -27,6 +31,7 @@ public class LoginController {
 
         if (username.isEmpty() || password.isEmpty()) {
             showAlert("Erro", "Por favor, preencha todos os campos.");
+            logger.warn("Tentativa de login com campos vazios.");
             return;
         }
 
@@ -52,17 +57,20 @@ public class LoginController {
 
             if (usuario == null) {
                 showAlert("Erro", "Usuário não encontrado.");
+                logger.info("Usuário não encontrado");
                 return;
             }
 
             // Verifica a senha
             if (!PasswordManager.checkPassword(password, usuario.getSenha())) {
                 showAlert("Erro", "Senha incorreta.");
+                logger.info("Senha incorreta");
                 return;
             }
 
             // Login bem-sucedido
             SessionManager.setCurrentUser(usuario);
+            logger.info("Login bem-sucedido para o usuário: {}", username);
 
 //            PopupManager.showLoginSuccessPopup(ScreenManagerHolder.getInstance().getStage());
 
@@ -73,9 +81,11 @@ public class LoginController {
             Node menuScreen = ScreenManagerHolder.getInstance().getScreen(ScreenEnum.MENU);
             new FadeIn(menuScreen).play();
             ScreenManagerHolder.getInstance().switchTo(ScreenEnum.MENU);
+            logger.info("Tela de menu carregada com sucesso.");
 
         } catch (Exception e) {
             showAlert("Erro", "Ocorreu um erro ao verificar as credenciais: " + e.getMessage());
+            logger.error("Erro ao verificar as credenciais: {}", e.getMessage());
             e.printStackTrace();
         }
     }

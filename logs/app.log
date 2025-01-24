@@ -1,0 +1,126 @@
+2025-01-24 10:35:29 DEBUG logging - Logging Provider: org.jboss.logging.Log4j2LoggerProvider
+2025-01-24 10:35:29 INFO  LogHelper - HHH000204: Processing PersistenceUnitInfo [name: database]
+2025-01-24 10:35:29 INFO  Version - HHH000412: Hibernate ORM core version [WORKING]
+2025-01-24 10:35:29 INFO  Environment - HHH000406: Using bytecode reflection optimizer
+2025-01-24 10:35:29 WARN  pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-24 10:35:29 INFO  pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2025-01-24 10:35:29 INFO  pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/mundoanimalteste]
+2025-01-24 10:35:29 INFO  pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+2025-01-24 10:35:29 INFO  pooling - HHH10001003: Autocommit mode: false
+2025-01-24 10:35:29 INFO  pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-01-24 10:35:30 INFO  BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-01-24 10:35:30 INFO  JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-01-24 10:35:30 INFO  access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@8e11125] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-24 10:38:10 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Iniciando aplicação JavaFX...
+2025-01-24 10:38:10 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: database]
+2025-01-24 10:38:10 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version [WORKING]
+2025-01-24 10:38:10 [JavaFX Application Thread] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2025-01-24 10:38:10 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-24 10:38:10 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2025-01-24 10:38:10 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/mundoanimalteste]
+2025-01-24 10:38:10 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+2025-01-24 10:38:10 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-01-24 10:38:10 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-01-24 10:38:10 [JavaFX Application Thread] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-01-24 10:38:11 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-01-24 10:38:11 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@77571a8f] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-24 10:38:12 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Banco de dados verificado.
+2025-01-24 10:38:15 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Tela de login carregada.
+2025-01-24 10:38:15 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Stage exibido.
+2025-01-24 10:54:30 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Iniciando aplicação JavaFX...
+2025-01-24 10:54:30 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: database]
+2025-01-24 10:54:31 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version [WORKING]
+2025-01-24 10:54:31 [JavaFX Application Thread] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2025-01-24 10:54:31 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-24 10:54:31 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2025-01-24 10:54:31 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/mundoanimalteste]
+2025-01-24 10:54:31 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+2025-01-24 10:54:31 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-01-24 10:54:31 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-01-24 10:54:31 [JavaFX Application Thread] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-01-24 10:54:32 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-01-24 10:54:32 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@219acf99] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-24 10:54:32 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Banco de dados verificado.
+2025-01-24 10:54:35 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.AnimalController - Inicializando a tela de animais.
+2025-01-24 10:54:35 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.AnimalController - Tela de animais inicializada com sucesso.
+2025-01-24 10:54:35 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Tela de login carregada.
+2025-01-24 10:54:35 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Stage exibido.
+2025-01-24 10:54:57 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.autenticacao.LoginController - Login bem-sucedido para o usuário: admin
+2025-01-24 10:54:57 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.autenticacao.LoginController - Tela de menu carregada com sucesso.
+2025-01-24 10:56:01 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.autenticacao.RedefinirSenhaController - Senha redefinida com sucesso para o usuário: renan
+2025-01-24 10:57:04 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Iniciando aplicação JavaFX...
+2025-01-24 10:57:04 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: database]
+2025-01-24 10:57:04 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version [WORKING]
+2025-01-24 10:57:04 [JavaFX Application Thread] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2025-01-24 10:57:04 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-24 10:57:04 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2025-01-24 10:57:04 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/mundoanimalteste]
+2025-01-24 10:57:04 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+2025-01-24 10:57:04 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-01-24 10:57:04 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-01-24 10:57:05 [JavaFX Application Thread] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-01-24 10:57:06 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-01-24 10:57:06 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@337c3be3] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-24 10:57:06 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Banco de dados verificado.
+2025-01-24 10:57:09 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.AnimalController - Inicializando a tela de animais.
+2025-01-24 10:57:09 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.AnimalController - Tela de animais inicializada com sucesso.
+2025-01-24 10:57:09 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Tela de login carregada.
+2025-01-24 10:57:09 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Stage exibido.
+2025-01-24 10:57:13 [JavaFX Application Thread] WARN  com.carvalhotechsolutions.mundoanimal.controllers.autenticacao.LoginController - Tentativa de login com campos vazios.
+2025-01-24 10:57:21 [JavaFX Application Thread] WARN  com.carvalhotechsolutions.mundoanimal.controllers.autenticacao.LoginController - Tentativa de login com campos vazios.
+2025-01-24 10:57:25 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.autenticacao.LoginController - Login bem-sucedido para o usuário: admin
+2025-01-24 10:57:25 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.autenticacao.LoginController - Tela de menu carregada com sucesso.
+2025-01-24 11:01:14 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Iniciando aplicação JavaFX...
+2025-01-24 11:01:14 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: database]
+2025-01-24 11:01:14 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version [WORKING]
+2025-01-24 11:01:14 [JavaFX Application Thread] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2025-01-24 11:01:14 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-24 11:01:14 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2025-01-24 11:01:14 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/mundoanimalteste]
+2025-01-24 11:01:14 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+2025-01-24 11:01:14 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-01-24 11:01:14 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-01-24 11:01:15 [JavaFX Application Thread] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-01-24 11:01:16 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-01-24 11:01:16 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@53cde197] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-24 11:01:16 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Banco de dados verificado.
+2025-01-24 11:01:19 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.AnimalController - Inicializando a tela de animais.
+2025-01-24 11:01:19 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.AnimalController - Tela de animais inicializada com sucesso.
+2025-01-24 11:01:19 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Tela de login carregada.
+2025-01-24 11:01:19 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Stage exibido.
+2025-01-24 11:01:24 [JavaFX Application Thread] WARN  com.carvalhotechsolutions.mundoanimal.controllers.autenticacao.LoginController - Tentativa de login com campos vazios.
+2025-01-24 11:01:29 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.autenticacao.LoginController - Login bem-sucedido para o usuário: admin
+2025-01-24 11:01:29 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.autenticacao.LoginController - Tela de menu carregada com sucesso.
+2025-01-24 11:20:23 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Iniciando aplicação JavaFX...
+2025-01-24 11:20:23 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: database]
+2025-01-24 11:20:23 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version [WORKING]
+2025-01-24 11:20:23 [JavaFX Application Thread] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2025-01-24 11:20:24 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-01-24 11:20:24 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2025-01-24 11:20:24 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/mundoanimalteste]
+2025-01-24 11:20:24 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+2025-01-24 11:20:24 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-01-24 11:20:24 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-01-24 11:20:24 [JavaFX Application Thread] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2025-01-24 11:20:25 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-01-24 11:20:25 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@28c7b695] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-01-24 11:20:25 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Banco de dados verificado.
+2025-01-24 11:20:28 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.MenuController - Inicializando MenuController.
+2025-01-24 11:20:28 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.MenuController - Menu Controller inicializado com sucesso.
+2025-01-24 11:20:28 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.SecretarioController - Inicializando a tela do Secretário.
+2025-01-24 11:20:28 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.SecretarioController - Atualizando a tabela de secretários.
+2025-01-24 11:20:28 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.SecretarioController - Tabela de secretários atualizada.
+2025-01-24 11:20:28 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.SecretarioController - Tela do Secretário inicializada com sucesso.
+2025-01-24 11:20:28 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.ServicoController - Inicializando servico
+2025-01-24 11:20:28 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.ServicoController - Serviço iniciada com sucesso
+2025-01-24 11:20:28 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.ClienteController - Inicializando a tabela de clientes
+2025-01-24 11:20:28 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.ClienteController - Atualizando a lista de clientes na tabela.
+2025-01-24 11:20:28 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.ClienteController - Atualizando a lista de clientes na tabela.
+2025-01-24 11:20:28 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.AnimalController - Inicializando a tela de animais.
+2025-01-24 11:20:28 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.AnimalController - Tela de animais inicializada com sucesso.
+2025-01-24 11:20:28 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Tela de login carregada.
+2025-01-24 11:20:28 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.Main - Stage exibido.
+2025-01-24 11:20:40 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.autenticacao.LoginController - Login bem-sucedido para o usuário: admin
+2025-01-24 11:20:40 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.autenticacao.LoginController - Tela de menu carregada com sucesso.
+2025-01-24 11:20:40 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.MenuController - Atualizando a interface do usuário para: admin
+2025-01-24 11:20:43 [JavaFX Application Thread] INFO  com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.MenuController - Tela CLIENTES carregada com sucesso.

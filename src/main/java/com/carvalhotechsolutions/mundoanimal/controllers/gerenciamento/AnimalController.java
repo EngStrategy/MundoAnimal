@@ -30,6 +30,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URL;
@@ -51,6 +53,8 @@ public class AnimalController implements Initializable {
     @FXML
     private TableColumn<Animal, Void> acaoColumn;
 
+    private static final Logger logger = LogManager.getLogger(AnimalController.class);
+
     private Cliente cliente; // Dono dos pets que serão exibidos na tabela
 
     private ObservableList<Animal> petsList = FXCollections.observableArrayList();
@@ -61,6 +65,7 @@ public class AnimalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        logger.info("Inicializando a tela de animais.");
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
 
         // Define a largura fixa da coluna de ação
@@ -81,6 +86,7 @@ public class AnimalController implements Initializable {
 
         // Configurar botões da coluna de ações
         configurarColunaAcao();
+        logger.info("Tela de animais inicializada com sucesso.");
     }
 
     private void configurarColunaAcao() {
@@ -107,17 +113,20 @@ public class AnimalController implements Initializable {
                 // Configurar evento para deletar
                 deletarButton.setOnAction(event -> {
                     Animal animal = getTableView().getItems().get(getIndex());
+                    logger.info("Iniciando exclusão do pet com ID: {}", animal.getId());
                     abrirModalExcluir(animal.getId());
                 });
 
                 // Configurar evento para editar
                 editarButton.setOnAction(event -> {
                     Animal animal = getTableView().getItems().get(getIndex());
+                    logger.info("Iniciando edição do pet com ID: {}", animal.getId());
                     abrirModalEditar(animal.getId());
                 });
 
                 detalhesButton.setOnAction(event -> {
                     Animal animal = getTableView().getItems().get(getIndex());
+                    logger.info("Visualizando detalhes do pet com ID: {}", animal.getId());
                     abrirModalDetalhes(animal.getId());
                 });
             }
@@ -156,6 +165,7 @@ public class AnimalController implements Initializable {
             modalStage.setResizable(false);
             modalStage.showAndWait();
         } catch (IOException e) {
+            logger.error("Erro ao abrir modal de detalhes do pet: {}", e.getMessage());
             e.printStackTrace();
         }
     }
@@ -191,6 +201,7 @@ public class AnimalController implements Initializable {
             atualizarTableView();
 
         } catch (IOException e) {
+            logger.error("Erro ao abrir modal de edição do pet: {}", e.getMessage());
             e.printStackTrace();
         }
     }
@@ -224,6 +235,7 @@ public class AnimalController implements Initializable {
             modalStage.showAndWait();
 
         } catch (IOException e) {
+            logger.error("Erro ao abrir modal de confirmação de exclusão do pet: {}", e.getMessage());
             e.printStackTrace();
         }
     }
@@ -243,6 +255,7 @@ public class AnimalController implements Initializable {
     }
 
     public void atualizarTableView() {
+        logger.info("Atualizando a tabela de animais.");
         // Limpa a lista atual
         petsList.clear();
         // Adiciona os pets atualizados
@@ -252,6 +265,7 @@ public class AnimalController implements Initializable {
     }
 
     public void handleSuccessfulOperation(String message) {
+        logger.info("Operação bem-sucedida: {}", message);
         FeedbackManager.showFeedback(
                 feedbackContainer,
                 message,
@@ -260,6 +274,7 @@ public class AnimalController implements Initializable {
     }
 
     public void handleError(String message) {
+        logger.error("Erro na operação: {}", message);
         FeedbackManager.showFeedback(
                 feedbackContainer,
                 message,
