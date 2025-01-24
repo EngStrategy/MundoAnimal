@@ -27,6 +27,7 @@ root {
     -fx-background-color: transparent;
     -fx-border-color: #CCCCCC;
     -fx-border-radius: 5px;
+    -fx-background-insets: 0;
 }
 
 .text-area .content {
