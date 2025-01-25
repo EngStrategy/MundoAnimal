@@ -79,7 +79,7 @@
                 <Insets left="30.0" right="30.0" />
             </padding>
         </HBox>
-        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="610.0" spacing="20.0" style="-fx-border-color: transparent transparent #cccccc transparent;">
+        <HBox fx:id="lastRegisterContainer" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="610.0" spacing="20.0">
             <children>
                 <VBox alignment="BOTTOM_LEFT" prefHeight="76.0" prefWidth="556.0" spacing="5.0">
                     <children>
@@ -94,12 +94,41 @@
                 </VBox>
             </children>
             <padding>
-                <Insets bottom="20.0" left="30.0" right="30.0" />
+                <Insets left="30.0" right="30.0" />
             </padding>
         </HBox>
+      <HBox fx:id="endServiceContainer" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="610.0" spacing="20.0" style="-fx-border-color: transparent transparent #ccc transparent;">
+         <children>
+            <VBox alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="265.0" spacing="5.0">
+               <children>
+                  <TextFlow>
+                     <children>
+                        <Text styleClass="modal_label" text="Atendimento " />
+                        <Text style="-fx-font-size: 18px; -fx-fill: red; -fx-font-weight: 600" text="*" />
+                     </children>
+                  </TextFlow>
+                  <TextField fx:id="create_agendamento_responsavel_field" prefHeight="49.0" prefWidth="265.0" promptText="Nome de quem atendeu" styleClass="default_text_input" />
+               </children>
+            </VBox>
+            <VBox alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="265.0" spacing="5.0">
+               <children>
+                  <TextFlow>
+                     <children>
+                        <Text styleClass="modal_label" text="Horario de saída " />
+                        <Text style="-fx-font-size: 18px; -fx-fill: red; -fx-font-weight: 600" text="*" />
+                     </children>
+                  </TextFlow>
+                  <ComboBox fx:id="create_agendamento_depTime_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="265.0" promptText="Selecione uma opção" styleClass="default_text_input" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="30.0" right="30.0" />
+         </padding>
+      </HBox>
         <HBox alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="610.0">
             <children>
-                <Button fx:id="actionButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cadastrarAgendamento" prefHeight="34.0" prefWidth="105.0" styleClass="modal_btn" text="Cadastrar" />
+                <Button fx:id="actionButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cadastrarAgendamento" prefHeight="34.0" prefWidth="105.0" styleClass="modal_btn" text="Finalizar" />
             </children>
             <VBox.margin>
                 <Insets left="30.0" right="30.0" />

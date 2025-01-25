@@ -1,5 +1,6 @@
 package com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento;
 
+import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalConfirmarRemocaoController;
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarAgendamentoController;
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarPetController;
 import com.carvalhotechsolutions.mundoanimal.model.Agendamento;
@@ -66,10 +67,10 @@ public class AgendamentoController implements Initializable {
         DoubleBinding larguraDisponivel = tableView.widthProperty().subtract(354);
 
         // Configura as outras colunas para se redimensionarem proporcionalmente
-        servicoColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.20));      // 25% do espaço restante
-        horarioColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.40)); // 25% do espaço restante
-        petColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.20));     // 25% do espaço restante
-        clienteColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.20));     // 25% do espaço restante
+        servicoColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.22));      // 22% do espaço restante
+        horarioColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.34)); // 34% do espaço restante
+        petColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.22));     // 22% do espaço restante
+        clienteColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.22));     // 22% do espaço restante
 
         servicoColumn.setCellValueFactory(new PropertyValueFactory<>("servico"));
         horarioColumn.setCellValueFactory(new PropertyValueFactory<>("dataHoraFormatada"));
@@ -102,10 +103,10 @@ public class AgendamentoController implements Initializable {
                 container.setAlignment(Pos.CENTER);
 
                 // Configurar evento para deletar
-//                cancelarButton.setOnAction(event -> {
-//                    Agendamento agendamento = getTableView().getItems().get(getIndex());
-//                    abrirModalExcluir(agendamento.getId());
-//                });
+                cancelarButton.setOnAction(event -> {
+                    Agendamento agendamento = getTableView().getItems().get(getIndex());
+                    abrirModalCancelar(agendamento.getId());
+                });
 
                 // Configurar evento para editar
 //                editarButton.setOnAction(event -> {
@@ -131,6 +132,34 @@ public class AgendamentoController implements Initializable {
         });
     }
 
+    private void abrirModalCancelar(Long agendamentoId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalConfirmarRemocao.fxml"));
+            Parent modalContent = loader.load();
+
+            // Configurar o controlador do modal
+            ModalConfirmarRemocaoController modalController = loader.getController();
+            modalController.setRegisterId(agendamentoId);
+            modalController.configurarParaCancelamento();
+            modalController.setConfirmCallback(() -> {
+                agendamentoRepository.deleteById(agendamentoId);
+                atualizarTableView(); // Atualizar tabela após exclusão
+                handleSuccessfulOperation("Agendamento cancelado com sucesso!");
+            });
+
+            // Configurar o Stage do modal
+            Stage modalStage = new Stage();
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.setTitle("Confirmar Cancelamento");
+            modalStage.setScene(new Scene(modalContent));
+            modalStage.setResizable(false);
+            modalStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void abrirModalCadastrarAgendamento() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalCriarAgendamento.fxml"));
@@ -139,6 +168,8 @@ public class AgendamentoController implements Initializable {
             // Configurar o controlador do modal
             ModalCriarAgendamentoController modalController = loader.getController();
             modalController.setAgendamentoController(this); // Passa referência do controlador principal
+
+            modalController.configurarParaCadastro();
 
             // Configurar o Stage do modal
             Stage modalStage = new Stage();

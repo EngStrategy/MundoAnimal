@@ -11,7 +11,9 @@ import com.carvalhotechsolutions.mundoanimal.repositories.ClienteRepository;
 import com.carvalhotechsolutions.mundoanimal.repositories.ServicoRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -41,6 +43,14 @@ public class ModalCriarAgendamentoController implements Initializable {
 
     @FXML
     private ComboBox<Animal> create_agendamento_pet_field;
+
+    @FXML Button actionButton;
+
+    @FXML
+    private HBox endServiceContainer;
+
+    @FXML
+    private HBox lastRegisterContainer;
 
     private AgendamentoController agendamentoController;
 
@@ -99,6 +109,7 @@ public class ModalCriarAgendamentoController implements Initializable {
         } catch (Exception e) {
             // Tratar erro (pode ser um alert)
             e.printStackTrace();
+            agendamentoController.handleError("Erro ao cadastrar agendamento!");
         }
     }
 
@@ -237,6 +248,14 @@ public class ModalCriarAgendamentoController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(mensagem);
         alert.showAndWait();
+    }
+
+    public void configurarParaCadastro() {
+        endServiceContainer.setVisible(false);
+        endServiceContainer.setManaged(false);
+        lastRegisterContainer.setStyle("-fx-border-color: transparent transparent #cccccc transparent;");
+        lastRegisterContainer.setPadding(new Insets(0, 30, 20, 30));
+        actionButton.setText("Cadastrar");
     }
 
     public void setAgendamentoController(AgendamentoController agendamentoController) {
