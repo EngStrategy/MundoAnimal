@@ -9,6 +9,7 @@ module com.carvalhotechsolutions.mundoanimal {
     requires jbcrypt;
     requires animatefx;
     requires fontawesomefx;
+    requires java.desktop;
 
     // Export and open the controllers package
 
@@ -27,4 +28,6 @@ module com.carvalhotechsolutions.mundoanimal {
     opens com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento to javafx.fxml;
     exports com.carvalhotechsolutions.mundoanimal.database;
     opens com.carvalhotechsolutions.mundoanimal.database to javafx.fxml;
+    exports com.carvalhotechsolutions.mundoanimal.utils;
+    opens com.carvalhotechsolutions.mundoanimal.utils to javafx.fxml;
 }
