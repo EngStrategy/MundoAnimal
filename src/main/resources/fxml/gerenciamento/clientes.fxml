@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxWidth="Infinity" spacing="37.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.ClienteController">
+<VBox prefWidth="900.0" spacing="37.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.ClienteController">
     <padding>
-        <Insets bottom="46.0" left="37.0" right="37.0" top="37.0" />
+        <Insets bottom="37.0" left="37.0" right="37.0" top="37.0" />
     </padding>
     <children>
-        <HBox alignment="CENTER_LEFT" minHeight="62.0">
+        <HBox alignment="CENTER_LEFT">
             <children>
                 <Button mnemonicParsing="false" onAction="#abrirModalCadastrarCliente" styleClass="default_btn">
                     <graphic>
@@ -31,10 +31,11 @@
                     </padding>
                 </Button>
                 <!-- Container para o popup -->
-                <HBox fx:id="feedbackContainer" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-               <children>
-                  <TextField fx:id="filterField" />
-               </children></HBox>
+                <HBox fx:id="feedbackContainer" alignment="CENTER_RIGHT" maxHeight="-Infinity" spacing="15.0" HBox.hgrow="ALWAYS">
+                   <children>
+                      <TextField fx:id="filterField" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="47.0" prefWidth="200.0" promptText="🔍 Buscar..." styleClass="search_input" />
+                   </children>
+                </HBox>
             </children>
         </HBox>
         <TableView fx:id="tableView" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
