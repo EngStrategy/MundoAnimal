@@ -2,8 +2,10 @@ package com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento;
 
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalConfirmarRemocaoController;
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarAgendamentoController;
+import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarClienteController;
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarPetController;
 import com.carvalhotechsolutions.mundoanimal.model.Agendamento;
+import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.repositories.AgendamentoRepository;
 import com.carvalhotechsolutions.mundoanimal.utils.FeedbackManager;
 import javafx.beans.binding.DoubleBinding;
@@ -109,15 +111,16 @@ public class AgendamentoController implements Initializable {
                 });
 
                 // Configurar evento para editar
-//                editarButton.setOnAction(event -> {
-//                    Agendamento agendamento = getTableView().getItems().get(getIndex());
-//                    abrirModalEditar(agendamento.getId());
-//                });
+                editarButton.setOnAction(event -> {
+                    Agendamento agendamento = getTableView().getItems().get(getIndex());
+                    abrirModalEditar(agendamento.getId());
+                });
 
-//                finalizarButton.setOnAction(event -> {
-//                    Agendamento agendamento = getTableView().getItems().get(getIndex());
-//                    abrirModalCadastrarPet(agendamento.getId());
-//                });
+                // Configurar evento para finalizar
+                finalizarButton.setOnAction(event -> {
+                    Agendamento agendamento = getTableView().getItems().get(getIndex());
+                    abrirModalFinalizar(agendamento.getId());
+                });
             }
 
             @Override
@@ -130,6 +133,35 @@ public class AgendamentoController implements Initializable {
                 }
             }
         });
+    }
+
+    private void abrirModalEditar(Long agendamentoId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalCriarAgendamento.fxml"));
+            Parent modalContent = loader.load();
+
+            // Obter o controlador do modal
+            ModalCriarAgendamentoController modalController = loader.getController();
+            modalController.setAgendamentoController(this); // Passa referência do controlador principal
+
+            // Buscar o serviço pelo ID
+            Agendamento agendamento = agendamentoRepository.findById(agendamentoId);
+
+            // Configurar o modal para edição
+            modalController.configurarParaEdicao(agendamento);
+
+            // Configurar o Stage do modal
+            Stage modalStage = new Stage();
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.setTitle("Editar Agendamento");
+            modalStage.setScene(new Scene(modalContent));
+            modalStage.setResizable(false);
+            modalStage.showAndWait();
+
+            atualizarTableView();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void abrirModalCancelar(Long agendamentoId) {
@@ -155,6 +187,35 @@ public class AgendamentoController implements Initializable {
             modalStage.setResizable(false);
             modalStage.showAndWait();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void abrirModalFinalizar(Long agendamentoId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalCriarAgendamento.fxml"));
+            Parent modalContent = loader.load();
+
+            // Obter o controlador do modal
+            ModalCriarAgendamentoController modalController = loader.getController();
+            modalController.setAgendamentoController(this); // Passa referência do controlador principal
+
+            // Buscar o serviço pelo ID
+            Agendamento agendamento = agendamentoRepository.findById(agendamentoId);
+
+            // Configurar o modal para edição
+            modalController.configurarParaFinalizar(agendamento);
+
+            // Configurar o Stage do modal
+            Stage modalStage = new Stage();
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.setTitle("Editar Serviço");
+            modalStage.setScene(new Scene(modalContent));
+            modalStage.setResizable(false);
+            modalStage.showAndWait();
+
+            atualizarTableView();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -212,7 +273,7 @@ public class AgendamentoController implements Initializable {
                 agendamento.getHorarioAgendamento()
         );
 
-        if (!horarioDisponivel) {
+        if (!horarioDisponivel && agendamento.getId() == null) {
             throw new RuntimeException("Horário já está ocupado");
         }
 
@@ -222,5 +283,10 @@ public class AgendamentoController implements Initializable {
     private boolean verificarDisponibilidadeHorario(LocalDate data, LocalTime horario) {
         // Lógica para verificar se já existe agendamento no mesmo horário
         return agendamentoRepository.verificarDisponibilidadeHorario(data, horario);
+    }
+
+    public void finalizarAgendamento(Long id) {
+        agendamentoRepository.deleteById(id);
+        handleSuccessfulOperation("Agendamento finalizado com sucesso!");
     }
 }

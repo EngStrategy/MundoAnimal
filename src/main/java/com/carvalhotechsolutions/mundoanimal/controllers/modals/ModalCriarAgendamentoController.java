@@ -30,6 +30,9 @@ public class ModalCriarAgendamentoController implements Initializable {
     private TextField agendamento_id_field;
 
     @FXML
+    private TextField finish;
+
+    @FXML
     private DatePicker create_agendamento_date_field;
 
     @FXML
@@ -43,6 +46,12 @@ public class ModalCriarAgendamentoController implements Initializable {
 
     @FXML
     private ComboBox<Animal> create_agendamento_pet_field;
+
+    @FXML
+    private TextField create_agendamento_responsavel_field;
+
+    @FXML
+    private ComboBox<String> create_agendamento_depTime_field;
 
     @FXML Button actionButton;
 
@@ -60,42 +69,59 @@ public class ModalCriarAgendamentoController implements Initializable {
 
     private AgendamentoRepository agendamentoRepository = new AgendamentoRepository();
 
+    private Agendamento agendamentoAtual; // em caso de ser edição ou finalizacao
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         configurarCampoData();
         configurarHorariosDisponiveis();
         carregarServicos();
         carregarClientes();
+        gerarHorarios();
     }
 
     @FXML
     public void cadastrarAgendamento() {
-
-        boolean isEdicao = agendamento_id_field.getText() != null && !agendamento_id_field.getText().isEmpty();
-
         // Validações
         if (!validarCampos()) {
             return;
         }
-
-        // Criar novo agendamento
-        Agendamento novoAgendamento = new Agendamento();
-        novoAgendamento.setDataAgendamento(create_agendamento_date_field.getValue());
-        novoAgendamento.setHorarioAgendamento(
-                LocalTime.parse(create_agendamento_time_field.getValue(),
-                        DateTimeFormatter.ofPattern("HH:mm"))
-        );
-        novoAgendamento.setServico(create_agendamento_servico_field.getValue());
-        novoAgendamento.setCliente(create_agendamento_client_field.getValue());
-        novoAgendamento.setAnimal(create_agendamento_pet_field.getValue());
 
         if (agendamentoController == null) {
             System.out.println("ERRO: agendamentoController é nulo!"); // Log para debug
             return;
         }
 
+        if(finish.getText() != null && !finish.getText().isEmpty()) {
+            agendamentoController.finalizarAgendamento(agendamentoAtual.getId());
+            fecharModal();
+            return;
+        }
+
         try {
-            agendamentoController.salvarAgendamento(novoAgendamento);
+            Agendamento agendamento;
+            boolean isEdicao = agendamento_id_field.getText() != null && !agendamento_id_field.getText().isEmpty();
+
+            if(isEdicao) {
+                Long id = Long.parseLong(agendamento_id_field.getText());
+                agendamento = agendamentoRepository.findById(id);
+                System.out.println("Editando cliente com ID: " + id);
+            } else {
+                agendamento = new Agendamento();
+                System.out.println("Criando novo cliente");
+            }
+
+            // Criar novo agendamento
+            agendamento.setDataAgendamento(create_agendamento_date_field.getValue());
+            agendamento.setHorarioAgendamento(
+                    LocalTime.parse(create_agendamento_time_field.getValue(),
+                            DateTimeFormatter.ofPattern("HH:mm"))
+            );
+            agendamento.setServico(create_agendamento_servico_field.getValue());
+            agendamento.setCliente(create_agendamento_client_field.getValue());
+            agendamento.setAnimal(create_agendamento_pet_field.getValue());
+
+            agendamentoController.salvarAgendamento(agendamento);
             agendamentoController.atualizarTableView();
 
             String mensagem = isEdicao ?
@@ -107,9 +133,8 @@ public class ModalCriarAgendamentoController implements Initializable {
 
             fecharModal();
         } catch (Exception e) {
-            // Tratar erro (pode ser um alert)
             e.printStackTrace();
-            agendamentoController.handleError("Erro ao cadastrar agendamento!");
+            agendamentoController.handleError("Ocorreu um erro inesperado!");
         }
     }
 
@@ -133,6 +158,19 @@ public class ModalCriarAgendamentoController implements Initializable {
         List<String> horariosDisponiveis = gerarHorariosDisponiveis(data, agendamentosNaData);
 
         create_agendamento_time_field.getItems().addAll(horariosDisponiveis);
+    }
+
+    private void gerarHorarios() {
+        List<String> horarios = new ArrayList<>();
+        LocalTime inicio = LocalTime.of(6, 0);
+        LocalTime fim = LocalTime.of(20, 0);
+
+        while (inicio.isBefore(fim.plusMinutes(1))) {
+            horarios.add(inicio.format(DateTimeFormatter.ofPattern("HH:mm")));
+            inicio = inicio.plusMinutes(15);
+        }
+
+        create_agendamento_depTime_field.getItems().addAll(horarios);
     }
 
     private List<String> gerarHorariosDisponiveis(LocalDate data, List<Agendamento> agendamentosExistentes) {
@@ -260,5 +298,45 @@ public class ModalCriarAgendamentoController implements Initializable {
 
     public void setAgendamentoController(AgendamentoController agendamentoController) {
         this.agendamentoController = agendamentoController;
+    }
+
+    public void configurarParaEdicao(Agendamento agendamento) {
+        this.agendamentoAtual = agendamento;
+        agendamento_id_field.setText(agendamento.getId().toString()); // Preencher o campo de ID invisível
+
+        configurarParaCadastro();
+        actionButton.setText("Atualizar");
+
+        // populando campos do formulario com dados atuais do agendamento
+        create_agendamento_date_field.setValue(agendamento.getDataAgendamento());
+        create_agendamento_time_field.setValue(
+                agendamento.getHorarioAgendamento().format(DateTimeFormatter.ofPattern("HH:mm"))
+        );
+        create_agendamento_servico_field.setValue(agendamento.getServico());
+        create_agendamento_client_field.setValue(agendamento.getCliente());
+        create_agendamento_pet_field.setValue(agendamento.getAnimal());
+    }
+
+    public void configurarParaFinalizar(Agendamento agendamento) {
+        this.agendamentoAtual = agendamento;
+        finish.setText("true");
+        actionButton.setText("Finalizar");
+
+        create_agendamento_date_field.setValue(agendamento.getDataAgendamento());
+        create_agendamento_date_field.setDisable(true);
+
+        create_agendamento_time_field.setValue(
+                agendamento.getHorarioAgendamento().format(DateTimeFormatter.ofPattern("HH:mm"))
+        );
+        create_agendamento_time_field.setDisable(true);
+
+        create_agendamento_servico_field.setValue(agendamento.getServico());
+        create_agendamento_servico_field.setDisable(true);
+
+        create_agendamento_client_field.setValue(agendamento.getCliente());
+        create_agendamento_client_field.setDisable(true);
+
+        create_agendamento_pet_field.setValue(agendamento.getAnimal());
+        create_agendamento_pet_field.setDisable(true);
     }
 }

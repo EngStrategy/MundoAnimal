@@ -17,6 +17,7 @@
     </padding>
     <children>
         <TextField fx:id="agendamento_id_field" managed="false" visible="false" />
+        <TextField fx:id="finish" managed="false" visible="false" />
         <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="610.0">
             <children>
                 <Label fx:id="titleLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="537.0" styleClass="modal_title" text="Cadastro de Agendamento" />
