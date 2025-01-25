@@ -12,7 +12,7 @@
     </padding>
     <children>
         <FontAwesomeIcon fx:id="icon" glyphName="CHECK_CIRCLE" size="32PX" />
-        <Label fx:id="message" text="">
+        <Label fx:id="message" text="" textFill="white">
             <font>
                 <Font size="16.0" />
             </font>

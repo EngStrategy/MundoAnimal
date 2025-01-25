@@ -285,9 +285,9 @@ root {
 /* CSS POPUP - INÍCIO */
 
 .popup {
-    -fx-background-color: white;
     -fx-background-radius: 5px;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+    -fx-font-weight: 800;
 }
 
 /* CSS POPUP - FIM */

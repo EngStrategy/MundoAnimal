@@ -15,17 +15,19 @@ public class FeedbackManager {
     private static final String POPUP_FXML = "/fxml/popup/feedback.fxml";
 
     public enum FeedbackType {
-        SUCCESS("CHECK_CIRCLE", "#43b554"),
-        ERROR("TIMES_CIRCLE", "#FF6F6F"),
-        WARNING("EXCLAMATION_CIRCLE", "#FFA500"),
-        INFO("INFO_CIRCLE", "#686AFF");
+        SUCCESS("CHECK_CIRCLE", "#FFFFFF", "#43b554"),
+        ERROR("TIMES_CIRCLE", "#FFFFFF" ,"#FF6F6F"),
+        WARNING("EXCLAMATION_CIRCLE", "#FFFFFF" ,"#FFA500"),
+        INFO("INFO_CIRCLE", "#FFFFFF" ,"#686AFF");
 
         private final String icon;
         private final String color;
+        private final String backgroundColor;
 
-        FeedbackType(String icon, String color) {
+        FeedbackType(String icon, String color, String backgroundColor) {
             this.icon = icon;
             this.color = color;
+            this.backgroundColor = backgroundColor;
         }
     }
 
@@ -36,6 +38,7 @@ public class FeedbackManager {
 
             // Configurar o estilo do popup
             popupContent.getStyleClass().add("popup");
+            popupContent.setStyle(String.format("-fx-background-color: %s;", type.backgroundColor));
 
             // Encontrar e configurar os componentes
             FontAwesomeIcon icon = (FontAwesomeIcon) popupContent.lookup("#icon");

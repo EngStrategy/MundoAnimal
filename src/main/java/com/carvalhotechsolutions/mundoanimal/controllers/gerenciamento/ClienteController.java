@@ -8,9 +8,6 @@ import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.repositories.ClienteRepository;
 import com.carvalhotechsolutions.mundoanimal.utils.FeedbackManager;
 import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import javafx.animation.FadeTransition;
-import javafx.animation.PauseTransition;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -26,10 +23,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -53,6 +48,9 @@ public class ClienteController implements Initializable {
 
     @FXML
     private TableColumn<Cliente, Void> acaoColumn;
+
+    @FXML
+    private Label numberOfResults;
 
     @FXML
     private TextField filterField;
@@ -269,41 +267,34 @@ public class ClienteController implements Initializable {
         // Configurar o controlador do modal
         AnimalController animalController = ScreenManagerHolder.getInstance().getAnimalController();
         animalController.setCliente(cliente);
-        animalController.inicializarTabela();
+        animalController.atualizarTableView();
 
         ScreenManagerHolder.getInstance().switchTo(ScreenEnum.PETS);
     }
 
     public void atualizarTableView() {
         clientesList.setAll(clienteRepository.findAll());
+        numberOfResults.setText(clientesList.size() + " registro(s) retornado(s)");
     }
 
     private void configurarBuscaClientes() {
         filteredData = new FilteredList<>(clientesList, p -> true);
-
         filterField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(cliente -> {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
-
-                // Verificando se o nome do cliente ou telefone contém o termo de busca
                 boolean matchesCliente = cliente.getNome().toLowerCase().contains(lowerCaseFilter) ||
                         cliente.getTelefone().toLowerCase().contains(lowerCaseFilter);
-
-                // Verificando se algum nome de pet contém o termo de busca
                 boolean matchesPet = cliente.getPets().stream()
                         .anyMatch(pet -> pet.getNome().toLowerCase().contains(lowerCaseFilter));
-
-                // Retorna true se qualquer um dos campos for um match
                 return matchesCliente || matchesPet;
             });
+            numberOfResults.setText(filteredData.size() + " registro(s) retornado(s)");
         });
-
         tableView.setItems(filteredData);
     }
-
 
     public void handleSuccessfulOperation(String message) {
         FeedbackManager.showFeedback(

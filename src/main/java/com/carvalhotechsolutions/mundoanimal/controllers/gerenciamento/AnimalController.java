@@ -15,6 +15,8 @@ import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,10 +24,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -50,6 +49,14 @@ public class AnimalController implements Initializable {
 
     @FXML
     private TableColumn<Animal, Void> acaoColumn;
+
+    @FXML
+    private Label numberOfResults;
+
+    @FXML
+    private TextField filterField;
+
+    private FilteredList<Animal> filteredData;
 
     private Cliente cliente; // Dono dos pets que serão exibidos na tabela
 
@@ -228,27 +235,43 @@ public class AnimalController implements Initializable {
         }
     }
 
-    public void inicializarTabela() {
-        petsList.clear();
-        petsList.addAll(cliente.getPets());
-        tableView.setItems(petsList);
+    private void configurarBuscaPets() {
+        filteredData = new FilteredList<>(petsList, p -> true);
+        filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(animal -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                boolean matchesNome = animal.getNome().toLowerCase().contains(lowerCaseFilter);
+                boolean matchesEspecie = animal.getEspecie().toString().toLowerCase().contains(lowerCaseFilter);
+
+                return matchesNome || matchesEspecie;
+            });
+
+            SortedList<Animal> sortedData = new SortedList<>(filteredData);
+            sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+
+            tableView.setItems(sortedData);
+            numberOfResults.setText(filteredData.size() + " registro(s) retornado(s)");
+        });
     }
 
     public void voltarParaPaginaClientes() {
+        filterField.clear();
         ScreenManagerHolder.getInstance().switchTo(ScreenEnum.CLIENTES);
     }
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+        atualizarTableView();
+        configurarBuscaPets();
     }
 
     public void atualizarTableView() {
-        // Limpa a lista atual
-        petsList.clear();
-        // Adiciona os pets atualizados
-        petsList.addAll(cliente.getPets());
-        // Força um refresh na TableView
-        tableView.refresh();
+        petsList.setAll(cliente.getPets());
+        tableView.setItems(petsList);
+        numberOfResults.setText(petsList.size() + " registro(s) retornado(s)");
     }
 
     public void handleSuccessfulOperation(String message) {
