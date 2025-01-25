@@ -63,4 +63,9 @@ public class Cliente {
                 .map(Animal::getNome)
                 .collect(Collectors.joining(", "));
     }
+
+    @Override
+    public String toString() {
+        return getNome();
+    }
 }

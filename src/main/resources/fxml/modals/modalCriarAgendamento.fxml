@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="255.0" prefWidth="610.0" spacing="20.0" styleClass="white_bg_color" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarAgendamentoController">
+    <padding>
+        <Insets bottom="20.0" top="20.0" />
+    </padding>
+    <children>
+        <TextField fx:id="agendamento_id_field" managed="false" visible="false" />
+        <TextField fx:id="finish" managed="false" visible="false" />
+        <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="610.0">
+            <children>
+                <Label fx:id="titleLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="537.0" styleClass="modal_title" text="Cadastro de Agendamento" />
+            </children>
+            <padding>
+                <Insets left="30.0" right="30.0" />
+            </padding>
+        </HBox>
+        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="610.0" spacing="20.0" style="-fx-border-color: #cccccc transparent transparent transparent;">
+            <children>
+                <VBox alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="265.0" spacing="5.0">
+                    <children>
+                        <TextFlow>
+                            <Text styleClass="modal_label" text="Data " />
+                     <Text style="-fx-font-size: 18px; -fx-fill: red; -fx-font-weight: 600" text="*" />
+                        </TextFlow>
+                  <DatePicker fx:id="create_agendamento_date_field" prefHeight="49.0" prefWidth="265.0" styleClass="default_text_input" />
+                    </children>
+                </VBox>
+                <VBox alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="265.0" spacing="5.0">
+                    <children>
+                        <TextFlow>
+                            <Text styleClass="modal_label" text="Horário " />
+                     <Text style="-fx-font-size: 18px; -fx-fill: red; -fx-font-weight: 600" text="*" />
+                        </TextFlow>
+                  <ComboBox fx:id="create_agendamento_time_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="265.0" promptText="Selecione uma opção" styleClass="default_text_input" />
+                    </children>
+                </VBox>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+            </padding>
+        </HBox>
+        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="610.0" spacing="20.0">
+            <children>
+                <VBox alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="265.0" spacing="5.0">
+                    <children>
+                        <TextFlow>
+                            <children>
+                                <Text styleClass="modal_label" text="Serviço " />
+                                <Text style="-fx-font-size: 18px; -fx-fill: red; -fx-font-weight: 600" text="*" />
+                            </children>
+                        </TextFlow>
+                        <ComboBox fx:id="create_agendamento_servico_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="265.0" promptText="Selecione uma opção" styleClass="default_text_input" />
+                    </children>
+                </VBox>
+            <VBox alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="265.0" spacing="5.0">
+               <children>
+                  <TextFlow>
+                     <children>
+                        <Text styleClass="modal_label" text="Cliente " />
+                        <Text style="-fx-font-size: 18px; -fx-fill: red; -fx-font-weight: 600" text="*" />
+                     </children>
+                  </TextFlow>
+                  <ComboBox fx:id="create_agendamento_client_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="265.0" promptText="Selecione uma opção" styleClass="default_text_input" />
+               </children>
+            </VBox>
+            </children>
+            <padding>
+                <Insets left="30.0" right="30.0" />
+            </padding>
+        </HBox>
+        <HBox fx:id="lastRegisterContainer" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="610.0" spacing="20.0">
+            <children>
+                <VBox alignment="BOTTOM_LEFT" prefHeight="76.0" prefWidth="556.0" spacing="5.0">
+                    <children>
+                  <TextFlow>
+                     <children>
+                        <Text styleClass="modal_label" text="Pet " />
+                        <Text style="-fx-font-size: 18px; -fx-fill: red; -fx-font-weight: 600" text="*" />
+                     </children>
+                  </TextFlow>
+                  <ComboBox fx:id="create_agendamento_pet_field" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="49.0" prefWidth="674.0" promptText="Selecione uma opção" styleClass="default_text_input" />
+                    </children>
+                </VBox>
+            </children>
+            <padding>
+                <Insets left="30.0" right="30.0" />
+            </padding>
+        </HBox>
+      <HBox fx:id="endServiceContainer" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="610.0" spacing="20.0" style="-fx-border-color: transparent transparent #ccc transparent;">
+         <children>
+            <VBox alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="265.0" spacing="5.0">
+               <children>
+                  <TextFlow>
+                     <children>
+                        <Text styleClass="modal_label" text="Atendimento " />
+                        <Text style="-fx-font-size: 18px; -fx-fill: red; -fx-font-weight: 600" text="*" />
+                     </children>
+                  </TextFlow>
+                  <TextField fx:id="create_agendamento_responsavel_field" prefHeight="49.0" prefWidth="265.0" promptText="Nome de quem atendeu" styleClass="default_text_input" />
+               </children>
+            </VBox>
+            <VBox alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="265.0" spacing="5.0">
+               <children>
+                  <TextFlow>
+                     <children>
+                        <Text styleClass="modal_label" text="Horario de saída " />
+                        <Text style="-fx-font-size: 18px; -fx-fill: red; -fx-font-weight: 600" text="*" />
+                     </children>
+                  </TextFlow>
+                  <ComboBox fx:id="create_agendamento_depTime_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="265.0" promptText="Selecione uma opção" styleClass="default_text_input" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="30.0" right="30.0" />
+         </padding>
+      </HBox>
+        <HBox alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="610.0">
+            <children>
+                <Button fx:id="actionButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cadastrarAgendamento" prefHeight="34.0" prefWidth="105.0" styleClass="modal_btn" text="Finalizar" />
+            </children>
+            <VBox.margin>
+                <Insets left="30.0" right="30.0" />
+            </VBox.margin>
+        </HBox>
+    </children>
+</VBox>

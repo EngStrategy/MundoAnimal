@@ -2,9 +2,16 @@ package com.carvalhotechsolutions.mundoanimal.controllers.modals;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class ModalConfirmarRemocaoController {
+    @FXML
+    private Label modalMessage;
+
+    @FXML
+    private Label modalTitle;
+
     @FXML
     private Button cancelarButton;
 
@@ -41,5 +48,12 @@ public class ModalConfirmarRemocaoController {
     private void fecharModal() {
         Stage stage = (Stage) cancelarButton.getScene().getWindow();
         stage.close();
+    }
+
+    public void configurarParaCancelamento() {
+        modalTitle.setText("Confirmar Cancelamento");
+        modalMessage.setText("Cancelar este agendamento permanentemente?");
+        deletarButton.setText("Sim");
+        cancelarButton.setText("Não");
     }
 }

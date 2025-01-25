@@ -251,11 +251,7 @@ public class ClienteController implements Initializable {
 
     private void abrirPaginaVerPets(Cliente cliente) {
         if (cliente.getPets().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Informação");
-            alert.setHeaderText(null);
-            alert.setContentText("Este cliente não possui pets cadastrados.");
-            alert.showAndWait();
+            handleError("Este cliente não possui pets cadastrados!");
             return;
         }
 
