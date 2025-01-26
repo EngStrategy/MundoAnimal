@@ -32,7 +32,7 @@ public class AnimalRepository {
 
     public List<Animal> findAll() {
         try(EntityManager em = JPAutil.getEntityManager()) {
-            TypedQuery<Animal> query = em.createQuery("SELECT a FROM Animal a", Animal.class);
+            TypedQuery<Animal> query = em.createQuery("SELECT a FROM Animal a ORDER BY a.nome", Animal.class);
             return query.getResultList();
         }
     }

@@ -135,6 +135,11 @@ public class ModalCriarClienteController {
             return false;
         }
 
+        if(nome.equalsIgnoreCase("admin")) {
+            mostrarAlerta("Erro", "Não é possível cadastrar um admin.", Alert.AlertType.ERROR);
+            return false;
+        }
+
         return true;
     }
 

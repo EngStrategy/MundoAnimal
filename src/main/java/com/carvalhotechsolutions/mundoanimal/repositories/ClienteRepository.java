@@ -31,7 +31,7 @@ public class ClienteRepository {
 
     public List<Cliente> findAll() {
         try(EntityManager em = JPAutil.getEntityManager()) {
-            TypedQuery<Cliente> query = em.createQuery("SELECT c FROM Cliente c", Cliente.class);
+            TypedQuery<Cliente> query = em.createQuery("SELECT c FROM Cliente c ORDER BY c.nome", Cliente.class);
             return query.getResultList();
         }
     }
@@ -47,6 +47,16 @@ public class ClienteRepository {
             else {
                 throw new IllegalArgumentException("Cliente not found!");
             }
+        }
+    }
+
+    public boolean clientePossuiAgendamentos(Long clienteId) {
+        try (EntityManager em = JPAutil.getEntityManager()) {
+            String jpql = "SELECT COUNT(a) FROM Agendamento a WHERE a.cliente.id = :clienteId";
+            Long count = em.createQuery(jpql, Long.class)
+                    .setParameter("clienteId", clienteId)
+                    .getSingleResult();
+            return count > 0;
         }
     }
 }

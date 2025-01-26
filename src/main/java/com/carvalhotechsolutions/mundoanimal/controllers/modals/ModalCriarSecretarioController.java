@@ -113,6 +113,12 @@ public class ModalCriarSecretarioController {
             mostrarAlerta("Erro", "Já existe um secretário cadastrado com esse nome.", Alert.AlertType.ERROR);
             return false;
         }
+
+        if(nome.equalsIgnoreCase("admin")) {
+            mostrarAlerta("Erro", "Não é possível cadastrar um admin.", Alert.AlertType.ERROR);
+            return false;
+        }
+
         return true;
     }
 

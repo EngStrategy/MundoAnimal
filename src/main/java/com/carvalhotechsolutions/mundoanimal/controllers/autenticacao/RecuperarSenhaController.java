@@ -5,6 +5,7 @@ import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.model.Administrador;
 import com.carvalhotechsolutions.mundoanimal.model.Secretario;
 import com.carvalhotechsolutions.mundoanimal.model.Usuario;
+import com.carvalhotechsolutions.mundoanimal.utils.MaskedTextField;
 import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
 import com.carvalhotechsolutions.mundoanimal.utils.SessionManager;
 import jakarta.persistence.EntityManager;
@@ -17,7 +18,7 @@ import java.io.IOException;
 public class RecuperarSenhaController {
 
     @FXML
-    private TextField recovery_cpf_field;
+    private MaskedTextField recovery_cpf_field;
 
     @FXML
     private TextField recovery_username_field;
@@ -91,6 +92,7 @@ public class RecuperarSenhaController {
 
             // Se passou todas as validações
             SessionManager.setCurrentUser(usuario);
+            recovery_cpf_field.clear();
             ScreenManagerHolder.getInstance().switchTo(ScreenEnum.REDEFINIR_SENHA);
 
         } catch (Exception e) {
