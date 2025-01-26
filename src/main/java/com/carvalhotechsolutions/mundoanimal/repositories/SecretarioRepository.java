@@ -32,7 +32,7 @@ public class SecretarioRepository {
 
     public List<Secretario> findAll() {
         try(EntityManager em = JPAutil.getEntityManager()) {
-            TypedQuery<Secretario> query = em.createQuery("SELECT s FROM Secretario s", Secretario.class);
+            TypedQuery<Secretario> query = em.createQuery("SELECT s FROM Secretario s ORDER BY s.nomeUsuario", Secretario.class);
             return query.getResultList();
         }
     }

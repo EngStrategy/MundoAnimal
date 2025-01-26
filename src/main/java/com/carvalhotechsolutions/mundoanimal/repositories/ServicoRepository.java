@@ -32,7 +32,7 @@ public class ServicoRepository {
 
     public List<Servico> findAll() {
         try(EntityManager em = JPAutil.getEntityManager()) {
-            TypedQuery<Servico> query = em.createQuery("SELECT s FROM Servico s", Servico.class);
+            TypedQuery<Servico> query = em.createQuery("SELECT s FROM Servico s ORDER BY s.nomeServico", Servico.class);
             return query.getResultList();
         }
     }

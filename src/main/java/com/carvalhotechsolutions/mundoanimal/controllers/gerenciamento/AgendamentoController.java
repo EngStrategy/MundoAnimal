@@ -2,15 +2,14 @@ package com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento;
 
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalConfirmarRemocaoController;
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarAgendamentoController;
-import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarClienteController;
-import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarPetController;
 import com.carvalhotechsolutions.mundoanimal.model.Agendamento;
-import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.repositories.AgendamentoRepository;
 import com.carvalhotechsolutions.mundoanimal.utils.FeedbackManager;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -52,6 +51,14 @@ public class AgendamentoController implements Initializable {
     @FXML
     private TableColumn<Agendamento, Void> acaoColumn;
 
+    @FXML
+    private Label numberOfResults;
+
+    @FXML
+    private TextField filterField;
+
+    private FilteredList<Agendamento> filteredData;
+
     private AgendamentoRepository agendamentoRepository = new AgendamentoRepository();
 
     private ObservableList<Agendamento> agendamentosList = FXCollections.observableArrayList();
@@ -81,6 +88,7 @@ public class AgendamentoController implements Initializable {
 
         configurarColunaAcao();
         atualizarTableView();
+        configurarBuscaAgendamentos();
     }
 
     private void configurarColunaAcao() {
@@ -247,8 +255,37 @@ public class AgendamentoController implements Initializable {
     }
 
     public void atualizarTableView() {
-        agendamentosList = FXCollections.observableArrayList(agendamentoRepository.findAll());
-        tableView.setItems(agendamentosList);
+        agendamentosList.setAll(agendamentoRepository.findAll());
+        numberOfResults.setText(agendamentosList.size() + " registro(s) retornado(s)");
+    }
+
+    public void configurarBuscaAgendamentos() {
+        filteredData = new FilteredList<>(agendamentosList, p -> true);
+        filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(agendamento -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                boolean matchesCliente = agendamento.getCliente().getNome().toLowerCase().contains(lowerCaseFilter);
+                boolean matchesAnimal = agendamento.getAnimal().getNome().toLowerCase().contains(lowerCaseFilter);
+                boolean matchesServico = agendamento.getServico().getNomeServico().toLowerCase().contains(lowerCaseFilter);
+                boolean matchesData = agendamento.getDataHoraFormatada().toLowerCase().contains(lowerCaseFilter);
+                boolean matchesStatus = agendamento.getStatus().toString().toLowerCase().contains(lowerCaseFilter);
+                boolean matchesResponsavel = agendamento.getResponsavelAtendimento() != null &&
+                        agendamento.getResponsavelAtendimento().toLowerCase().contains(lowerCaseFilter);
+
+                return matchesCliente || matchesAnimal || matchesServico ||
+                        matchesData || matchesStatus || matchesResponsavel;
+            });
+//            SortedList<Agendamento> sortedData = new SortedList<>(filteredData);
+//            sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+//
+//            tableView.setItems(sortedData);
+            numberOfResults.setText(filteredData.size() + " registro(s) retornado(s)");
+        });
+        tableView.setItems(filteredData);
     }
 
     public void handleSuccessfulOperation(String message) {
