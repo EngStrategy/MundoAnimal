@@ -1,0 +1,38 @@
+name: Echo Secrets and Build JavaFX Project
+
+on:
+  push:
+    branches:
+      - develop  # Aciona a ação ao enviar mudanças para a branch "develop"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      MY_VARIABLE: "This is my public variable"  # Variável de ambiente pública
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'  # Versão do Java usada no projeto
+          distribution: temurin
+
+      - name: Setup Maven
+        run: mvn -version  # Verifica a versão do Maven
+
+      - name: Echo environment variable
+        run: echo "My environment variable is $MY_VARIABLE"  # Exibe a variável pública
+
+      - name: Echo GitHub secret
+        run: echo "My GitHub secret is ${{ secrets.MY_GITHUB_SECRET }}"  # Exibe o valor da chave secreta
+
+      - name: Run Tests
+        run: mvn test
+
+      - name: Build with Maven
+        run: mvn clean package  # Compila o projeto
