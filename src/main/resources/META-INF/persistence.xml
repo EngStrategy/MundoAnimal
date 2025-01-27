@@ -19,10 +19,32 @@
 
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
-            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
             <!-- Deixei a propriedade DDL auto como create-drop para facilitar
             os testes no banco de dados, fica ao critério de cada um do @Back
            <property name="hibernate.hbm2ddl.auto" value="update" /> -->
+        </properties>
+    </persistence-unit>
+
+    <!-- Unidade de persistência para testes -->
+    <persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
+        <class>com.carvalhotechsolutions.mundoanimal.model.Usuario</class>
+        <class>com.carvalhotechsolutions.mundoanimal.model.Administrador</class>
+        <class>com.carvalhotechsolutions.mundoanimal.model.Agendamento</class>
+        <class>com.carvalhotechsolutions.mundoanimal.model.Animal</class>
+        <class>com.carvalhotechsolutions.mundoanimal.model.Cliente</class>
+        <class>com.carvalhotechsolutions.mundoanimal.model.Secretario</class>
+        <class>com.carvalhotechsolutions.mundoanimal.model.Servico</class>
+        <properties>
+            <!-- Configuração do H2 Database -->
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1" />
+            <property name="jakarta.persistence.jdbc.user" value="sa" />
+            <property name="jakarta.persistence.jdbc.password" value="" />
+
+            <!-- Configurações do Hibernate -->
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
         </properties>
     </persistence-unit>
 </persistence>

@@ -2,7 +2,9 @@ package com.carvalhotechsolutions.mundoanimal.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "tb_cliente")
@@ -18,8 +20,8 @@ public class Cliente {
     @Column(unique = true, nullable = false)
     private String telefone;
 
-    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Animal> pets;
+    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Animal> pets = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -51,5 +53,19 @@ public class Cliente {
 
     public void setPets(List<Animal> pets) {
         this.pets = pets;
+    }
+
+    public String getPetsFormatados() {
+        if (pets.isEmpty()) {
+            return "";
+        }
+        return pets.stream()
+                .map(Animal::getNome)
+                .collect(Collectors.joining(", "));
+    }
+
+    @Override
+    public String toString() {
+        return getNome();
     }
 }
