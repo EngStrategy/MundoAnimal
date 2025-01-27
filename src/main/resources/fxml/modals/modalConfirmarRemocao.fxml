@@ -13,7 +13,7 @@
     <children>
         <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="500.0">
             <children>
-                <Label styleClass="modal_title" prefWidth="537.0" text="Confirmar exclusão"/>
+                <Label fx:id="modalTitle" styleClass="modal_title" prefWidth="537.0" text="Confirmar Exclusão"/>
             </children>
             <padding>
                 <Insets left="30.0" right="30.0" />
@@ -21,7 +21,7 @@
         </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="79.0" prefWidth="500.0" style="-fx-border-color: #ccc transparent #ccc transparent;">
          <children>
-            <Label style="-fx-font-size: 18px;" text="Remover este registro permanentemente?"/>
+            <Label fx:id="modalMessage" style="-fx-font-size: 18px;" text="Remover este registro permanentemente?"/>
          </children>
          <padding>
             <Insets left="30.0" />

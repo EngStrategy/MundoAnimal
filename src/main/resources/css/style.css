@@ -19,6 +19,16 @@ root {
     -fx-font-family: "Roboto", serif;
 }
 
+.search_input {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 400;
+    -fx-font-style: normal;
+    -fx-font-size: 18px;
+    -fx-background-color: white;
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 5px;
+}
+
 .default_text_input {
     -fx-font-family: "Roboto", serif;
     -fx-font-weight: 400;
@@ -27,6 +37,7 @@ root {
     -fx-background-color: transparent;
     -fx-border-color: #CCCCCC;
     -fx-border-radius: 5px;
+    -fx-background-insets: 0;
 }
 
 .text-area .content {
@@ -263,7 +274,7 @@ root {
 }
 
 .delete_btn {
-    -fx-background-color: #FF0000;
+    -fx-background-color: #FF6F6F;
 }
 
 .cancel_btn {
@@ -275,9 +286,9 @@ root {
 /* CSS POPUP - INÍCIO */
 
 .popup {
-    -fx-background-color: white;
     -fx-background-radius: 5px;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+    -fx-font-weight: 800;
 }
 
 /* CSS POPUP - FIM */

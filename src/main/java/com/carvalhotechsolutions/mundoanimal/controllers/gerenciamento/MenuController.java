@@ -26,9 +26,6 @@ import java.util.ResourceBundle;
 
 public class MenuController implements Initializable {
     @FXML
-    private StackPane contentArea;
-
-    @FXML
     private Button inicio_btn;
 
     @FXML
@@ -72,7 +69,7 @@ public class MenuController implements Initializable {
 //        configureButton(inicio_btn, "inicio.fxml");
 //        configureButton(historico_btn, "historico.fxml");
 //        configureButton(relatorio_btn, "relatorio.fxml");
-//        configureButton(agendamentos_btn, ScreenEnum.AGENDAMENTOS);
+        configureButton(agendamentos_btn, ScreenEnum.AGENDAMENTOS);
         configureButton(secretarios_btn, ScreenEnum.SECRETARIOS);
         configureButton(servicos_btn, ScreenEnum.SERVICOS);
         configureButton(clientes_btn, ScreenEnum.CLIENTES);

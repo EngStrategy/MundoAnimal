@@ -8,9 +8,7 @@ import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.repositories.ClienteRepository;
 import com.carvalhotechsolutions.mundoanimal.utils.FeedbackManager;
 import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import javafx.animation.FadeTransition;
-import javafx.animation.PauseTransition;
+import jakarta.persistence.RollbackException;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -26,15 +24,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ClienteController implements Initializable {
@@ -55,6 +51,9 @@ public class ClienteController implements Initializable {
 
     @FXML
     private TableColumn<Cliente, Void> acaoColumn;
+
+    @FXML
+    private Label numberOfResults;
 
     @FXML
     private TextField filterField;
@@ -216,6 +215,11 @@ public class ClienteController implements Initializable {
     }
 
     private void abrirModalExcluir(Long clienteId) {
+        if (clienteRepository.clientePossuiAgendamentos(clienteId)) {
+            handleError("Cliente possui agendamento(s) pendente(s)");
+            return;
+        }
+
         try {
             logger.info("Abrindo modal para confirmar exclusão do cliente com ID: " + clienteId);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalConfirmarRemocao.fxml"));
@@ -274,19 +278,15 @@ public class ClienteController implements Initializable {
 
     private void abrirPaginaVerPets(Cliente cliente) {
         if (cliente.getPets().isEmpty()) {
-            logger.warn("O cliente com ID " + cliente.getId() + " não possui pets cadastrados.");
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Informação");
-            alert.setHeaderText(null);
-            alert.setContentText("Este cliente não possui pets cadastrados.");
-            alert.showAndWait();
+	          logger.warn("O cliente com ID " + cliente.getId() + " não possui pets cadastrados.");
+            handleError("Este cliente não possui pets cadastrados!");
             return;
         }
 
         // Configurar o controlador do modal
         AnimalController animalController = ScreenManagerHolder.getInstance().getAnimalController();
         animalController.setCliente(cliente);
-        animalController.inicializarTabela();
+        animalController.atualizarTableView();
 
         ScreenManagerHolder.getInstance().switchTo(ScreenEnum.PETS);
     }
@@ -294,34 +294,27 @@ public class ClienteController implements Initializable {
     public void atualizarTableView() {
         logger.info("Atualizando a lista de clientes na tabela.");logger.info("Atualizando a lista de clientes na tabela.");
         clientesList.setAll(clienteRepository.findAll());
+        numberOfResults.setText(clientesList.size() + " registro(s) retornado(s)");
     }
 
     private void configurarBuscaClientes() {
         filteredData = new FilteredList<>(clientesList, p -> true);
-
         filterField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(cliente -> {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
-
-                // Verificando se o nome do cliente ou telefone contém o termo de busca
                 boolean matchesCliente = cliente.getNome().toLowerCase().contains(lowerCaseFilter) ||
                         cliente.getTelefone().toLowerCase().contains(lowerCaseFilter);
-
-                // Verificando se algum nome de pet contém o termo de busca
                 boolean matchesPet = cliente.getPets().stream()
                         .anyMatch(pet -> pet.getNome().toLowerCase().contains(lowerCaseFilter));
-
-                // Retorna true se qualquer um dos campos for um match
                 return matchesCliente || matchesPet;
             });
+            numberOfResults.setText(filteredData.size() + " registro(s) retornado(s)");
         });
-
         tableView.setItems(filteredData);
     }
-
 
     public void handleSuccessfulOperation(String message) {
         logger.info("Operação bem-sucedida: " + message);
@@ -339,5 +332,13 @@ public class ClienteController implements Initializable {
                 message,
                 FeedbackManager.FeedbackType.ERROR
         );
+    }
+
+    private void mostrarAlerta(String titulo, String mensagem, Alert.AlertType tipo) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensagem);
+        alerta.showAndWait();
     }
 }

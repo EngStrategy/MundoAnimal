@@ -6,26 +6,26 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.SecretarioController">
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.text.Font?>
+<VBox stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.AgendamentoController">
     <children>
-        <VBox spacing="30.0" VBox.vgrow="ALWAYS">
+        <VBox spacing="30.0" VBox.vgrow="ALWAYS" >
             <padding>
                 <Insets left="37.0" right="37.0" top="37.0" />
             </padding>
             <children>
                 <HBox alignment="CENTER_LEFT">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#abrirModalCadastrarSecretario" styleClass="default_btn">
+                        <Button mnemonicParsing="false" onAction="#abrirModalCadastrarAgendamento" styleClass="default_btn">
                             <graphic>
                                 <HBox alignment="CENTER" spacing="5.0">
                                     <children>
                                         <FontAwesomeIcon glyphName="PLUS" size="26px" styleClass="white_icon" />
-                                        <Label styleClass="white_bold_text" text="Cadastrar Secretário(a)" />
+                                        <Label styleClass="white_bold_text" text="Cadastrar Agendamento" />
                                     </children>
                                 </HBox>
                             </graphic>
@@ -35,21 +35,31 @@
                         </Button>
                         <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" spacing="15.0" HBox.hgrow="ALWAYS">
                             <children>
-                                <TextField fx:id="filterField" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="47.0" prefWidth="200.0" promptText="🔍 Buscar" styleClass="search_input" />
+                                <TextField fx:id="filterField" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="47.0" prefWidth="200.0" promptText="🔍 Buscar..." styleClass="search_input" />
                             </children>
                         </HBox>
                     </children>
                 </HBox>
                 <TableView fx:id="tableView" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
                     <columns>
-                        <TableColumn fx:id="nomeColumn">
+                        <TableColumn fx:id="horarioColumn">
                             <graphic>
-                                <Label text="Nome de usuário" />
+                                <Label text="Horário" />
                             </graphic>
                         </TableColumn>
-                        <TableColumn fx:id="phoneColumn">
+                        <TableColumn fx:id="servicoColumn">
                             <graphic>
-                                <Label text="Telefone" />
+                                <Label text="Serviço" />
+                            </graphic>
+                        </TableColumn>
+                        <TableColumn fx:id="petColumn">
+                            <graphic>
+                                <Label text="Pet" />
+                            </graphic>
+                        </TableColumn>
+                        <TableColumn fx:id="clienteColumn">
+                            <graphic>
+                                <Label text="Cliente" />
                             </graphic>
                         </TableColumn>
                         <TableColumn fx:id="acaoColumn" sortable="false">
@@ -83,4 +93,5 @@
         </VBox>
     </children>
 </VBox>
+
 

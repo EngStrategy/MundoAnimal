@@ -34,6 +34,9 @@ public class SecretarioController implements Initializable {
     private HBox feedbackContainer;
 
     @FXML
+    private Label numberOfResults;
+
+    @FXML
     private TableView<Secretario> tableView;
 
     @FXML
@@ -50,7 +53,7 @@ public class SecretarioController implements Initializable {
 
     private SecretarioRepository secretarioRepository = new SecretarioRepository();
 
-    private ObservableList<Secretario> secretariosList;
+    private ObservableList<Secretario> secretariosList = FXCollections.observableArrayList();
 
     private FilteredList<Secretario> filteredData;
 
@@ -84,11 +87,8 @@ public class SecretarioController implements Initializable {
     }
 
     public void atualizarTableView() {
-        logger.info("Atualizando a tabela de secretários.");
-        secretariosList = FXCollections.observableArrayList(secretarioRepository.findAll());
-        filteredData = new FilteredList<>(secretariosList, p -> true);
-        tableView.setItems(filteredData);
-        logger.info("Tabela de secretários atualizada.");
+        secretariosList.setAll(secretarioRepository.findAll());
+        numberOfResults.setText(secretariosList.size() + " registro(s) retornado(s)");
     }
 
     private void configurarColunaAcao() {
@@ -220,7 +220,8 @@ public class SecretarioController implements Initializable {
         }
     }
 
-    private void configurarBuscaClientes() {
+    private void configurarBuscaSecretarios() {
+        filteredData = new FilteredList<>(secretariosList, p -> true);
         filterField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(secretario -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -230,7 +231,9 @@ public class SecretarioController implements Initializable {
                 return secretario.getNomeUsuario().toLowerCase().contains(lowerCaseFilter)
                         || secretario.getTelefone().toLowerCase().contains(lowerCaseFilter);
             });
+            numberOfResults.setText(filteredData.size() + " registro(s) retornado(s)");
         });
+        tableView.setItems(filteredData);
     }
 
     public void handleSuccessfulOperation(String message) {

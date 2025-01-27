@@ -34,6 +34,9 @@ public class ServicoController implements Initializable {
     private HBox feedbackContainer;
 
     @FXML
+    private Label numberOfResults;
+
+    @FXML
     private TableView<Servico> tableView;
 
     @FXML
@@ -84,7 +87,8 @@ public class ServicoController implements Initializable {
         configurarColunaValor();
         configurarColunaAcao();
         atualizarTableView();
-        logger.info("Serviço iniciada com sucesso");
+        configurarBuscaServicos();
+        logger.info("Serviço iniciado com sucesso");
     }
 
     private void configurarColunaAcao() {
@@ -230,13 +234,12 @@ public class ServicoController implements Initializable {
     }
 
     public void atualizarTableView() {
-        servicosList.setAll(servicoRepository.findAll());  // Atualiza a lista com os serviços
-        configurarBuscaServicos();  // Configura a busca
+        servicosList.setAll(servicoRepository.findAll());
+        numberOfResults.setText(servicosList.size() + " registro(s) retornado(s)");
     }
 
     private void configurarBuscaServicos() {
         filteredData = new FilteredList<>(servicosList, p -> true);
-
         filterField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(servico -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -252,12 +255,10 @@ public class ServicoController implements Initializable {
                 // Retorna true se qualquer um dos campos for um match
                 return matchesNome || matchesDescricao || matchesPreco;
             });
+            numberOfResults.setText(filteredData.size() + " registro(s) retornado(s)");
         });
-
-        tableView.setItems(filteredData);  // Aplica a lista filtrada à tabela
+        tableView.setItems(filteredData);
     }
-
-
 
     public void handleSuccessfulOperation(String message) {
         FeedbackManager.showFeedback(
