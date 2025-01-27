@@ -8,6 +8,8 @@ import com.carvalhotechsolutions.mundoanimal.utils.TextFormatterManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 
@@ -32,6 +34,8 @@ public class ModalCriarServicoController {
 
     private final ServicoRepository servicoRepository = new ServicoRepository();
 
+    private static final Logger logger = LogManager.getLogger();
+
     // Referência para o controlador principal
     private ServicoController servicoController;
 
@@ -50,6 +54,7 @@ public class ModalCriarServicoController {
         String descricao = create_service_description_field.getText();
 
         if (!validarInputs(nome, valorStr)) {
+            logger.info("Erro na validação de inputs.");
             return;
         }
 
@@ -61,10 +66,10 @@ public class ModalCriarServicoController {
             if (isEdicao) {
                 Long id = Long.parseLong(service_id_field.getText());
                 servico = servicoRepository.findById(id); // Recupera o serviço existente
-                System.out.println("Editando serviço com ID: " + id); // Log para debug
+                logger.info("Editando serviço com ID: " + id); // Log para debug
             } else {
                 servico = new Servico(); // Novo serviço
-                System.out.println("Criando novo serviço"); // Log para debug
+                logger.info("Criando novo serviço"); // Log para debug
             }
 
             servico.setNomeServico(nome);
@@ -73,9 +78,10 @@ public class ModalCriarServicoController {
 
             // Persistir no banco de dados
             servicoRepository.save(servico);
+            logger.info("Serviço cadastrado com sucesso.");
 
             if (servicoController == null) {
-                System.out.println("ERRO: servicoController é nulo!"); // Log para debug
+                logger.info("ERRO: servicoController é nulo!"); // Log para debug
                 return;
             }
 
@@ -85,7 +91,7 @@ public class ModalCriarServicoController {
                     "Serviço atualizado com sucesso!" :
                     "Serviço cadastrado com sucesso!";
 
-            System.out.println("Exibindo mensagem: " + mensagem); // Log para debug
+            logger.info("Exibindo mensagem: " + mensagem); // Log para debug
             servicoController.handleSuccessfulOperation(mensagem);
 
             fecharModal();

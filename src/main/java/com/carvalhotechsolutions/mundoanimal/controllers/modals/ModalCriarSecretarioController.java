@@ -10,6 +10,8 @@ import com.carvalhotechsolutions.mundoanimal.utils.TextFormatterManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ModalCriarSecretarioController {
     @FXML
@@ -30,6 +32,8 @@ public class ModalCriarSecretarioController {
 
     // Referência para o controlador principal
     private SecretarioController secretarioController;
+
+    private static final Logger logger = LogManager.getLogger();
 
     public void setSecretarioController(SecretarioController secretarioController) {
         this.secretarioController = secretarioController;
@@ -60,12 +64,14 @@ public class ModalCriarSecretarioController {
             if (secretarioController != null) {
                 secretarioController.atualizarTableView();
                 secretarioController.handleSuccessfulOperation("Secretário(a) cadastrado(a) com sucesso!");
+                logger.info("Secretário cadastrado(a) com sucesso!");
             }
 
             fecharModal();
 
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error("Erro, {}", e.getMessage());
             mostrarAlerta("Erro", "Falha ao cadastrar secretário. Tente novamente.", Alert.AlertType.ERROR);
         }
     }
@@ -102,6 +108,7 @@ public class ModalCriarSecretarioController {
                         (secretarioAtual == null || !secretario.getId().equals(secretarioAtual.getId())));
         if (telefoneJaCadastrado) {
             mostrarAlerta("Erro", "O telefone informado já está cadastrado no sistema.", Alert.AlertType.ERROR);
+            logger.info("Telefone já cadastrado no sistema.");
             return false;
         }
 
@@ -111,6 +118,7 @@ public class ModalCriarSecretarioController {
                         (secretarioAtual == null || !secretario.getId().equals(secretarioAtual.getId())));
         if (nomeJaCadastrado) {
             mostrarAlerta("Erro", "Já existe um secretário cadastrado com esse nome.", Alert.AlertType.ERROR);
+            logger.info("Já existe um secretário cadastrado com esse nome.");
             return false;
         }
         return true;

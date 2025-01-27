@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,6 +33,8 @@ public class ModalCriarClienteController {
 
     private final ClienteRepository clienteRepository = new ClienteRepository();
 
+    private static final Logger logger = LogManager.getLogger();
+
     // Referência para o controlador principal
     private ClienteController clienteController;
 
@@ -47,6 +51,7 @@ public class ModalCriarClienteController {
         String telefone = create_client_phone_field.getText();
 
         if (!validarInputs(nome, telefone)) {
+            logger.info("Validar inputs incorreto.");
             return;
         }
 
@@ -57,18 +62,19 @@ public class ModalCriarClienteController {
             if (isEdicao) {
                 Long id = Long.parseLong(client_id_field.getText());
                 cliente = clienteRepository.findById(id);
-                System.out.println("Editando cliente com ID: " + id); // Log para debug
+                logger.info("Editando cliente com ID: " + id); // Log para debug
             } else {
                 cliente = new Cliente();
-                System.out.println("Criando novo cliente"); // Log para debug
+                logger.info("Criando novo cliente"); // Log para debug
             }
 
             cliente.setNome(nome);
             cliente.setTelefone(telefone);
             clienteRepository.save(cliente);
+            logger.info("Criado novo cliente");
 
             if (clienteController == null) {
-                System.out.println("ERRO: clienteController é nulo!"); // Log para debug
+                logger.error("ERRO: clienteController é nulo!"); // Log para debug
                 return;
             }
 
@@ -79,18 +85,19 @@ public class ModalCriarClienteController {
                     "Cliente atualizado com sucesso!" :
                     "Cliente cadastrado com sucesso!";
 
-            System.out.println("Exibindo mensagem: " + mensagem); // Log para debug
+            logger.info("Exibindo mensagem: {}", mensagem); // Log para debug
             clienteController.handleSuccessfulOperation(mensagem);
 
             fecharModal();
         } catch (Exception e) {
-            System.out.println("Erro ao salvar cliente: " + e.getMessage()); // Log para debug
+            logger.error("Erro ao salvar cliente: " + e.getMessage()); // Log para debug
             if (clienteController != null) {
                 clienteController.handleError("Erro ao " +
                         (client_id_field.getText().isEmpty() ? "cadastrar" : "atualizar") +
                         " cliente!");
             }
             e.printStackTrace();
+            logger.trace(e);
         }
     }
 
@@ -136,15 +143,6 @@ public class ModalCriarClienteController {
         }
 
         return true;
-    }
-
-    @FXML
-    private void phoneKeyReleased(){
-        TextFormatterManager tfm = new TextFormatterManager();
-        tfm.setMask("(##)#####-####");
-        tfm.setCaracteresValidos("0123456789");
-        tfm.setTf(create_client_phone_field);
-        tfm.formatter();
     }
 
     @FXML

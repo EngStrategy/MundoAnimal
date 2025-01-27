@@ -3,6 +3,8 @@ package com.carvalhotechsolutions.mundoanimal.controllers.modals;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ModalConfirmarRemocaoController {
     @FXML
@@ -10,6 +12,8 @@ public class ModalConfirmarRemocaoController {
 
     @FXML
     private Button deletarButton;
+
+    private static final Logger logger = LogManager.getLogger(ModalConfirmarRemocaoController.class);
 
     private Long registerId; // Armazena o ID do registro a ser excluído
 
@@ -41,5 +45,6 @@ public class ModalConfirmarRemocaoController {
     private void fecharModal() {
         Stage stage = (Stage) cancelarButton.getScene().getWindow();
         stage.close();
+        logger.info("Modal fechado com sucesso");
     }
 }

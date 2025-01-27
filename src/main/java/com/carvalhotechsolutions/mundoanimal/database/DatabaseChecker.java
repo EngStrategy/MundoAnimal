@@ -1,11 +1,14 @@
 package com.carvalhotechsolutions.mundoanimal.database;
 
+import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalConfirmarRemocaoController;
 import com.carvalhotechsolutions.mundoanimal.model.Administrador;
 import com.carvalhotechsolutions.mundoanimal.enums.TipoUsuario;
 import com.carvalhotechsolutions.mundoanimal.utils.PasswordManager;
 import jakarta.persistence.EntityManager;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DatabaseChecker {
 
@@ -14,6 +17,8 @@ public class DatabaseChecker {
         throw new UnsupportedOperationException("Esta classe não pode ser instanciada");
     }
 
+    private static final Logger logger = LogManager.getLogger(ModalConfirmarRemocaoController.class);
+
     public static void testConnectionAndInitializeAdmin() {
         try (EntityManager em = JPAutil.getEntityManager()) {
 
@@ -21,13 +26,13 @@ public class DatabaseChecker {
             // Teste simples, pode ser alterado para algo mais específico
             em.createQuery("SELECT 1").getResultList();
             em.getTransaction().commit();
-            System.out.println("Conexão bem-sucedida com o banco de dados!");
+            logger.info("Conexão bem-sucedida com o banco de dados!");
 
             // Após verificar a conexão, inicializa o administrador padrão
             initializeAdmin(em);
 
         } catch (Exception e) {
-            System.err.println("Erro ao conectar ao banco de dados: " + e.getMessage());
+            logger.error("Erro ao conectar ao banco de dados: {}", e.getMessage(), e);
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro de Conexão");
             alert.setHeaderText("Não foi possível conectar ao banco de dados.");
@@ -55,9 +60,9 @@ public class DatabaseChecker {
 
                 // Persiste o administrador no banco
                 em.persist(admin);
-                System.out.println("Administrador padrão criado com sucesso!");
+                logger.info("Administrador padrão criado com sucesso!");
             } else {
-                System.out.println("Administrador já existe no banco.");
+                logger.info("Administrador já existe no banco.");
             }
 
             em.getTransaction().commit();
@@ -65,7 +70,7 @@ public class DatabaseChecker {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            System.err.println("Erro ao inicializar o administrador padrão: " + e.getMessage());
+            logger.error("Erro ao inicializar o administrador padrão: {}", e.getMessage(), e);
         }
     }
 

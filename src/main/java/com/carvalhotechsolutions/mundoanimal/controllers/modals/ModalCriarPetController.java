@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -57,6 +59,8 @@ public class ModalCriarPetController implements Initializable {
 
     private Cliente cliente; // Armazena o dono do pet que está sendo cadastrado
 
+    private static final Logger logger = LogManager.getLogger();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         create_pet_specie_field.getItems().addAll(EspecieAnimal.values());
@@ -72,6 +76,7 @@ public class ModalCriarPetController implements Initializable {
         String observacoes = create_pet_notes_field.getText();
 
         if (!validarInputs(nome, especie)) {
+            logger.info("Validação de inputs falhou");
             return;
         }
 
@@ -82,10 +87,10 @@ public class ModalCriarPetController implements Initializable {
             if (isEdicao) {
                 Long id = Long.parseLong(pet_id_field.getText());
                 animal = animalRepository.findById(id); // Recupera o animal existente
-                System.out.println("Editando animal com ID: " + id); // Log para debug
+                logger.info("Editando animal com ID: " + id); // Log para debug
             } else {
                 animal = new Animal(); // Novo animal
-                System.out.println("Criando novo animal"); // Log para debug
+                logger.info("Criando novo animal"); // Log para debug
             }
 
             animal.setNome(nome);
@@ -105,7 +110,7 @@ public class ModalCriarPetController implements Initializable {
                     "Pet cadastrado com sucesso!";
 
 
-            System.out.println("Exibindo mensagem: " + mensagem); // Log para debug
+            logger.info("Exibindo mensagem: " + mensagem); // Log para debug
 
             if(isEdicao) {
                 animalController.handleSuccessfulOperation(mensagem);
@@ -118,8 +123,10 @@ public class ModalCriarPetController implements Initializable {
 
         } catch (NumberFormatException e) {
             mostrarAlerta("Erro", "Idade deve ser um número válido!", Alert.AlertType.ERROR);
+            logger.warn("Exceção NumberFormatException lançada e tratada");
         } catch (Exception e) {
             mostrarAlerta("Erro", "Erro ao cadastrar pet: " + e.getMessage(), Alert.AlertType.ERROR);
+            logger.error("Erro, {}", e.getMessage());
             e.printStackTrace();
         }
     }

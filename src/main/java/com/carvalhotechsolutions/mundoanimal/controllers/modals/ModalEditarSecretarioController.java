@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ModalEditarSecretarioController {
     @FXML
@@ -22,6 +24,8 @@ public class ModalEditarSecretarioController {
 
     // Referência para o controlador principal
     private SecretarioController secretarioController;
+
+    private static final Logger logger = LogManager.getLogger();
 
     public void setSecretarioController(SecretarioController secretarioController) {
         this.secretarioController = secretarioController;
@@ -43,6 +47,7 @@ public class ModalEditarSecretarioController {
         secretario.setTelefone(telefone);
 
         secretarioRepository.save(secretario);
+        logger.info("Secretario editado com sucesso");
 
         if (secretarioController == null) {
             System.out.println("ERRO: secretarioController é nulo!"); // Log para debug
@@ -51,6 +56,7 @@ public class ModalEditarSecretarioController {
 
         secretarioController.atualizarTableView();
         secretarioController.handleSuccessfulOperation("Secretário(a) atualizado(a) com sucesso!");
+        logger.info("Secretario atualizado com sucesso");
 
         fecharModal();
     }
