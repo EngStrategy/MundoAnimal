@@ -137,6 +137,8 @@ public class ModalCriarPetController implements Initializable {
 
         create_pet_clientName_field.setText(cliente.getNome());
         create_pet_clientPhone_field.setText(cliente.getTelefone());
+        create_pet_clientName_field.setDisable(true);
+        create_pet_clientPhone_field.setDisable(true);
         create_pet_clientName_field.setEditable(false);
         create_pet_clientPhone_field.setEditable(false);
     }
@@ -162,8 +164,9 @@ public class ModalCriarPetController implements Initializable {
         pet_id_field.setText(animal.getId().toString()); // Preencher o campo de ID invisível
         create_pet_clientName_field.setText(cliente.getNome());
         create_pet_clientPhone_field.setText(cliente.getTelefone());
-        create_pet_clientName_field.setEditable(false);
-        create_pet_clientPhone_field.setEditable(false);
+
+        create_pet_clientName_field.setDisable(true);
+        create_pet_clientPhone_field.setDisable(true);
 
         // Preenchendo campos referentes ao animal
         create_pet_name_field.setText(animal.getNome());

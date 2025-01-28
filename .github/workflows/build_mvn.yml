@@ -1,5 +1,3 @@
-name: Echo Secrets and Build JavaFX Project
-
 on:
   push:
     branches:
@@ -10,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      MY_VARIABLE: "This is my public variable"  # Variável de ambiente pública
 
     steps:
       - name: Checkout code
@@ -25,11 +22,6 @@ jobs:
       - name: Setup Maven
         run: mvn -version  # Verifica a versão do Maven
 
-      - name: Echo environment variable
-        run: echo "My environment variable is $MY_VARIABLE"  # Exibe a variável pública
-
-      - name: Echo GitHub secret
-        run: echo "My GitHub secret is ${{ secrets.MY_GITHUB_SECRET }}"  # Exibe o valor da chave secreta
 
       - name: Run Tests
         run: mvn test
