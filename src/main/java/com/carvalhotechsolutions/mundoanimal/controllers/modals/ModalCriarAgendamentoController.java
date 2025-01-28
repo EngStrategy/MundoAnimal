@@ -93,6 +93,9 @@ public class ModalCriarAgendamentoController implements Initializable {
         }
 
         if(finish.getText() != null && !finish.getText().isEmpty()) {
+            if(!validarCamposFinalizacao()) {
+                return;
+            }
             agendamentoController.finalizarAgendamento(agendamentoAtual.getId());
             fecharModal();
             return;
@@ -237,6 +240,9 @@ public class ModalCriarAgendamentoController implements Initializable {
             Cliente clienteSelecionado = create_agendamento_client_field.getValue();
             if (clienteSelecionado != null) {
                 carregarPetsPorCliente(clienteSelecionado);
+
+                // Limpar o valor selecionado no ComboBox de pets
+                create_agendamento_pet_field.setValue(null);
             }
         });
     }
@@ -279,6 +285,25 @@ public class ModalCriarAgendamentoController implements Initializable {
         return true;
     }
 
+    private boolean validarCamposFinalizacao() {
+        String responsavel = create_agendamento_responsavel_field.getText();
+        Object depTime = create_agendamento_depTime_field.getValue();
+
+        // Verifica se o campo "Responsável pelo Atendimento" está vazio
+        if (responsavel == null || responsavel.trim().isEmpty()) {
+            mostrarErro("Insira o nome do responsável pelo atendimento");
+            return false;
+        }
+
+        // Verifica se o campo "Horário de Saída" não foi selecionado
+        if (depTime == null) {
+            mostrarErro("Selecione um horário de saída");
+            return false;
+        }
+
+        return true; // Todos os campos foram preenchidos
+    }
+
     private void mostrarErro(String mensagem) {
         // Implementar exibição de erro (Alert, por exemplo)
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -313,7 +338,10 @@ public class ModalCriarAgendamentoController implements Initializable {
                 agendamento.getHorarioAgendamento().format(DateTimeFormatter.ofPattern("HH:mm"))
         );
         create_agendamento_servico_field.setValue(agendamento.getServico());
+
+        // Populando os ComboBoxes de cliente e pet
         create_agendamento_client_field.setValue(agendamento.getCliente());
+        carregarPetsPorCliente(agendamento.getCliente()); // Carregar pets do cliente atual
         create_agendamento_pet_field.setValue(agendamento.getAnimal());
     }
 
