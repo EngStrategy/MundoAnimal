@@ -31,8 +31,8 @@ jobs:
       - name: Echo GitHub secret
         run: echo "My GitHub secret is ${{ secrets.MY_GITHUB_SECRET }}"  # Exibe o valor da chave secreta
 
-      - name: Run Tests
-        run: mvn test
-
       - name: Build with Maven
         run: mvn clean package  # Compila o projeto
+
+      - name: Run Tests
+        run: mvn test
