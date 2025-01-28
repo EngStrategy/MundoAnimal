@@ -19,7 +19,7 @@
 
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
-            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
             <!-- Deixei a propriedade DDL auto como create-drop para facilitar
             os testes no banco de dados, fica ao critério de cada um do @Back
            <property name="hibernate.hbm2ddl.auto" value="update" /> -->

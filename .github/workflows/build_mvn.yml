@@ -1,4 +1,4 @@
-name: Echo Secrets and Build JavaFX Project
+name: Build, Test, and Validate with PostgreSQL
 
 on:
   push:
@@ -9,8 +9,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      MY_VARIABLE: "This is my public variable"  # Variável de ambiente pública
+    services:
+      postgres:
+        image: postgres:15  # Versão do PostgreSQL
+        ports:
+          - 5432:5432  # Porta padrão do PostgreSQL
+        env:
+          POSTGRES_USER: postgres  # Usuário do banco
+          POSTGRES_PASSWORD: password  # Senha do banco
+          POSTGRES_DB: mundoanimal  # Banco de dados usado nos testes
 
     steps:
       - name: Checkout code
@@ -25,11 +32,11 @@ jobs:
       - name: Setup Maven
         run: mvn -version  # Verifica a versão do Maven
 
-      - name: Echo environment variable
-        run: echo "My environment variable is $MY_VARIABLE"  # Exibe a variável pública
-
-      - name: Echo GitHub secret
-        run: echo "My GitHub secret is ${{ secrets.MY_GITHUB_SECRET }}"  # Exibe o valor da chave secreta
+      - name: Configure persistence.xml for tests
+        run: |
+          sed -i 's|<property name="jakarta.persistence.jdbc.url" value=".*"/>|<property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/mundoanimal"/>|' src/main/resources/META-INF/persistence.xml
+          sed -i 's|<property name="jakarta.persistence.jdbc.user" value=".*"/>|<property name="jakarta.persistence.jdbc.user" value="postgres"/>|' src/main/resources/META-INF/persistence.xml
+          sed -i 's|<property name="jakarta.persistence.jdbc.password" value=".*"/>|<property name="jakarta.persistence.jdbc.password" value="password"/>|' src/main/resources/META-INF/persistence.xml
 
       - name: Run Tests
         run: mvn test

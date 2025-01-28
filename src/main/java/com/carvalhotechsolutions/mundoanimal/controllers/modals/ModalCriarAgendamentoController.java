@@ -19,6 +19,7 @@ import javafx.util.StringConverter;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -181,15 +182,22 @@ public class ModalCriarAgendamentoController implements Initializable {
         LocalTime inicio = LocalTime.of(6, 0);
         LocalTime fim = LocalTime.of(20, 0);
 
+        // Obter a data e hora atual
+        LocalDateTime agora = LocalDateTime.now();
+
         while (inicio.isBefore(fim.plusMinutes(1))) {
             String horarioStr = inicio.format(DateTimeFormatter.ofPattern("HH:mm"));
+            LocalTime finalInicio = inicio;
 
             // Verificar se o horário já está ocupado
-            LocalTime finalInicio = inicio;
             boolean horarioOcupado = agendamentosExistentes.stream()
                     .anyMatch(a -> a.getHorarioAgendamento().equals(finalInicio));
 
-            if (!horarioOcupado) {
+            // Verificar se o horário já passou (apenas para a data atual)
+            boolean horarioPassou = data.equals(agora.toLocalDate()) && inicio.isBefore(agora.toLocalTime());
+
+            // Adicionar horário apenas se não estiver ocupado e não tiver passado
+            if (!horarioOcupado && !horarioPassou) {
                 horariosDisponiveis.add(horarioStr);
             }
 
