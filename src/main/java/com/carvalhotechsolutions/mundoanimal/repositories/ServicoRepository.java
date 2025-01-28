@@ -1,6 +1,6 @@
 package com.carvalhotechsolutions.mundoanimal.repositories;
 
-import com.carvalhotechsolutions.mundoanimal.database.JPAutil;
+import com.carvalhotechsolutions.mundoanimal.JPAutil;
 import com.carvalhotechsolutions.mundoanimal.model.Servico;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -32,7 +32,7 @@ public class ServicoRepository {
 
     public List<Servico> findAll() {
         try(EntityManager em = JPAutil.getEntityManager()) {
-            TypedQuery<Servico> query = em.createQuery("SELECT s FROM Servico s ORDER BY s.nomeServico", Servico.class);
+            TypedQuery<Servico> query = em.createQuery("SELECT s FROM Servico s", Servico.class);
             return query.getResultList();
         }
     }

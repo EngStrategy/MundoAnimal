@@ -1,6 +1,6 @@
 package com.carvalhotechsolutions.mundoanimal.repositories;
 
-import com.carvalhotechsolutions.mundoanimal.database.JPAutil;
+import com.carvalhotechsolutions.mundoanimal.JPAutil;
 import com.carvalhotechsolutions.mundoanimal.model.Secretario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -32,7 +32,7 @@ public class SecretarioRepository {
 
     public List<Secretario> findAll() {
         try(EntityManager em = JPAutil.getEntityManager()) {
-            TypedQuery<Secretario> query = em.createQuery("SELECT s FROM Secretario s ORDER BY s.nomeUsuario", Secretario.class);
+            TypedQuery<Secretario> query = em.createQuery("SELECT s FROM Secretario s", Secretario.class);
             return query.getResultList();
         }
     }

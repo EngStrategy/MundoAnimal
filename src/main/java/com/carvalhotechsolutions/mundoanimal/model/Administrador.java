@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_admin")
 public class Administrador extends Usuario {
+
     @Column(nullable = false, unique = true)
     private String cpf;
 

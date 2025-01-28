@@ -7,11 +7,10 @@ module com.carvalhotechsolutions.mundoanimal {
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
     requires jbcrypt;
-    requires animatefx;
-    requires fontawesomefx;
-    requires java.desktop;
 
     // Export and open the controllers package
+    opens com.carvalhotechsolutions.mundoanimal.controllers to javafx.fxml;
+    exports com.carvalhotechsolutions.mundoanimal.controllers;
 
     opens com.carvalhotechsolutions.mundoanimal to javafx.fxml;
     exports com.carvalhotechsolutions.mundoanimal;
@@ -20,14 +19,6 @@ module com.carvalhotechsolutions.mundoanimal {
             org.hibernate.orm.core,
             jakarta.persistence;
     exports com.carvalhotechsolutions.mundoanimal.model;
-    exports com.carvalhotechsolutions.mundoanimal.controllers.autenticacao;
-    opens com.carvalhotechsolutions.mundoanimal.controllers.autenticacao to javafx.fxml;
-    exports com.carvalhotechsolutions.mundoanimal.controllers.modals;
-    opens com.carvalhotechsolutions.mundoanimal.controllers.modals to javafx.fxml;
-    exports com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento;
-    opens com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento to javafx.fxml;
-    exports com.carvalhotechsolutions.mundoanimal.database;
-    opens com.carvalhotechsolutions.mundoanimal.database to javafx.fxml;
-    exports com.carvalhotechsolutions.mundoanimal.utils;
-    opens com.carvalhotechsolutions.mundoanimal.utils to javafx.fxml;
+    exports com.carvalhotechsolutions.mundoanimal.controllers.login;
+    opens com.carvalhotechsolutions.mundoanimal.controllers.login to javafx.fxml;
 }

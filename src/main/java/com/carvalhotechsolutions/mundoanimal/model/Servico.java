@@ -52,10 +52,4 @@ public class Servico {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
-    @Override
-    public String toString() {
-        return getNomeServico();
-    }
 }
-
