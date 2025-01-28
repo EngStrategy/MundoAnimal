@@ -118,20 +118,34 @@ public class ModalCriarClienteController {
     private boolean validarInputs(String nome, String telefone) {
 
         nome = nome.trim();
-        telefone = telefone.trim(); // trim() usado para remover espaços desnecessários
+        telefone = telefone.trim(); // Remove espaços desnecessários
 
+        // Validação de campos vazios
         if (nome.isEmpty() || telefone.isEmpty()) {
             mostrarAlerta("Erro", "Campo(s) obrigatório(s) vazio(s)!", Alert.AlertType.ERROR);
             return false;
         }
+
+        // Extrair apenas os números do telefone para validação
+        String telefoneNumerico = telefone.replaceAll("\\D", ""); // Remove tudo que não for número
+
+        // Validação do comprimento do telefone (apenas números)
+        if (telefoneNumerico.length() != 11) {
+            mostrarAlerta("Erro", "O telefone deve conter exatamente 11 dígitos numéricos.", Alert.AlertType.ERROR);
+            return false;
+        }
+
+        // Verificar se o telefone já está cadastrado
         String finalTelefone = telefone;
         boolean telefoneJaCadastrado = clienteRepository.findAll().stream()
                 .anyMatch(cliente -> cliente.getTelefone().equals(finalTelefone) &&
                         (clienteAtual == null || !cliente.getId().equals(clienteAtual.getId())));
-        if (telefoneJaCadastrado){
+        if (telefoneJaCadastrado) {
             mostrarAlerta("Erro", "O telefone informado já está cadastrado no sistema.", Alert.AlertType.ERROR);
             return false;
         }
+
+        // Verificar se o nome já está cadastrado
         String finalNome = nome;
         boolean nomeJaCadastrado = clienteRepository.findAll().stream()
                 .anyMatch(cliente -> cliente.getNome().equalsIgnoreCase(finalNome) &&
@@ -139,6 +153,12 @@ public class ModalCriarClienteController {
 
         if (nomeJaCadastrado) {
             mostrarAlerta("Erro", "Já existe um cliente cadastrado com esse nome.", Alert.AlertType.ERROR);
+            return false;
+        }
+
+        // Impedir o cadastro de "admin"
+        if (nome.equalsIgnoreCase("admin")) {
+            mostrarAlerta("Erro", "Não é possível cadastrar um admin.", Alert.AlertType.ERROR);
             return false;
         }
 
