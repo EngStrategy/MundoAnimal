@@ -1,6 +1,7 @@
 package com.carvalhotechsolutions.mundoanimal.repositories;
 
 import com.carvalhotechsolutions.mundoanimal.database.JPAutil;
+import com.carvalhotechsolutions.mundoanimal.enums.StatusAgendamento;
 import com.carvalhotechsolutions.mundoanimal.model.Agendamento;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -75,5 +76,30 @@ public class AgendamentoRepository {
         return em.createQuery(jpql, Agendamento.class)
                 .setParameter("data", data)
                 .getResultList();
+    }
+
+    public List<Agendamento> findStatusFinalizado() {
+        try(EntityManager em = JPAutil.getEntityManager()) {
+            String jpql = "SELECT a FROM Agendamento a " +
+                    "WHERE a.status = :statusFinalizado " +
+                    "ORDER BY a.dataAgendamento ASC, a.horarioAgendamento ASC";
+
+            return em.createQuery(jpql, Agendamento.class)
+                    .setParameter("statusFinalizado", StatusAgendamento.FINALIZADO)
+                    .getResultList();
+        }
+
+    }
+
+    public List<Agendamento> findStatusPendente() {
+        try (EntityManager em = JPAutil.getEntityManager()) {
+            String jpql = "SELECT a FROM Agendamento a " +
+                    "WHERE a.status = :statusPendente " +
+                    "ORDER BY a.dataAgendamento ASC, a.horarioAgendamento ASC";
+
+            return em.createQuery(jpql, Agendamento.class)
+                    .setParameter("statusPendente", StatusAgendamento.PENDENTE)
+                    .getResultList();
+        }
     }
 }

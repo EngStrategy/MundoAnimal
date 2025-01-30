@@ -9,7 +9,8 @@ public enum ScreenEnum {
     SERVICOS("/fxml/gerenciamento/servicos.fxml", "Serviços", ScreenType.CONTENT),
     CLIENTES("/fxml/gerenciamento/clientes.fxml", "Clientes", ScreenType.CONTENT),
     PETS("/fxml/gerenciamento/pets.fxml", "Pets", ScreenType.CONTENT),
-    AGENDAMENTOS("/fxml/gerenciamento/agendamentos.fxml", "Agendamentos", ScreenType.CONTENT);
+    AGENDAMENTOS("/fxml/gerenciamento/agendamentos.fxml", "Agendamentos", ScreenType.CONTENT),
+    HISTORICO("/fxml/gerenciamento/historico.fxml", "Historico", ScreenType.CONTENT),;
 
     private final String fxmlPath;
     private final String title;

@@ -1,6 +1,7 @@
 package com.carvalhotechsolutions.mundoanimal.controllers.modals;
 
 import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.AgendamentoController;
+import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.HistoricoController;
 import com.carvalhotechsolutions.mundoanimal.model.Agendamento;
 import com.carvalhotechsolutions.mundoanimal.model.Animal;
 import com.carvalhotechsolutions.mundoanimal.model.Cliente;
@@ -93,11 +94,18 @@ public class ModalCriarAgendamentoController implements Initializable {
             return;
         }
 
-        if(finish.getText() != null && !finish.getText().isEmpty()) {
-            if(!validarCamposFinalizacao()) {
+        if (finish.getText() != null && !finish.getText().isEmpty()) {
+            if (!validarCamposFinalizacao()) {
                 return;
             }
-            agendamentoController.finalizarAgendamento(agendamentoAtual.getId());
+
+            String responsavel = create_agendamento_responsavel_field.getText(); // Pegando o responsável
+            if (responsavel == null || responsavel.isBlank()) {
+                agendamentoController.handleError("O responsável deve ser informado!");
+                return;
+            }
+
+            agendamentoController.finalizarAgendamento(agendamentoAtual.getId(), responsavel); // Passando o responsável
             fecharModal();
             return;
         }

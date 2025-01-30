@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.HistoricoController">
+    <children>
+        <VBox spacing="30.0" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets left="37.0" right="37.0" top="37.0" />
+            </padding>
+            <children>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" spacing="15.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <TextField fx:id="filterField" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="47.0" prefWidth="200.0" promptText="🔍 Buscar..." styleClass="search_input" />
+                            </children>
+                        </HBox>
+                    </children>
+                </HBox>
+                <TableView fx:id="tableView" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="tipoColumn">
+                            <graphic>
+                                <Label text="Tipo" />
+                            </graphic>
+                        </TableColumn>
+                        <TableColumn fx:id="dataColumn">
+                            <graphic>
+                                <Label text="Data e Hora" />
+                            </graphic>
+                        </TableColumn>
+                        <TableColumn fx:id="petColumn">
+                            <graphic>
+                                <Label text="Pet" />
+                            </graphic>
+                        </TableColumn>
+                        <TableColumn fx:id="donoColumn">
+                            <graphic>
+                                <Label text="Dono" />
+                            </graphic>
+                        </TableColumn>
+                        <TableColumn fx:id="responsavelColumn" sortable="false">
+                            <graphic>
+                                <Label text="Responsável" />
+                            </graphic>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+        <VBox VBox.vgrow="NEVER">
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+            <padding>
+                <Insets bottom="16.0" left="37.0" right="37.0" top="16.0" />
+            </padding>
+            <children>
+                <HBox alignment="CENTER" minHeight="52.0">
+                    <children>
+                        <Label fx:id="numberOfResults" text="">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Label>
+                        <HBox fx:id="feedbackContainer" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</VBox>

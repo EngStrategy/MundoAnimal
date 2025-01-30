@@ -2,6 +2,7 @@ package com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento;
 
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalConfirmarRemocaoController;
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarAgendamentoController;
+import com.carvalhotechsolutions.mundoanimal.enums.StatusAgendamento;
 import com.carvalhotechsolutions.mundoanimal.model.Agendamento;
 import com.carvalhotechsolutions.mundoanimal.repositories.AgendamentoRepository;
 import com.carvalhotechsolutions.mundoanimal.utils.FeedbackManager;
@@ -9,7 +10,6 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -255,7 +255,7 @@ public class AgendamentoController implements Initializable {
     }
 
     public void atualizarTableView() {
-        agendamentosList.setAll(agendamentoRepository.findAll());
+        agendamentosList.setAll(agendamentoRepository.findStatusPendente());
         numberOfResults.setText(agendamentosList.size() + " registro(s) retornado(s)");
     }
 
@@ -322,8 +322,12 @@ public class AgendamentoController implements Initializable {
         return agendamentoRepository.verificarDisponibilidadeHorario(data, horario);
     }
 
-    public void finalizarAgendamento(Long id) {
-        agendamentoRepository.deleteById(id);
+
+    public void finalizarAgendamento(Long id, String responsavel) {
+        Agendamento agendamentoFinalizado = agendamentoRepository.findById(id);
+        agendamentoFinalizado.setStatus(StatusAgendamento.FINALIZADO);
+        agendamentoFinalizado.setResponsavelAtendimento(responsavel); // Atualizando o responsável
+        agendamentoRepository.save(agendamentoFinalizado);
         handleSuccessfulOperation("Agendamento finalizado com sucesso!");
     }
 }
