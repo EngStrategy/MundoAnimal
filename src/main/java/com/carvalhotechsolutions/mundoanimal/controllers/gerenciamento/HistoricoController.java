@@ -6,24 +6,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HistoricoController implements Initializable {
 
-    @FXML
-    private TableColumn<Agendamento, String> dataColumn;
+    private static final int ROWS_PER_PAGE = 8;
 
     @FXML
-    private TableColumn<Agendamento, String> donoColumn;
+    private TableColumn<Agendamento, String> dataColumn, donoColumn, petColumn, responsavelColumn, tipoColumn;
 
     @FXML
     private TextField filterField;
@@ -32,22 +30,15 @@ public class HistoricoController implements Initializable {
     private Label numberOfResults;
 
     @FXML
-    private TableColumn<Agendamento, String> petColumn;
-
-    @FXML
-    private TableColumn<Agendamento, String> responsavelColumn;
-
-    @FXML
     private TableView<Agendamento> tableView;
 
     @FXML
-    private TableColumn<Agendamento, String> tipoColumn;
+    private Pagination pagination;
 
-    private AgendamentoRepository agendamentoRepository = new AgendamentoRepository();
-
+    private final AgendamentoRepository agendamentoRepository = new AgendamentoRepository();
     private ObservableList<Agendamento> agendamentosList = FXCollections.observableArrayList();
-
     private FilteredList<Agendamento> filteredData;
+    private SortedList<Agendamento> sortedData;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,26 +50,35 @@ public class HistoricoController implements Initializable {
         responsavelColumn.setCellValueFactory(new PropertyValueFactory<>("responsavelAtendimento"));
         donoColumn.setCellValueFactory(new PropertyValueFactory<>("cliente"));
 
-        atualizarTableView();
+        filteredData = new FilteredList<>(agendamentosList, p -> true); // Inicializa antes de atualizar a tabela
+        sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+
         configurarBuscaAgendamentos();
+        atualizarTableView();
     }
 
     public void atualizarTableView() {
         agendamentosList.setAll(agendamentoRepository.findStatusFinalizado());
-        numberOfResults.setText(agendamentosList.size() + " registro(s) retornado(s)");
+
+        // Atualiza a lista filtrada
+        filteredData = new FilteredList<>(agendamentosList, p -> true);
+        sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+
+        numberOfResults.setText(filteredData.size() + " registro(s) retornado(s)");
+        atualizarPaginacao();
     }
 
     private void configurarBuscaAgendamentos() {
-        filteredData = new FilteredList<>(agendamentosList, p -> true);
         filterField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(agendamento -> {
                 if (newValue == null || newValue.isEmpty()) {
-                    return true;  // Nenhum filtro aplicado, retorna todos
+                    return true;
                 }
 
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                // Verifica se o nome do cliente, nome do animal ou o responsável contém o texto de busca
                 boolean matchesCliente = agendamento.getCliente().getNome().toLowerCase().contains(lowerCaseFilter);
                 boolean matchesAnimal = agendamento.getAnimal().getNome().toLowerCase().contains(lowerCaseFilter);
                 boolean matchesResponsavel = agendamento.getResponsavelAtendimento() != null &&
@@ -88,12 +88,30 @@ public class HistoricoController implements Initializable {
                 return matchesCliente || matchesAnimal || matchesResponsavel || matchesServico;
             });
 
-            // Atualiza o número de registros retornados
             numberOfResults.setText(filteredData.size() + " registro(s) retornado(s)");
+            atualizarPaginacao();
         });
-
-        // Aplica a lista filtrada na TableView
-        tableView.setItems(filteredData);
     }
 
+    private void atualizarPaginacao() {
+        int totalPages = (int) Math.ceil((double) filteredData.size() / ROWS_PER_PAGE);
+        pagination.setPageCount(Math.max(totalPages, 1));
+
+        pagination.setPageFactory(pageIndex -> {
+            atualizarPagina(pageIndex);
+            return new VBox(); // Retorna um nó vazio
+        });
+
+        atualizarPagina(0);
+    }
+
+    private void atualizarPagina(int pageIndex) {
+        int fromIndex = pageIndex * ROWS_PER_PAGE;
+        int toIndex = Math.min(fromIndex + ROWS_PER_PAGE, filteredData.size());
+
+        if (fromIndex <= toIndex) {
+            tableView.setItems(FXCollections.observableArrayList(sortedData.subList(fromIndex, toIndex)));
+        }
+    }
 }
+

@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -71,7 +72,10 @@
                                 <Font size="16.0" />
                             </font>
                         </Label>
-                        <HBox fx:id="feedbackContainer" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
+                        <HBox fx:id="feedbackContainer" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Pagination fx:id="pagination" prefHeight="40.0" prefWidth="200.0" />
+                     </children></HBox>
                     </children>
                 </HBox>
             </children>
