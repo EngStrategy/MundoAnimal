@@ -85,6 +85,15 @@ public class ModalCriarSecretarioController {
             return false;
         }
 
+        // Extrair apenas os números do telefone para validação
+        String telefoneNumerico = telefone.replaceAll("\\D", ""); // Remove tudo que não for número
+
+        // Validação do comprimento do telefone (apenas números)
+        if (telefoneNumerico.length() != 11) {
+            mostrarAlerta("Erro", "O telefone deve conter exatamente 11 dígitos numéricos.", Alert.AlertType.ERROR);
+            return false;
+        }
+
         if (!password.equals(passwordConfirmation)) {
             mostrarAlerta("Erro", "Senhas não estão iguais.", Alert.AlertType.ERROR);
             return false;

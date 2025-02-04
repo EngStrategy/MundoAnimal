@@ -203,6 +203,11 @@ public class AnimalController implements Initializable {
     }
 
     private void abrirModalExcluir(Long animalId) {
+        if (animalRepository.petPossuiAgendamentos(animalId)) {
+            handleError("Este pet possui agendamento(s) pendente(s)");
+            return;
+        }
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalConfirmarRemocao.fxml"));
             Parent modalContent = loader.load();

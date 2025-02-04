@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "tb_cliente")
+@Table(name = "tb_clientes")
 public class Cliente {
 
     @Id
