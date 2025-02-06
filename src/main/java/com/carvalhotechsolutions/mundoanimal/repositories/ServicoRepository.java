@@ -50,4 +50,14 @@ public class ServicoRepository {
             }
         }
     }
+
+    public boolean servicoPossuiAgendamentos(Long servicoId) {
+        try (EntityManager em = JPAutil.getEntityManager()) {
+            String jpql = "SELECT COUNT(a) FROM Agendamento a WHERE a.servico.id = :servicoId";
+            Long count = em.createQuery(jpql, Long.class)
+                    .setParameter("servicoId", servicoId)
+                    .getSingleResult();
+            return count > 0;
+        }
+    }
 }

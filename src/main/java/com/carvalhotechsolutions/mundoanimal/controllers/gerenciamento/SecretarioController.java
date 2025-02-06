@@ -3,10 +3,14 @@ package com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento;
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalConfirmarRemocaoController;
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarSecretarioController;
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalEditarSecretarioController;
+import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.model.Secretario;
 import com.carvalhotechsolutions.mundoanimal.repositories.SecretarioRepository;
 import com.carvalhotechsolutions.mundoanimal.utils.FeedbackManager;
+import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -28,6 +32,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SecretarioController implements Initializable {
+    private static final int ROW_HEIGHT = 79; // Altura de cada linha em pixels
+
+    private static final int HEADER_HEIGHT = 79; // Altura do header em pixels
+
+    private IntegerProperty itemsPerPage = new SimpleIntegerProperty();
+
     @FXML
     private HBox feedbackContainer;
 
@@ -49,11 +59,14 @@ public class SecretarioController implements Initializable {
     @FXML
     private TextField filterField;
 
+    @FXML
+    private Pagination paginator;
+
     private SecretarioRepository secretarioRepository = new SecretarioRepository();
 
     private ObservableList<Secretario> secretariosList = FXCollections.observableArrayList();
 
-    private FilteredList<Secretario> filteredData;
+    private FilteredList<Secretario> filteredData = new FilteredList<>(secretariosList);
 
 
     @Override
@@ -75,14 +88,80 @@ public class SecretarioController implements Initializable {
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nomeUsuario"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("telefone"));
 
+        // Adicionar listener para mudanças na altura da tabela
+        tableView.heightProperty().addListener((obs, oldHeight, newHeight) -> {
+            calcularItensPorPagina(newHeight.doubleValue());
+            tableView.refresh(); // Força a atualização da TableView
+            // Reconfigura a paginação quando a altura muda
+            Platform.runLater(this::configurarPaginacao);
+        });
+
+        // Calcula inicial de itens por página
+        calcularItensPorPagina(tableView.getHeight());
+
         configurarColunaAcao();
         atualizarTableView();
         configurarBuscaSecretarios();
     }
 
+    private void calcularItensPorPagina(double alturaTotal) {
+        // Subtrai a altura do header da altura total
+        double alturaDisponivel = alturaTotal - HEADER_HEIGHT;
+        // Calcula quantas linhas cabem na altura disponível
+        int numeroLinhas = Math.max(1, (int) Math.floor(alturaDisponivel / ROW_HEIGHT));
+        // Atualiza a propriedade de itens por página
+        itemsPerPage.set(numeroLinhas);
+    }
+
     public void atualizarTableView() {
         secretariosList.setAll(secretarioRepository.findAll());
         numberOfResults.setText(secretariosList.size() + " registro(s) retornado(s)");
+        configurarPaginacao(); // O método atualizado será chamado aqui também
+        tableView.refresh();
+    }
+
+    private void configurarPaginacao() {
+        if (filteredData.isEmpty()) {
+            paginator.setPageCount(1);
+            paginator.setCurrentPageIndex(0);
+            paginator.setDisable(true);
+            tableView.setItems(FXCollections.observableArrayList());
+            return;
+        }
+
+        // Usa o valor dinâmico de itens por página
+        int totalPages = (int) Math.ceil((double) filteredData.size() / itemsPerPage.get());
+        paginator.setPageCount(totalPages);
+
+        // Se a página atual é maior que o novo número total de páginas,
+        // ajusta para a última página válida
+        if (paginator.getCurrentPageIndex() >= totalPages) {
+            paginator.setCurrentPageIndex(totalPages - 1);
+        }
+
+        paginator.setDisable(false);
+        paginator.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> {
+            Platform.runLater(() -> {
+                atualizarPaginaAtual(newIndex.intValue());
+                tableView.refresh(); // Força a atualização da TableView
+            });
+        });
+
+        // Atualiza a visualização inicial
+        atualizarPaginaAtual(paginator.getCurrentPageIndex());
+    }
+
+    private void atualizarPaginaAtual(int pageIndex) {
+        int startIndex = pageIndex * itemsPerPage.get();
+        int endIndex = Math.min(startIndex + itemsPerPage.get(), filteredData.size());
+
+        // Cria uma nova lista com os itens da página atual
+        ObservableList<Secretario> pageItems = FXCollections.observableArrayList(
+                filteredData.subList(startIndex, endIndex)
+        );
+
+        tableView.setItems(pageItems);
+        tableView.refresh();
     }
 
     private void configurarColunaAcao() {
@@ -129,6 +208,8 @@ public class SecretarioController implements Initializable {
 
     @FXML
     public void abrirModalCadastrarSecretario() {
+        filterField.clear();
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalCriarSecretario.fxml"));
             Parent modalContent = loader.load();
@@ -219,9 +300,20 @@ public class SecretarioController implements Initializable {
                 return secretario.getNomeUsuario().toLowerCase().contains(lowerCaseFilter)
                         || secretario.getTelefone().toLowerCase().contains(lowerCaseFilter);
             });
-            numberOfResults.setText(filteredData.size() + " registro(s) retornado(s)");
+
+            Platform.runLater(() -> {
+                // Atualiza o número de resultados
+                numberOfResults.setText(filteredData.size() + " registro(s) retornado(s)");
+
+                // Se não houver resultados, limpa a tabela
+                if (filteredData.isEmpty()) {
+                    tableView.setItems(FXCollections.observableArrayList());
+                }
+
+                // Reconfigura a paginação com os dados filtrados
+                configurarPaginacao();
+            });
         });
-        tableView.setItems(filteredData);
     }
 
     public void handleSuccessfulOperation(String message) {

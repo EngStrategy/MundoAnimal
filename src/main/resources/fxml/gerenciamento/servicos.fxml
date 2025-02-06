@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Pagination?>
 <VBox stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.ServicoController">
    <children>
       <VBox spacing="30.0" VBox.vgrow="ALWAYS">
@@ -35,7 +36,7 @@
                   </Button>
                   <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" spacing="15.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="filterField" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="47.0" prefWidth="200.0" promptText="🔍 Buscar" styleClass="search_input" />
+                        <TextField fx:id="filterField" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="47.0" prefWidth="300.0" promptText="🔍 Buscar" styleClass="search_input" />
                      </children>
                   </HBox>
                </children>
@@ -74,14 +75,25 @@
             <Insets bottom="16.0" left="37.0" right="37.0" top="16.0" />
          </padding>
          <children>
-            <HBox alignment="CENTER" minHeight="52.0">
+            <HBox alignment="CENTER_RIGHT" maxHeight="52.0" minHeight="52.0">
                <children>
-                  <Label fx:id="numberOfResults" text="">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <HBox fx:id="feedbackContainer" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
+                  <HBox alignment="CENTER_RIGHT" maxHeight="52.0" minHeight="52.0" spacing="8.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="numberOfResults" minWidth="400.0" styleClass="" text="9999999999 registros retornados">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Pagination fx:id="paginator" maxHeight="52.0" maxPageIndicatorCount="4" minHeight="52.0" prefHeight="52.0" style="-fx-page-information-visible: false;" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="1.0" />
+                           </padding>
+                        </Pagination>
+                        <HBox fx:id="feedbackContainer" alignment="CENTER_RIGHT" minWidth="400.0" />
+                     </children></HBox>
                </children>
             </HBox>
          </children>

@@ -2,10 +2,14 @@ package com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento;
 
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalConfirmarRemocaoController;
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarServicoController;
+import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.model.Servico;
 import com.carvalhotechsolutions.mundoanimal.repositories.ServicoRepository;
 import com.carvalhotechsolutions.mundoanimal.utils.FeedbackManager;
+import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -28,6 +32,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ServicoController implements Initializable {
+    private static final int ROW_HEIGHT = 79; // Altura de cada linha em pixels
+    private static final int HEADER_HEIGHT = 79; // Altura do header em pixels
+    private IntegerProperty itemsPerPage = new SimpleIntegerProperty();
+
     @FXML
     private HBox feedbackContainer;
 
@@ -52,11 +60,14 @@ public class ServicoController implements Initializable {
     @FXML
     private TextField filterField;
 
+    @FXML
+    private Pagination paginator;
+
     private ServicoRepository servicoRepository = new ServicoRepository();
 
     private ObservableList<Servico> servicosList = FXCollections.observableArrayList();
 
-    private FilteredList<Servico> filteredData;
+    private FilteredList<Servico> filteredData = new FilteredList<>(servicosList);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -79,10 +90,74 @@ public class ServicoController implements Initializable {
         descricaoColumn.setCellValueFactory(new PropertyValueFactory<>("descricao"));
         valorColumn.setCellValueFactory(new PropertyValueFactory<>("valorServico"));
 
+        // Adicionar listener para mudanças na altura da tabela
+        tableView.heightProperty().addListener((obs, oldHeight, newHeight) -> {
+            calcularItensPorPagina(newHeight.doubleValue());
+            tableView.refresh(); // Força a atualização da TableView
+            // Reconfigura a paginação quando a altura muda
+            Platform.runLater(this::configurarPaginacao);
+        });
+
+        // Calcula inicial de itens por página
+        calcularItensPorPagina(tableView.getHeight());
+
         configurarColunaValor();
         configurarColunaAcao();
         atualizarTableView();
         configurarBuscaServicos();
+    }
+
+    private void calcularItensPorPagina(double alturaTotal) {
+        // Subtrai a altura do header da altura total
+        double alturaDisponivel = alturaTotal - HEADER_HEIGHT;
+        // Calcula quantas linhas cabem na altura disponível
+        int numeroLinhas = Math.max(1, (int) Math.floor(alturaDisponivel / ROW_HEIGHT));
+        // Atualiza a propriedade de itens por página
+        itemsPerPage.set(numeroLinhas);
+    }
+
+    private void configurarPaginacao() {
+        if (filteredData.isEmpty()) {
+            paginator.setPageCount(1);
+            paginator.setCurrentPageIndex(0);
+            paginator.setDisable(true);
+            tableView.setItems(FXCollections.observableArrayList());
+            return;
+        }
+
+        // Usa o valor dinâmico de itens por página
+        int totalPages = (int) Math.ceil((double) filteredData.size() / itemsPerPage.get());
+        paginator.setPageCount(totalPages);
+
+        // Se a página atual é maior que o novo número total de páginas,
+        // ajusta para a última página válida
+        if (paginator.getCurrentPageIndex() >= totalPages) {
+            paginator.setCurrentPageIndex(totalPages - 1);
+        }
+
+        paginator.setDisable(false);
+        paginator.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> {
+            Platform.runLater(() -> {
+                atualizarPaginaAtual(newIndex.intValue());
+                tableView.refresh(); // Força a atualização da TableView
+            });
+        });
+
+        // Atualiza a visualização inicial
+        atualizarPaginaAtual(paginator.getCurrentPageIndex());
+    }
+
+    private void atualizarPaginaAtual(int pageIndex) {
+        int startIndex = pageIndex * itemsPerPage.get();
+        int endIndex = Math.min(startIndex + itemsPerPage.get(), filteredData.size());
+
+        // Cria uma nova lista com os itens da página atual
+        ObservableList<Servico> pageItems = FXCollections.observableArrayList(
+                filteredData.subList(startIndex, endIndex)
+        );
+
+        tableView.setItems(pageItems);
+        tableView.refresh();
     }
 
     private void configurarColunaAcao() {
@@ -146,6 +221,8 @@ public class ServicoController implements Initializable {
 
     @FXML
     public void abrirModalCadastrarServico() {
+        filterField.clear();
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalCriarServico.fxml"));
             Parent modalContent = loader.load();
@@ -199,6 +276,11 @@ public class ServicoController implements Initializable {
     }
 
     private void abrirModalExcluir(Long servicoId) {
+        if (servicoRepository.servicoPossuiAgendamentos(servicoId)) {
+            handleError("Este serviço possui agendamento(s) pendente(s)");
+            return;
+        }
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalConfirmarRemocao.fxml"));
             Parent modalContent = loader.load();
@@ -228,6 +310,8 @@ public class ServicoController implements Initializable {
     public void atualizarTableView() {
         servicosList.setAll(servicoRepository.findAll());
         numberOfResults.setText(servicosList.size() + " registro(s) retornado(s)");
+        configurarPaginacao(); // O método atualizado será chamado aqui também
+        tableView.refresh();
     }
 
     private void configurarBuscaServicos() {
@@ -247,9 +331,19 @@ public class ServicoController implements Initializable {
                 // Retorna true se qualquer um dos campos for um match
                 return matchesNome || matchesDescricao || matchesPreco;
             });
-            numberOfResults.setText(filteredData.size() + " registro(s) retornado(s)");
+            Platform.runLater(() -> {
+                // Atualiza o número de resultados
+                numberOfResults.setText(filteredData.size() + " registro(s) retornado(s)");
+
+                // Se não houver resultados, limpa a tabela
+                if (filteredData.isEmpty()) {
+                    tableView.setItems(FXCollections.observableArrayList());
+                }
+
+                // Reconfigura a paginação com os dados filtrados
+                configurarPaginacao();
+            });
         });
-        tableView.setItems(filteredData);
     }
 
     public void handleSuccessfulOperation(String message) {

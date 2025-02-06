@@ -57,4 +57,14 @@ public class AnimalRepository {
             }
         }
     }
+
+    public boolean petPossuiAgendamentos(Long animalId) {
+        try (EntityManager em = JPAutil.getEntityManager()) {
+            String jpql = "SELECT COUNT(a) FROM Agendamento a WHERE a.animal.id = :animalId";
+            Long count = em.createQuery(jpql, Long.class)
+                    .setParameter("animalId", animalId)
+                    .getSingleResult();
+            return count > 0;
+        }
+    }
 }
