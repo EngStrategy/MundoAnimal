@@ -47,13 +47,7 @@ public class ClienteController implements Initializable {
     private TableView<Cliente> tableView;
 
     @FXML
-    private TableColumn<Cliente, String> nomeColumn;
-
-    @FXML
-    private TableColumn<Cliente, String> telefoneColumn;
-
-    @FXML
-    private TableColumn<Cliente, String> petsColumn;
+    private TableColumn<Cliente, String> telefoneColumn, petsColumn, nomeColumn;
 
     @FXML
     private TableColumn<Cliente, Void> acaoColumn;

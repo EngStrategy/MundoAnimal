@@ -2,6 +2,7 @@ package com.carvalhotechsolutions.mundoanimal.utils;
 
 import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.AnimalController;
 import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.ClienteController;
+import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.HistoricoController;
 import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.MenuController;
 import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import javafx.fxml.FXMLLoader;
@@ -131,6 +132,12 @@ public class ScreenManager {
             contentArea.getChildren().add(content);
             content.setVisible(true);
             content.setManaged(true);
+
+            // Se for a tela de Histórico, chama o método de atualização
+            if (screen == ScreenEnum.HISTORICO) {
+                HistoricoController historicoController = (HistoricoController) controllers.get(ScreenEnum.HISTORICO);
+                historicoController.atualizarTableView();
+            }
         }
     }
 
