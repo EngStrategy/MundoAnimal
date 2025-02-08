@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
@@ -19,14 +20,26 @@
                 <Insets left="37.0" right="37.0" top="37.0" />
             </padding>
             <children>
-                <HBox alignment="CENTER_LEFT">
+                <HBox alignment="CENTER_LEFT" spacing="16.0">
                     <children>
+                  <DatePicker fx:id="dataInicialPicker" prefWidth="200.0" promptText="Data inicial" styleClass="default_text_input, date_picker_input" />
+                  <DatePicker fx:id="dataFinalPicker" prefWidth="200.0" promptText="Data Final" styleClass="default_text_input, date_picker_input" />
+                  <Button fx:id="btnFiltro" mnemonicParsing="false" onAction="#aplicarFiltroData" prefHeight="45.0" style="-fx-cursor: hand; -fx-border-radius: 3px;" text="Aplicar filtro">
+                     <styleClass>
+                        <String fx:value="default_btn" />
+                        <String fx:value="white_regular_text" />
+                     </styleClass>
+                  </Button>
+                  <Button fx:id="btnLimparFiltro" mnemonicParsing="false" onAction="#limparFiltroData" prefHeight="45.0" style="-fx-cursor: hand; -fx-border-radius: 3px;" text="Limpar filtro">
+                     <styleClass>
+                        <String fx:value="default_btn" />
+                        <String fx:value="white_regular_text" />
+                        <String fx:value="delete_btn" />
+                     </styleClass>
+                  </Button>
                         <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" spacing="15.0" HBox.hgrow="ALWAYS">
                             <children>
-                        <Button fx:id="btnFiltro" mnemonicParsing="false" onAction="#aplicarFiltroData" style="-fx-cursor: hand; -fx-border-radius: 3px;" text="Aplicar Filtro" />
-                        <DatePicker fx:id="dataInicialPicker" promptText="Data inicial" />
-                        <DatePicker fx:id="dataFinalPicker" promptText="Data Final" />
-                                <TextField fx:id="filterField" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="47.0" prefWidth="300.0" promptText="🔍 Buscar..." styleClass="search_input" />
+                                <TextField fx:id="filterField" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="47.0" prefWidth="240.0" promptText="🔍 Buscar..." styleClass="search_input" />
                             </children>
                         </HBox>
                     </children>

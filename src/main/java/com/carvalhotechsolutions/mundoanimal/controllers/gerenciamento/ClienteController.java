@@ -397,12 +397,4 @@ public class ClienteController implements Initializable {
                 FeedbackManager.FeedbackType.ERROR
         );
     }
-
-    private void mostrarAlerta(String titulo, String mensagem, Alert.AlertType tipo) {
-        Alert alerta = new Alert(tipo);
-        alerta.setTitle(titulo);
-        alerta.setHeaderText(null);
-        alerta.setContentText(mensagem);
-        alerta.showAndWait();
-    }
 }

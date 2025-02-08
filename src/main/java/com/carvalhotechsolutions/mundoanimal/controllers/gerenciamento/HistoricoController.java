@@ -1,7 +1,9 @@
 package com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento;
 
 import com.carvalhotechsolutions.mundoanimal.model.Agendamento;
+import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.repositories.AgendamentoRepository;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -22,8 +24,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class HistoricoController implements Initializable {
+    private static final int ROW_HEIGHT = 79; // Altura de cada linha em pixels
 
-    private static final int ROWS_PER_PAGE = 8;
+    private static final int HEADER_HEIGHT = 79; // Altura do header em pixels
+
+    private IntegerProperty itemsPerPage = new SimpleIntegerProperty();
 
     @FXML
     private TableColumn<Agendamento, String> dataColumn, donoColumn, petColumn, responsavelColumn, tipoColumn;
@@ -62,9 +67,80 @@ public class HistoricoController implements Initializable {
         sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableView.comparatorProperty());
 
+        // Adicionar listener para mudanças na altura da tabela
+        tableView.heightProperty().addListener((obs, oldHeight, newHeight) -> {
+            calcularItensPorPagina(newHeight.doubleValue());
+            tableView.refresh(); // Força a atualização da TableView
+            // Reconfigura a paginação quando a altura muda
+            Platform.runLater(this::configurarPaginacao);
+        });
+
+        // Calcula inicial de itens por página
+        calcularItensPorPagina(tableView.getHeight());
+
+        // Adiciona listener para o campo de busca
+        filterField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) { // Quando o campo recebe foco
+                limparFiltroData();
+            }
+        });
+
         configurarColunas();
         configurarBuscaAgendamentos();
         atualizarTableView();
+    }
+
+    private void calcularItensPorPagina(double alturaTotal) {
+        // Subtrai a altura do header da altura total
+        double alturaDisponivel = alturaTotal - HEADER_HEIGHT;
+        // Calcula quantas linhas cabem na altura disponível
+        int numeroLinhas = Math.max(1, (int) Math.floor(alturaDisponivel / ROW_HEIGHT));
+        // Atualiza a propriedade de itens por página
+        itemsPerPage.set(numeroLinhas);
+    }
+
+    private void configurarPaginacao() {
+        if (filteredData.isEmpty()) {
+            paginator.setPageCount(1);
+            paginator.setCurrentPageIndex(0);
+            paginator.setDisable(true);
+            tableView.setItems(FXCollections.observableArrayList());
+            return;
+        }
+
+        // Usa o valor dinâmico de itens por página
+        int totalPages = (int) Math.ceil((double) filteredData.size() / itemsPerPage.get());
+        paginator.setPageCount(totalPages);
+
+        // Se a página atual é maior que o novo número total de páginas,
+        // ajusta para a última página válida
+        if (paginator.getCurrentPageIndex() >= totalPages) {
+            paginator.setCurrentPageIndex(totalPages - 1);
+        }
+
+        paginator.setDisable(false);
+        paginator.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> {
+            Platform.runLater(() -> {
+                atualizarPaginaAtual(newIndex.intValue());
+                tableView.refresh(); // Força a atualização da TableView
+            });
+        });
+
+        // Atualiza a visualização inicial
+        atualizarPaginaAtual(paginator.getCurrentPageIndex());
+    }
+
+    private void atualizarPaginaAtual(int pageIndex) {
+        int startIndex = pageIndex * itemsPerPage.get();
+        int endIndex = Math.min(startIndex + itemsPerPage.get(), filteredData.size());
+
+        // Cria uma nova lista com os itens da página atual
+        ObservableList<Agendamento> pageItems = FXCollections.observableArrayList(
+                filteredData.subList(startIndex, endIndex)
+        );
+
+        tableView.setItems(pageItems);
+        tableView.refresh();
     }
 
     public void atualizarTableView() {
@@ -108,7 +184,7 @@ public class HistoricoController implements Initializable {
     }
 
     private void atualizarPaginacao() {
-        int totalPages = (int) Math.ceil((double) filteredData.size() / ROWS_PER_PAGE);
+        int totalPages = (int) Math.ceil((double) filteredData.size() / itemsPerPage.get());
         paginator.setPageCount(Math.max(totalPages, 1));
 
         paginator.setPageFactory(pageIndex -> {
@@ -120,8 +196,8 @@ public class HistoricoController implements Initializable {
     }
 
     private void atualizarPagina(int pageIndex) {
-        int fromIndex = pageIndex * ROWS_PER_PAGE;
-        int toIndex = Math.min(fromIndex + ROWS_PER_PAGE, filteredData.size());
+        int fromIndex = pageIndex * itemsPerPage.get();
+        int toIndex = Math.min(fromIndex + itemsPerPage.get(), filteredData.size());
 
         if (fromIndex <= toIndex) {
             tableView.setItems(FXCollections.observableArrayList(sortedData.subList(fromIndex, toIndex)));
@@ -129,26 +205,41 @@ public class HistoricoController implements Initializable {
     }
 
     @FXML
-    private void aplicarFiltroData(ActionEvent event) {
+    private void aplicarFiltroData() {
         LocalDate dataInicial = dataInicialPicker.getValue();
         LocalDate dataFinal = dataFinalPicker.getValue();
 
         if (dataInicial != null && dataFinal != null) {
             filteredData.setPredicate(agendamento -> {
-                LocalDate dataAgendamento = agendamento.getDataAgendamento(); // Supondo que a data de agendamento seja do tipo LocalDate
-
-                // Verifica se a data de agendamento está dentro do intervalo selecionado
-                boolean dentroDoIntervalo = !dataAgendamento.isBefore(dataInicial) && !dataAgendamento.isAfter(dataFinal);
-                return dentroDoIntervalo;
+                LocalDate dataAgendamento = agendamento.getDataAgendamento();
+                return !dataAgendamento.isBefore(dataInicial) && !dataAgendamento.isAfter(dataFinal);
             });
         } else {
-            // Se as datas não forem selecionadas, retorna todos os agendamentos
-            filteredData.setPredicate(agendamento -> true);
+            resetarFiltros();
         }
 
-        // Atualiza a tabela com o filtro de data
+        atualizarResultados();
+    }
+
+    @FXML
+    private void limparFiltroData() {
+        // Limpa os campos de data
+        dataInicialPicker.setValue(null);
+        dataFinalPicker.setValue(null);
+
+        // Reseta os filtros e atualiza a tabela
+        resetarFiltros();
+        atualizarResultados();
+    }
+
+    // Método auxiliar para resetar os filtros
+    private void resetarFiltros() {
+        filteredData.setPredicate(agendamento -> true);
+    }
+
+    // Método auxiliar para atualizar contagem e paginação
+    private void atualizarResultados() {
         numberOfResults.setText(filteredData.size() + " registro(s) retornado(s)");
         atualizarPaginacao();
     }
-
 }

@@ -40,6 +40,10 @@ root {
     -fx-background-insets: 0;
 }
 
+.date_picker_input {
+    -fx-pref-height: 47px;
+}
+
 .text-area .content {
     -fx-background-insets: 0;
     -fx-background-color:white;
@@ -64,6 +68,13 @@ root {
     -fx-font-weight: 700;
     -fx-text-fill: white;
     -fx-font-size: 22px;
+}
+
+.white_regular_text {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 700;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
 }
 
 .white_icon {
