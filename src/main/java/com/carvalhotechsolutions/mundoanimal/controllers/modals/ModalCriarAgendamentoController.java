@@ -93,11 +93,19 @@ public class ModalCriarAgendamentoController implements Initializable {
             return;
         }
 
-        if(finish.getText() != null && !finish.getText().isEmpty()) {
-            if(!validarCamposFinalizacao()) {
+        if (finish.getText() != null && !finish.getText().isEmpty()) {
+            if (!validarCamposFinalizacao()) {
                 return;
             }
-            agendamentoController.finalizarAgendamento(agendamentoAtual.getId());
+
+            String responsavel = create_agendamento_responsavel_field.getText(); // Pegando o responsável
+            if (responsavel == null || responsavel.isBlank()) {
+                agendamentoController.handleError("O responsável deve ser informado!");
+                return;
+            }
+
+            String horarioSaidaStr = create_agendamento_depTime_field.getValue();
+            agendamentoController.finalizarAgendamento(agendamentoAtual.getId(), responsavel, horarioSaidaStr); // Passando o responsável
             fecharModal();
             return;
         }

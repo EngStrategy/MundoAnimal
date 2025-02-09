@@ -36,7 +36,7 @@
                   </Button>
                   <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" spacing="15.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="filterField" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="47.0" prefWidth="300.0" promptText="🔍 Buscar..." styleClass="search_input" />
+                        <TextField fx:id="filterField" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="47.0" prefWidth="240.0" promptText="🔍 Buscar..." styleClass="search_input" />
                      </children>
                   </HBox>
                </children>

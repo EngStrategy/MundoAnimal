@@ -2,6 +2,7 @@ package com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento;
 
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalConfirmarRemocaoController;
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarAgendamentoController;
+import com.carvalhotechsolutions.mundoanimal.enums.StatusAgendamento;
 import com.carvalhotechsolutions.mundoanimal.model.Agendamento;
 import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.repositories.AgendamentoRepository;
@@ -334,7 +335,7 @@ public class AgendamentoController implements Initializable {
 
     public void atualizarTableView() {
         agendamentosList.clear();
-        agendamentosList.addAll(agendamentoRepository.findAll());
+        agendamentosList.addAll(agendamentoRepository.findStatusPendente());
         numberOfResults.setText(agendamentosList.size() + " registro(s) retornado(s)");
         configurarPaginacao(); // O método atualizado será chamado aqui também
         tableView.refresh();
@@ -411,8 +412,12 @@ public class AgendamentoController implements Initializable {
         return agendamentoRepository.verificarDisponibilidadeHorario(data, horario);
     }
 
-    public void finalizarAgendamento(Long id) {
-        agendamentoRepository.deleteById(id);
+    public void finalizarAgendamento(Long id, String responsavel, String horarioSaida) {
+        Agendamento agendamentoFinalizado = agendamentoRepository.findById(id);
+        agendamentoFinalizado.setStatus(StatusAgendamento.FINALIZADO);
+        agendamentoFinalizado.setHorarioSaida(LocalTime.parse(horarioSaida));
+        agendamentoFinalizado.setResponsavelAtendimento(responsavel);
+        agendamentoRepository.save(agendamentoFinalizado);
         handleSuccessfulOperation("Agendamento finalizado com sucesso!");
     }
 }

@@ -47,13 +47,7 @@ public class ClienteController implements Initializable {
     private TableView<Cliente> tableView;
 
     @FXML
-    private TableColumn<Cliente, String> nomeColumn;
-
-    @FXML
-    private TableColumn<Cliente, String> telefoneColumn;
-
-    @FXML
-    private TableColumn<Cliente, String> petsColumn;
+    private TableColumn<Cliente, String> telefoneColumn, petsColumn, nomeColumn;
 
     @FXML
     private TableColumn<Cliente, Void> acaoColumn;
@@ -402,13 +396,5 @@ public class ClienteController implements Initializable {
                 message,
                 FeedbackManager.FeedbackType.ERROR
         );
-    }
-
-    private void mostrarAlerta(String titulo, String mensagem, Alert.AlertType tipo) {
-        Alert alerta = new Alert(tipo);
-        alerta.setTitle(titulo);
-        alerta.setHeaderText(null);
-        alerta.setContentText(mensagem);
-        alerta.showAndWait();
     }
 }
