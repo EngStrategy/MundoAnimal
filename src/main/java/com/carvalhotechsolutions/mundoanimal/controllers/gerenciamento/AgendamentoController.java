@@ -2,14 +2,18 @@ package com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento;
 
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalConfirmarRemocaoController;
 import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalCriarAgendamentoController;
+import com.carvalhotechsolutions.mundoanimal.enums.StatusAgendamento;
 import com.carvalhotechsolutions.mundoanimal.model.Agendamento;
+import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.repositories.AgendamentoRepository;
 import com.carvalhotechsolutions.mundoanimal.utils.FeedbackManager;
+import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,6 +34,12 @@ import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class AgendamentoController implements Initializable {
+    private static final int ROW_HEIGHT = 79; // Altura de cada linha em pixels
+
+    private static final int HEADER_HEIGHT = 79; // Altura do header em pixels
+
+    private IntegerProperty itemsPerPage = new SimpleIntegerProperty();
+
     @FXML
     private HBox feedbackContainer;
 
@@ -57,11 +67,14 @@ public class AgendamentoController implements Initializable {
     @FXML
     private TextField filterField;
 
-    private FilteredList<Agendamento> filteredData;
+    @FXML
+    private Pagination paginator;
 
     private AgendamentoRepository agendamentoRepository = new AgendamentoRepository();
 
     private ObservableList<Agendamento> agendamentosList = FXCollections.observableArrayList();
+
+    private FilteredList<Agendamento> filteredData = new FilteredList<>(agendamentosList);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -86,9 +99,73 @@ public class AgendamentoController implements Initializable {
         petColumn.setCellValueFactory(new PropertyValueFactory<>("animal"));
         clienteColumn.setCellValueFactory(new PropertyValueFactory<>("cliente"));
 
+        // Adicionar listener para mudanças na altura da tabela
+        tableView.heightProperty().addListener((obs, oldHeight, newHeight) -> {
+            calcularItensPorPagina(newHeight.doubleValue());
+            tableView.refresh(); // Força a atualização da TableView
+            // Reconfigura a paginação quando a altura muda
+            Platform.runLater(this::configurarPaginacao);
+        });
+
+        // Calcula inicial de itens por página
+        calcularItensPorPagina(tableView.getHeight());
+
         configurarColunaAcao();
         atualizarTableView();
         configurarBuscaAgendamentos();
+    }
+
+    private void calcularItensPorPagina(double alturaTotal) {
+        // Subtrai a altura do header da altura total
+        double alturaDisponivel = alturaTotal - HEADER_HEIGHT;
+        // Calcula quantas linhas cabem na altura disponível
+        int numeroLinhas = Math.max(1, (int) Math.floor(alturaDisponivel / ROW_HEIGHT));
+        // Atualiza a propriedade de itens por página
+        itemsPerPage.set(numeroLinhas);
+    }
+
+    private void configurarPaginacao() {
+        if (filteredData.isEmpty()) {
+            paginator.setPageCount(1);
+            paginator.setCurrentPageIndex(0);
+            paginator.setDisable(true);
+            tableView.setItems(FXCollections.observableArrayList());
+            return;
+        }
+
+        // Usa o valor dinâmico de itens por página
+        int totalPages = (int) Math.ceil((double) filteredData.size() / itemsPerPage.get());
+        paginator.setPageCount(totalPages);
+
+        // Se a página atual é maior que o novo número total de páginas,
+        // ajusta para a última página válida
+        if (paginator.getCurrentPageIndex() >= totalPages) {
+            paginator.setCurrentPageIndex(totalPages - 1);
+        }
+
+        paginator.setDisable(false);
+        paginator.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> {
+            Platform.runLater(() -> {
+                atualizarPaginaAtual(newIndex.intValue());
+                tableView.refresh(); // Força a atualização da TableView
+            });
+        });
+
+        // Atualiza a visualização inicial
+        atualizarPaginaAtual(paginator.getCurrentPageIndex());
+    }
+
+    private void atualizarPaginaAtual(int pageIndex) {
+        int startIndex = pageIndex * itemsPerPage.get();
+        int endIndex = Math.min(startIndex + itemsPerPage.get(), filteredData.size());
+
+        // Cria uma nova lista com os itens da página atual
+        ObservableList<Agendamento> pageItems = FXCollections.observableArrayList(
+                filteredData.subList(startIndex, endIndex)
+        );
+
+        tableView.setItems(pageItems);
+        tableView.refresh();
     }
 
     private void configurarColunaAcao() {
@@ -230,6 +307,8 @@ public class AgendamentoController implements Initializable {
     }
 
     public void abrirModalCadastrarAgendamento() {
+        filterField.clear();
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalCriarAgendamento.fxml"));
             Parent modalContent = loader.load();
@@ -255,12 +334,16 @@ public class AgendamentoController implements Initializable {
     }
 
     public void atualizarTableView() {
-        agendamentosList.setAll(agendamentoRepository.findAll());
+        agendamentosList.clear();
+        agendamentosList.addAll(agendamentoRepository.findStatusPendente());
         numberOfResults.setText(agendamentosList.size() + " registro(s) retornado(s)");
+        configurarPaginacao(); // O método atualizado será chamado aqui também
+        tableView.refresh();
     }
 
     public void configurarBuscaAgendamentos() {
         filteredData = new FilteredList<>(agendamentosList, p -> true);
+
         filterField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(agendamento -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -279,13 +362,20 @@ public class AgendamentoController implements Initializable {
                 return matchesCliente || matchesAnimal || matchesServico ||
                         matchesData || matchesStatus || matchesResponsavel;
             });
-//            SortedList<Agendamento> sortedData = new SortedList<>(filteredData);
-//            sortedData.comparatorProperty().bind(tableView.comparatorProperty());
-//
-//            tableView.setItems(sortedData);
-            numberOfResults.setText(filteredData.size() + " registro(s) retornado(s)");
+
+            Platform.runLater(() -> {
+                // Atualiza o número de resultados
+                numberOfResults.setText(filteredData.size() + " registro(s) retornado(s)");
+
+                // Se não houver resultados, limpa a tabela
+                if (filteredData.isEmpty()) {
+                    tableView.setItems(FXCollections.observableArrayList());
+                }
+
+                // Reconfigura a paginação com os dados filtrados
+                configurarPaginacao();
+            });
         });
-        tableView.setItems(filteredData);
     }
 
     public void handleSuccessfulOperation(String message) {
@@ -322,8 +412,12 @@ public class AgendamentoController implements Initializable {
         return agendamentoRepository.verificarDisponibilidadeHorario(data, horario);
     }
 
-    public void finalizarAgendamento(Long id) {
-        agendamentoRepository.deleteById(id);
+    public void finalizarAgendamento(Long id, String responsavel, String horarioSaida) {
+        Agendamento agendamentoFinalizado = agendamentoRepository.findById(id);
+        agendamentoFinalizado.setStatus(StatusAgendamento.FINALIZADO);
+        agendamentoFinalizado.setHorarioSaida(LocalTime.parse(horarioSaida));
+        agendamentoFinalizado.setResponsavelAtendimento(responsavel);
+        agendamentoRepository.save(agendamentoFinalizado);
         handleSuccessfulOperation("Agendamento finalizado com sucesso!");
     }
 }

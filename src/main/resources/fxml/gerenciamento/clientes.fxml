@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -35,7 +36,7 @@
                   </Button>
                   <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" spacing="15.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="filterField" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="47.0" prefWidth="200.0" promptText="🔍 Buscar..." styleClass="search_input" />
+                        <TextField fx:id="filterField" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="47.0" prefWidth="240.0" promptText="🔍 Buscar..." styleClass="search_input" />
                      </children>
                   </HBox>
                </children>
@@ -74,14 +75,25 @@
             <Insets bottom="16.0" left="37.0" right="37.0" top="16.0" />
          </padding>
          <children>
-            <HBox alignment="CENTER" minHeight="52.0">
+            <HBox alignment="CENTER_RIGHT" maxHeight="52.0" minHeight="52.0">
                <children>
-                  <Label fx:id="numberOfResults" text="">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <HBox fx:id="feedbackContainer" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
+                  <HBox alignment="CENTER_RIGHT" maxHeight="52.0" minHeight="52.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="numberOfResults" minWidth="450.0" styleClass="" text="9999999999 registros retornados">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Pagination fx:id="paginator" maxHeight="52.0" maxPageIndicatorCount="3" minHeight="52.0" prefHeight="52.0" style="-fx-page-information-visible: false;" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="1.0" />
+                           </padding>
+                        </Pagination>
+                        <HBox fx:id="feedbackContainer" alignment="CENTER_RIGHT" minWidth="450.0" />
+                     </children></HBox>
                </children>
             </HBox>
          </children>

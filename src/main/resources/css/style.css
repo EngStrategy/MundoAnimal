@@ -40,6 +40,10 @@ root {
     -fx-background-insets: 0;
 }
 
+.date_picker_input {
+    -fx-pref-height: 47px;
+}
+
 .text-area .content {
     -fx-background-insets: 0;
     -fx-background-color:white;
@@ -64,6 +68,13 @@ root {
     -fx-font-weight: 700;
     -fx-text-fill: white;
     -fx-font-size: 22px;
+}
+
+.white_regular_text {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 700;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
 }
 
 .white_icon {
@@ -292,3 +303,36 @@ root {
 }
 
 /* CSS POPUP - FIM */
+
+/* CSS PAGINATOR - INÍCIO */
+
+.pagination > .pagination-control > .control-box > .number-button:selected,
+.pagination > .pagination-control > .control-box > .bullet-button:selected{
+    -fx-background-insets: 0;
+    -fx-background-color: #1916A1;
+    -fx-text-fill: white;
+    -fx-font-weight: 800;
+}
+
+/* hover */
+.pagination > .pagination-control > .control-box > .number-button:hover,
+.pagination > .pagination-control > .control-box > .bullet-button:hover,
+.pagination > .pagination-control > .control-box > .left-arrow-button:hover,
+.pagination > .pagination-control > .control-box > .right-arrow-button:hover {
+    -fx-cursor: hand;
+}
+
+/* tamanho botões */
+.pagination > .pagination-control > .control-box > .number-button,
+.pagination > .pagination-control > .control-box > .bullet-button,
+.pagination > .pagination-control > .control-box > .left-arrow-button,
+.pagination > .pagination-control > .control-box > .right-arrow-button {
+    -fx-min-width: 28;
+    -fx-min-height: 28;
+    -fx-border-radius: 2px;
+    -fx-background-radius: 2px;
+    -fx-font-size: 16px;
+    -fx-page-information-size: 12px;
+}
+
+/* CSS PAGINATOR - FIM */

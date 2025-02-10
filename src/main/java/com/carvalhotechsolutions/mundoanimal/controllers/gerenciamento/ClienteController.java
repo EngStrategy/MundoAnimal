@@ -8,8 +8,10 @@ import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.repositories.ClienteRepository;
 import com.carvalhotechsolutions.mundoanimal.utils.FeedbackManager;
 import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
-import jakarta.persistence.RollbackException;
+import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,10 +31,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ClienteController implements Initializable {
+    private static final int ROW_HEIGHT = 79; // Altura de cada linha em pixels
+
+    private static final int HEADER_HEIGHT = 79; // Altura do header em pixels
+
+    private IntegerProperty itemsPerPage = new SimpleIntegerProperty();
+
     @FXML
     private HBox feedbackContainer;
 
@@ -40,13 +47,7 @@ public class ClienteController implements Initializable {
     private TableView<Cliente> tableView;
 
     @FXML
-    private TableColumn<Cliente, String> nomeColumn;
-
-    @FXML
-    private TableColumn<Cliente, String> telefoneColumn;
-
-    @FXML
-    private TableColumn<Cliente, String> petsColumn;
+    private TableColumn<Cliente, String> telefoneColumn, petsColumn, nomeColumn;
 
     @FXML
     private TableColumn<Cliente, Void> acaoColumn;
@@ -57,11 +58,14 @@ public class ClienteController implements Initializable {
     @FXML
     private TextField filterField;
 
+    @FXML
+    private Pagination paginator;
+
     private ClienteRepository clienteRepository = new ClienteRepository();
 
     private ObservableList<Cliente> clientesList = FXCollections.observableArrayList();
 
-    private FilteredList<Cliente> filteredData;
+    private FilteredList<Cliente> filteredData = new FilteredList<>(clientesList);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -86,9 +90,73 @@ public class ClienteController implements Initializable {
                 new SimpleStringProperty(cellData.getValue().getPetsFormatados())
         );
 
+        // Adicionar listener para mudanças na altura da tabela
+        tableView.heightProperty().addListener((obs, oldHeight, newHeight) -> {
+            calcularItensPorPagina(newHeight.doubleValue());
+            tableView.refresh(); // Força a atualização da TableView
+            // Reconfigura a paginação quando a altura muda
+            Platform.runLater(this::configurarPaginacao);
+        });
+
+        // Calcula inicial de itens por página
+        calcularItensPorPagina(tableView.getHeight());
+
         configurarColunaAcao();
         atualizarTableView();
         configurarBuscaClientes(); // apos atualizarTableView()
+    }
+
+    private void calcularItensPorPagina(double alturaTotal) {
+        // Subtrai a altura do header da altura total
+        double alturaDisponivel = alturaTotal - HEADER_HEIGHT;
+        // Calcula quantas linhas cabem na altura disponível
+        int numeroLinhas = Math.max(1, (int) Math.floor(alturaDisponivel / ROW_HEIGHT));
+        // Atualiza a propriedade de itens por página
+        itemsPerPage.set(numeroLinhas);
+    }
+
+    private void configurarPaginacao() {
+        if (filteredData.isEmpty()) {
+            paginator.setPageCount(1);
+            paginator.setCurrentPageIndex(0);
+            paginator.setDisable(true);
+            tableView.setItems(FXCollections.observableArrayList());
+            return;
+        }
+
+        // Usa o valor dinâmico de itens por página
+        int totalPages = (int) Math.ceil((double) filteredData.size() / itemsPerPage.get());
+        paginator.setPageCount(totalPages);
+
+        // Se a página atual é maior que o novo número total de páginas,
+        // ajusta para a última página válida
+        if (paginator.getCurrentPageIndex() >= totalPages) {
+            paginator.setCurrentPageIndex(totalPages - 1);
+        }
+
+        paginator.setDisable(false);
+        paginator.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> {
+            Platform.runLater(() -> {
+                atualizarPaginaAtual(newIndex.intValue());
+                tableView.refresh(); // Força a atualização da TableView
+            });
+        });
+
+        // Atualiza a visualização inicial
+        atualizarPaginaAtual(paginator.getCurrentPageIndex());
+    }
+
+    private void atualizarPaginaAtual(int pageIndex) {
+        int startIndex = pageIndex * itemsPerPage.get();
+        int endIndex = Math.min(startIndex + itemsPerPage.get(), filteredData.size());
+
+        // Cria uma nova lista com os itens da página atual
+        ObservableList<Cliente> pageItems = FXCollections.observableArrayList(
+            filteredData.subList(startIndex, endIndex)
+        );
+
+        tableView.setItems(pageItems);
+        tableView.refresh();
     }
 
     private void configurarColunaAcao() {
@@ -152,6 +220,8 @@ public class ClienteController implements Initializable {
 
     @FXML
     public void abrirModalCadastrarCliente() {
+        filterField.clear();
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalCriarCliente.fxml"));
             Parent modalContent = loader.load();
@@ -205,7 +275,7 @@ public class ClienteController implements Initializable {
 
     private void abrirModalExcluir(Long clienteId) {
         if (clienteRepository.clientePossuiAgendamentos(clienteId)) {
-            handleError("Cliente possui agendamento(s) pendente(s)");
+            handleError("Este cliente possui agendamento(s) pendente(s)");
             return;
         }
 
@@ -278,6 +348,8 @@ public class ClienteController implements Initializable {
     public void atualizarTableView() {
         clientesList.setAll(clienteRepository.findAll());
         numberOfResults.setText(clientesList.size() + " registro(s) retornado(s)");
+        configurarPaginacao(); // O método atualizado será chamado aqui também
+        tableView.refresh();
     }
 
     private void configurarBuscaClientes() {
@@ -294,9 +366,20 @@ public class ClienteController implements Initializable {
                         .anyMatch(pet -> pet.getNome().toLowerCase().contains(lowerCaseFilter));
                 return matchesCliente || matchesPet;
             });
-            numberOfResults.setText(filteredData.size() + " registro(s) retornado(s)");
+
+            Platform.runLater(() -> {
+                // Atualiza o número de resultados
+                numberOfResults.setText(filteredData.size() + " registro(s) retornado(s)");
+
+                // Se não houver resultados, limpa a tabela
+                if (filteredData.isEmpty()) {
+                    tableView.setItems(FXCollections.observableArrayList());
+                }
+
+                // Reconfigura a paginação com os dados filtrados
+                configurarPaginacao();
+            });
         });
-        tableView.setItems(filteredData);
     }
 
     public void handleSuccessfulOperation(String message) {
@@ -313,13 +396,5 @@ public class ClienteController implements Initializable {
                 message,
                 FeedbackManager.FeedbackType.ERROR
         );
-    }
-
-    private void mostrarAlerta(String titulo, String mensagem, Alert.AlertType tipo) {
-        Alert alerta = new Alert(tipo);
-        alerta.setTitle(titulo);
-        alerta.setHeaderText(null);
-        alerta.setContentText(mensagem);
-        alerta.showAndWait();
     }
 }
