@@ -20,8 +20,28 @@ Mundo Animal é um sistema desktop desenvolvido em **JavaFX** com **PostgreSQL**
 ## 🛠️ Instalação e Execução
 ### Pré-requisitos
 - Java 21+ instalado
-- PostgreSQL instalado 
+- Docker instalado e rodando
 - Maven instalado
+
+### Passos para executar o projeto
+1. Clone o repositório
+2. Execute o comando `docker-compose up -d` na raiz do projeto (executará o banco de dados PostgreSQL)
+3. Execute o comando `mvn clean install javafx:run` na raiz do projeto
+
+## 🛠️ Acesso ao banco de dados
+### Passos para criar o banco de dados
+- Acesse http://localhost:5050/ no terminal
+- Email: admin@admin.com
+- Password: admin
+- Botão direito em Servers -> Register -> Server
+- General -> Name: EngStrategy
+- Connection :
+  - Hostname: postgres
+  - Port: 5432
+  - Maintenance Database: db_mundo_animal
+  - Username: engstrategy
+  - Password: engstrategy1234@
+  - Save the password
 
 ## 📂 Estrutura do Projeto
 ```
