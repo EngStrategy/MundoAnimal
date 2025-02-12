@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="700.0" prefWidth="1100.0" spacing="30.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.InicioController">
+   <padding>
+      <Insets bottom="80.0" left="37.0" right="37.0" top="37.0" />
+   </padding>
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="74.0" VBox.vgrow="ALWAYS">
+         <children>
+            <VBox prefWidth="100.0" spacing="14.0">
+               <children>
+                  <Label styleClass="black_large_smooth_text" text="Próximas atividades">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="36.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" styleClass="inicio_boxes" HBox.hgrow="ALWAYS">
+                           <children>
+                              <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <padding>
+                                    <Insets bottom="21.0" left="24.0" right="24.0" top="21.0" />
+                                 </padding>
+                                 <children>
+                                    <Label fx:id="nomeServico1" styleClass="black_bold_text" text="Banho">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="horarioAgendamento1" styleClass="black_small_smooth_text" text="03/12/2024 - 13:30">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="nomeCliente1" styleClass="black_small_smooth_text" text="Antonio">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" styleClass="inicio_boxes" HBox.hgrow="ALWAYS">
+                           <children>
+                              <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <padding>
+                                    <Insets bottom="21.0" left="24.0" right="24.0" top="21.0" />
+                                 </padding>
+                                 <children>
+                                    <Label fx:id="nomeServico2" styleClass="black_bold_text" text="Banho">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="horarioAgendamento2" styleClass="black_small_smooth_text" text="03/12/2024 - 13:30">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="nomeCliente2" styleClass="black_small_smooth_text" text="Antonio">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" styleClass="inicio_boxes" HBox.hgrow="ALWAYS">
+                           <children>
+                              <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <padding>
+                                    <Insets bottom="21.0" left="24.0" right="24.0" top="21.0" />
+                                 </padding>
+                                 <children>
+                                    <Label fx:id="nomeServico3" styleClass="black_bold_text" text="Banho">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="horarioAgendamento3" styleClass="black_small_smooth_text" text="03/12/2024 - 13:30">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="nomeCliente3" styleClass="black_small_smooth_text" text="Antonio">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" styleClass="inicio_boxes" HBox.hgrow="ALWAYS">
+                           <children>
+                              <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <padding>
+                                    <Insets bottom="21.0" left="24.0" right="24.0" top="21.0" />
+                                 </padding>
+                                 <children>
+                                    <Label fx:id="nomeServico4" styleClass="black_bold_text" text="Banho">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="horarioAgendamento4" styleClass="black_small_smooth_text" text="03/12/2024 - 13:30">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="nomeCliente4" styleClass="black_small_smooth_text" text="Antonio">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox maxHeight="440.0" spacing="36.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox spacing="14.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label styleClass="black_large_smooth_text" text="Atividades finalizadas recentemente">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tableView" minHeight="300.0" minWidth="-Infinity" prefWidth="495.0" style="-fx-background-radius: 3px;" VBox.vgrow="ALWAYS">
+                          <columns>
+                              <TableColumn fx:id="clienteColumn" editable="false" prefWidth="75.0" sortable="false" text="Cliente" />
+                              <TableColumn fx:id="servicoColumn" editable="false" prefWidth="75.0" sortable="false" text="Serviço" />
+                              <TableColumn fx:id="dataColumn" editable="false" prefWidth="75.0" sortable="false" text="Data" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+                  <VBox prefWidth="495.0" spacing="14.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label styleClass="black_large_smooth_text" text="Serviços mais utilizados nesta semana">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <BarChart fx:id="barChart" barGap="2.0" prefWidth="495.0" styleClass="inicio_boxes" VBox.vgrow="ALWAYS">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis fx:id="yAxis" side="LEFT" />
+                           </yAxis>
+                        </BarChart>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>

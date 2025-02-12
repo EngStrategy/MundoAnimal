@@ -79,7 +79,7 @@
                <children>
                   <HBox alignment="CENTER_RIGHT" maxHeight="52.0" minHeight="52.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label fx:id="numberOfResults" minWidth="450.0" styleClass="" text="9999999999 registros retornados">
+                        <Label fx:id="numberOfResults" minWidth="450.0" styleClass="" text="0 registros retornados">
                            <font>
                               <Font size="16.0" />
                            </font>

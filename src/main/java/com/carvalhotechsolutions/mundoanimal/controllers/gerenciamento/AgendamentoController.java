@@ -7,6 +7,7 @@ import com.carvalhotechsolutions.mundoanimal.model.Agendamento;
 import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.repositories.AgendamentoRepository;
 import com.carvalhotechsolutions.mundoanimal.utils.FeedbackManager;
+import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
 import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.IntegerProperty;
@@ -244,6 +245,8 @@ public class AgendamentoController implements Initializable {
             modalStage.showAndWait();
 
             atualizarTableView();
+
+            Platform.runLater(() -> ScreenManagerHolder.getInstance().getInicioController().atualizarProximosAgendamentos());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -262,6 +265,8 @@ public class AgendamentoController implements Initializable {
                 agendamentoRepository.deleteById(agendamentoId);
                 atualizarTableView(); // Atualizar tabela após exclusão
                 handleSuccessfulOperation("Agendamento cancelado com sucesso!");
+
+                Platform.runLater(() -> ScreenManagerHolder.getInstance().getInicioController().atualizarProximosAgendamentos());
             });
 
             // Configurar o Stage do modal
@@ -405,6 +410,8 @@ public class AgendamentoController implements Initializable {
         }
 
         agendamentoRepository.save(agendamento);
+
+        Platform.runLater(() -> ScreenManagerHolder.getInstance().getInicioController().atualizarProximosAgendamentos());
     }
 
     private boolean verificarDisponibilidadeHorario(LocalDate data, LocalTime horario) {
@@ -419,5 +426,10 @@ public class AgendamentoController implements Initializable {
         agendamentoFinalizado.setResponsavelAtendimento(responsavel);
         agendamentoRepository.save(agendamentoFinalizado);
         handleSuccessfulOperation("Agendamento finalizado com sucesso!");
+
+        Platform.runLater(() -> ScreenManagerHolder.getInstance().getInicioController().atualizarProximosAgendamentos());
+        Platform.runLater(() -> ScreenManagerHolder.getInstance().getInicioController().atualizarAgendamentosFinalizados());
+        Platform.runLater(() -> ScreenManagerHolder.getInstance().getInicioController().atualizarGraficoServicos());
     }
+
 }

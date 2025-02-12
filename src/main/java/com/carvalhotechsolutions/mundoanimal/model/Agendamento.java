@@ -55,6 +55,11 @@ public class Agendamento {
                 horarioAgendamento.format(timeFormatter);
     }
 
+    public String getDataFormatada() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return dataAgendamento.format(dateFormatter);
+    }
+
     public Long getId() {
         return id;
     }

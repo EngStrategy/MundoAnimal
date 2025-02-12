@@ -88,7 +88,6 @@ public class AgendamentoRepository {
                     .setParameter("statusFinalizado", StatusAgendamento.FINALIZADO)
                     .getResultList();
         }
-
     }
 
     public List<Agendamento> findStatusPendente() {
@@ -103,5 +102,33 @@ public class AgendamentoRepository {
         }
     }
 
+    public List<Agendamento> findUltimosFinalizados(int quantidade) {
+        try (EntityManager em = JPAutil.getEntityManager()) {
+            String jpql = "SELECT a FROM Agendamento a " +
+                    "WHERE a.status = :statusFinalizado " +
+                    "ORDER BY a.dataAgendamento DESC, a.horarioAgendamento DESC";
 
+            return em.createQuery(jpql, Agendamento.class)
+                    .setParameter("statusFinalizado", StatusAgendamento.FINALIZADO)
+                    .setMaxResults(quantidade)  // Pegamos no máximo "quantidade" registros
+                    .getResultList();
+        }
+    }
+
+    public List<Agendamento> findFinalizadosUltimaSemana() {
+        try (EntityManager em = JPAutil.getEntityManager()) {
+            LocalDate hoje = LocalDate.now();
+            LocalDate semanaPassada = hoje.minusDays(7);
+
+            String jpql = "SELECT a FROM Agendamento a " +
+                    "WHERE a.status = :statusFinalizado " +
+                    "AND a.dataAgendamento BETWEEN :inicio AND :fim";
+
+            return em.createQuery(jpql, Agendamento.class)
+                    .setParameter("statusFinalizado", StatusAgendamento.FINALIZADO)
+                    .setParameter("inicio", semanaPassada)
+                    .setParameter("fim", hoje)
+                    .getResultList();
+        }
+    }
 }
