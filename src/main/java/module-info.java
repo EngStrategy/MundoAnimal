@@ -10,6 +10,8 @@ module com.carvalhotechsolutions.mundoanimal {
     requires animatefx;
     requires fontawesomefx;
     requires java.desktop;
+    requires itextpdf;
+    requires jfreechart;
 
     // Export and open the controllers package
 

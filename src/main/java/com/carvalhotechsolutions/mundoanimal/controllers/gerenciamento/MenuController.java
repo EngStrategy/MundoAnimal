@@ -62,7 +62,7 @@ public class MenuController implements Initializable {
         // Configure ações para cada botão
         configureButton(inicio_btn, ScreenEnum.INICIO);
         configureButton(historico_btn, ScreenEnum.HISTORICO);
-//        configureButton(relatorio_btn, "relatorio.fxml");
+        configureButton(relatorio_btn, ScreenEnum.RELATORIO);
         configureButton(agendamentos_btn, ScreenEnum.AGENDAMENTOS);
         configureButton(secretarios_btn, ScreenEnum.SECRETARIOS);
         configureButton(servicos_btn, ScreenEnum.SERVICOS);
