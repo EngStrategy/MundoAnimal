@@ -26,7 +26,7 @@ public class RelatorioManager {
 
         // Título
         Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
-        Paragraph title = new Paragraph("Relatório de Agendamentos - Mundo Animal", titleFont);
+        Paragraph title = new Paragraph("Relatório de Agendamentos - Pet Shop Mundo Animal", titleFont);
         title.setAlignment(Element.ALIGN_CENTER);
         document.add(title);
 
