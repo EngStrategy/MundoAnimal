@@ -59,22 +59,25 @@ public class AgendamentoRepository {
     public boolean verificarDisponibilidadeHorario(LocalDate data, LocalTime horario) {
         String jpql = "SELECT COUNT(a) FROM Agendamento a " +
                 "WHERE a.dataAgendamento = :data " +
-                "AND a.horarioAgendamento = :horario";
+                "AND a.horarioAgendamento = :horario " +
+                "AND a.status = :statusPendente";
 
         EntityManager em = JPAutil.getEntityManager();
         Long count = em.createQuery(jpql, Long.class)
                 .setParameter("data", data)
                 .setParameter("horario", horario)
+                .setParameter("statusPendente", StatusAgendamento.PENDENTE)
                 .getSingleResult();
 
         return count == 0;
     }
 
     public List<Agendamento> buscarAgendamentosPorData(LocalDate data) {
-        String jpql = "SELECT a FROM Agendamento a WHERE a.dataAgendamento = :data";
+        String jpql = "SELECT a FROM Agendamento a WHERE a.dataAgendamento = :data AND a.status =:statusPendente";
         EntityManager em = JPAutil.getEntityManager();
         return em.createQuery(jpql, Agendamento.class)
                 .setParameter("data", data)
+                .setParameter("statusPendente", StatusAgendamento.PENDENTE)
                 .getResultList();
     }
 
