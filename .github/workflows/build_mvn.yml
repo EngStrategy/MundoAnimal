@@ -3,9 +3,15 @@ name: Build, Test, and Validate with PostgreSQL
 on:
   push:
     branches:
-      - develop  # Aciona a ação ao enviar mudanças para a branch "develop"
+      - runner-cicd  # Aciona a ação ao enviar mudanças para a branch "develop"
 
 jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+      - name: Say Hello
+        run: echo "Runner is working!"
+
   build:
     runs-on: ubuntu-latest
 

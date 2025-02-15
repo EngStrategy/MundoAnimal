@@ -1,0 +1,81 @@
+[2025-02-15 14:45:47Z INFO HostContext] No proxy settings were found based on environmental variables (http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY)
+[2025-02-15 14:45:47Z INFO HostContext] Well known directory 'Bin': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\bin'
+[2025-02-15 14:45:47Z INFO HostContext] Well known directory 'Root': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner'
+[2025-02-15 14:45:47Z INFO HostContext] Well known config file 'Credentials': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\.credentials'
+[2025-02-15 14:45:47Z INFO HostContext] Well known directory 'Bin': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\bin'
+[2025-02-15 14:45:47Z INFO HostContext] Well known directory 'Root': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner'
+[2025-02-15 14:45:47Z INFO HostContext] Well known config file 'Runner': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\.runner'
+[2025-02-15 14:45:47Z INFO Listener] Runner is built for Windows (X64) - win-x64.
+[2025-02-15 14:45:47Z INFO Listener] RuntimeInformation: Microsoft Windows 10.0.22631.
+[2025-02-15 14:45:47Z INFO Listener] Version: 2.322.0
+[2025-02-15 14:45:47Z INFO Listener] Commit: 0edc478ca75d0a753dcbcec7405f3f26db67b1ac
+[2025-02-15 14:45:47Z INFO Listener] Culture: en-US
+[2025-02-15 14:45:47Z INFO Listener] UI Culture: en-US
+[2025-02-15 14:45:47Z INFO HostContext] Well known directory 'Bin': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\bin'
+[2025-02-15 14:45:47Z INFO HostContext] Well known directory 'Root': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner'
+[2025-02-15 14:45:47Z INFO Listener] Validating directory permissions for: 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner'
+[2025-02-15 14:45:47Z INFO CommandLineParser] Parse
+[2025-02-15 14:45:47Z INFO CommandLineParser] Parsing 1 args
+[2025-02-15 14:45:47Z INFO CommandLineParser] parsing argument
+[2025-02-15 14:45:47Z INFO CommandLineParser] HasArgs: False
+[2025-02-15 14:45:47Z INFO CommandLineParser] Adding Command: remove
+[2025-02-15 14:45:47Z INFO Listener] Arguments parsed
+[2025-02-15 14:45:47Z INFO Runner] ExecuteCommand
+[2025-02-15 14:45:47Z INFO ConfigurationStore] currentAssemblyLocation: C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\bin\Runner.Listener.dll
+[2025-02-15 14:45:47Z INFO HostContext] Well known directory 'Bin': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\bin'
+[2025-02-15 14:45:47Z INFO ConfigurationStore] binPath: C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\bin
+[2025-02-15 14:45:47Z INFO HostContext] Well known directory 'Bin': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\bin'
+[2025-02-15 14:45:47Z INFO HostContext] Well known directory 'Root': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner'
+[2025-02-15 14:45:47Z INFO ConfigurationStore] RootFolder: C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner
+[2025-02-15 14:45:47Z INFO HostContext] Well known directory 'Bin': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\bin'
+[2025-02-15 14:45:47Z INFO HostContext] Well known directory 'Root': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner'
+[2025-02-15 14:45:47Z INFO HostContext] Well known config file 'Runner': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\.runner'
+[2025-02-15 14:45:47Z INFO ConfigurationStore] ConfigFilePath: C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\.runner
+[2025-02-15 14:45:47Z INFO HostContext] Well known directory 'Bin': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\bin'
+[2025-02-15 14:45:47Z INFO HostContext] Well known directory 'Root': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner'
+[2025-02-15 14:45:47Z INFO HostContext] Well known config file 'Credentials': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\.credentials'
+[2025-02-15 14:45:47Z INFO ConfigurationStore] CredFilePath: C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\.credentials
+[2025-02-15 14:45:47Z INFO HostContext] Well known directory 'Bin': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\bin'
+[2025-02-15 14:45:47Z INFO HostContext] Well known directory 'Root': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner'
+[2025-02-15 14:45:47Z INFO HostContext] Well known config file 'MigratedCredentials': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\.credentials_migrated'
+[2025-02-15 14:45:47Z INFO ConfigurationStore] MigratedCredFilePath: C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\.credentials_migrated
+[2025-02-15 14:45:47Z INFO HostContext] Well known directory 'Bin': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\bin'
+[2025-02-15 14:45:47Z INFO HostContext] Well known directory 'Root': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner'
+[2025-02-15 14:45:47Z INFO HostContext] Well known config file 'Service': 'C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\.service'
+[2025-02-15 14:45:47Z INFO ConfigurationStore] ServiceConfigFilePath: C:\Users\savio\Documentos\JAVA\JavaFX\MundoAnimal\actions-runner\actions-runner\.service
+[2025-02-15 14:45:47Z INFO CommandSettings] Flag 'help': 'False'
+[2025-02-15 14:45:47Z INFO CommandSettings] Flag 'version': 'False'
+[2025-02-15 14:45:47Z INFO CommandSettings] Flag 'commit': 'False'
+[2025-02-15 14:45:47Z INFO CommandSettings] Flag 'check': 'False'
+[2025-02-15 14:45:47Z INFO CommandSettings] Command 'configure': 'False'
+[2025-02-15 14:45:47Z INFO CommandSettings] Command 'remove': 'True'
+[2025-02-15 14:45:47Z INFO CommandSettings] Flag 'local': 'False'
+[2025-02-15 14:45:47Z INFO ConfigurationStore] IsServiceConfigured()
+[2025-02-15 14:45:47Z INFO ConfigurationStore] IsServiceConfigured: False
+[2025-02-15 14:45:47Z INFO ConfigurationStore] IsConfigured()
+[2025-02-15 14:45:47Z INFO ConfigurationStore] IsConfigured: True
+[2025-02-15 14:45:47Z INFO ConfigurationStore] HasCredentials()
+[2025-02-15 14:45:47Z INFO ConfigurationStore] stored True
+[2025-02-15 14:45:47Z INFO ConfigurationStore] Read setting file: 299 chars
+[2025-02-15 14:45:47Z INFO CommandSettings] Arg 'token': ''
+[2025-02-15 14:45:47Z INFO CommandSettings] Flag 'unattended': 'False'
+[2025-02-15 14:45:47Z INFO PromptManager] ReadValue
+[2025-02-15 14:45:47Z INFO Terminal] WRITE: Enter runner remove token: 
+[2025-02-15 14:45:47Z INFO Terminal] READ SECRET
+[2025-02-15 14:45:51Z INFO Terminal] Read value: ''
+[2025-02-15 14:45:51Z INFO Terminal] WRITE: Enter runner remove token: 
+[2025-02-15 14:45:51Z INFO Terminal] READ SECRET
+[2025-02-15 14:45:54Z INFO Terminal] Read value: ''
+[2025-02-15 14:45:54Z INFO Terminal] WRITE: Enter runner remove token: 
+[2025-02-15 14:45:54Z INFO Terminal] READ SECRET
+[2025-02-15 14:46:03Z INFO Terminal] Read value: '***'
+[2025-02-15 14:46:05Z ERR  Terminal] WRITE ERROR: Http response code: NotFound from 'POST https://api.github.com/actions/runner-registration' (Request Id: F7CE:1EE110:661B9E:7EC9C4:67B0A8AC)
+[2025-02-15 14:46:05Z ERR  Terminal] WRITE ERROR: {"message":"Not Found","documentation_url":"https://docs.github.com/rest","status":"404"}
+[2025-02-15 14:46:05Z ERR  Terminal] WRITE ERROR: Failed: Removing runner from the server
+[2025-02-15 14:46:05Z ERR  Runner] System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at GitHub.Runner.Listener.Configuration.ConfigurationManager.GetTenantCredential(String githubUrl, String githubToken, String runnerEvent)
+   at GitHub.Runner.Listener.Configuration.ConfigurationManager.UnconfigureAsync(CommandSettings command)
+   at GitHub.Runner.Listener.Runner.ExecuteCommand(CommandSettings command)
+[2025-02-15 14:46:05Z ERR  Terminal] WRITE ERROR: Response status code does not indicate success: 404 (Not Found).
+[2025-02-15 14:46:05Z INFO Listener] Runner execution has finished with return code 1
