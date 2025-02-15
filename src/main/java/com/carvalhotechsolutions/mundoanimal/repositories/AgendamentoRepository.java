@@ -131,4 +131,19 @@ public class AgendamentoRepository {
                     .getResultList();
         }
     }
+
+    public List<Agendamento> buscarAgendamentosPorIntervalo(LocalDate dataInicio, LocalDate dataFim) {
+        try (EntityManager em = JPAutil.getEntityManager()) {
+            String jpql = "SELECT a FROM Agendamento a " +
+                    "WHERE a.dataAgendamento BETWEEN :inicio AND :fim " +
+                    "AND a.status = :statusFinalizado";
+
+            return em.createQuery(jpql, Agendamento.class)
+                    .setParameter("inicio", dataInicio)
+                    .setParameter("fim", dataFim)
+                    .setParameter("statusFinalizado", StatusAgendamento.FINALIZADO)
+                    .getResultList();
+        }
+    }
+
 }

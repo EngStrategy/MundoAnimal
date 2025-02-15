@@ -307,6 +307,10 @@ root {
     -fx-background-color: #1916a1;;
 }
 
+.large_btn {
+    -fx-font-size: 22px;
+}
+
 .modal_btn:hover {
     -fx-opacity: 0.85;
     -fx-cursor: hand;
