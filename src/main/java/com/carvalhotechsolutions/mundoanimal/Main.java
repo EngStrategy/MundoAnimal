@@ -14,9 +14,9 @@ public class Main extends Application {
 
         // Verifica conexão com o banco de dados
         DatabaseChecker.testConnectionAndInitializeAdmin();
-        // Inicializa o SceneManager
+        // Inicializa o ScreenManager
         ScreenManager sceneManager = new ScreenManager(stage);
-        // Inicializa o SceneManagerHolder
+        // Inicializa o ScreenManagerHolder
         ScreenManagerHolder.initialize(sceneManager);
         // Seleciona a primeira tela da aplicação
         sceneManager.switchTo(ScreenEnum.LOGIN);

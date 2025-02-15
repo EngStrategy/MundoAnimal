@@ -1,9 +1,6 @@
 package com.carvalhotechsolutions.mundoanimal.utils;
 
-import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.AnimalController;
-import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.ClienteController;
-import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.HistoricoController;
-import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.MenuController;
+import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.*;
 import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -159,5 +156,9 @@ public class ScreenManager {
 
     public ClienteController getClienteController() {
         return (ClienteController) controllers.get(ScreenEnum.CLIENTES);
+    }
+
+    public InicioController getInicioController() {
+        return (InicioController) controllers.get(ScreenEnum.INICIO);
     }
 }

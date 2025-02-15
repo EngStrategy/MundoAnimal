@@ -70,6 +70,27 @@ root {
     -fx-font-size: 22px;
 }
 
+.black_bold_text {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 500;
+    -fx-font-size: 22px;
+    -fx-text-fill: black;
+}
+
+.black_large_smooth_text {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 200;
+    -fx-text-fill: #666666;
+    -fx-font-size: 22px;
+}
+
+.black_small_smooth_text {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 200;
+    -fx-text-fill: #666666;
+    -fx-font-size: 16px;
+}
+
 .white_regular_text {
     -fx-font-family: "Roboto", serif;
     -fx-font-weight: 700;
@@ -89,6 +110,13 @@ root {
 .default_btn:hover {
     -fx-opacity: 0.85;
     -fx-cursor: hand;
+}
+
+.inicio_boxes {
+    -fx-border-radius: 3px;
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-background-radius: 3px;
 }
 
 /* CSS GENÉRICO - FIM */
@@ -279,6 +307,10 @@ root {
     -fx-background-color: #1916a1;;
 }
 
+.large_btn {
+    -fx-font-size: 22px;
+}
+
 .modal_btn:hover {
     -fx-opacity: 0.85;
     -fx-cursor: hand;
@@ -336,3 +368,12 @@ root {
 }
 
 /* CSS PAGINATOR - FIM */
+
+/* CSS CHARTS - INÍCIO */
+
+.default-color0.chart-bar {
+    -fx-bar-fill: #1916A1;
+}
+
+/* CSS CHARTS - FIM */
+

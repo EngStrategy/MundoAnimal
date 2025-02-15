@@ -60,13 +60,18 @@ public class MenuController implements Initializable {
         sair_btn.setOnAction(event -> logout());
 
         // Configure ações para cada botão
-//        configureButton(inicio_btn, "inicio.fxml");
+        configureButton(inicio_btn, ScreenEnum.INICIO);
         configureButton(historico_btn, ScreenEnum.HISTORICO);
-//        configureButton(relatorio_btn, "relatorio.fxml");
+        configureButton(relatorio_btn, ScreenEnum.RELATORIO);
         configureButton(agendamentos_btn, ScreenEnum.AGENDAMENTOS);
         configureButton(secretarios_btn, ScreenEnum.SECRETARIOS);
         configureButton(servicos_btn, ScreenEnum.SERVICOS);
         configureButton(clientes_btn, ScreenEnum.CLIENTES);
+    }
+
+    public void activateInitialScreen() {
+        // Simula o clique no botão de início
+        inicio_btn.fire();
     }
 
     public void updateUserInterface(Usuario usuario) {

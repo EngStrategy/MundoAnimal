@@ -1,6 +1,7 @@
 package com.carvalhotechsolutions.mundoanimal.controllers.autenticacao;
 
 import animatefx.animation.FadeIn;
+import com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.MenuController;
 import com.carvalhotechsolutions.mundoanimal.database.JPAutil;
 import com.carvalhotechsolutions.mundoanimal.enums.ScreenEnum;
 import com.carvalhotechsolutions.mundoanimal.model.Usuario;
@@ -64,8 +65,6 @@ public class LoginController {
             // Login bem-sucedido
             SessionManager.setCurrentUser(usuario);
 
-//            PopupManager.showLoginSuccessPopup(ScreenManagerHolder.getInstance().getStage());
-
             // Atualiza a interface do menu através do ScreenManagerHolder
             ScreenManagerHolder.getInstance().getMenuController().updateUserInterface(usuario);
 
@@ -73,6 +72,13 @@ public class LoginController {
             Node menuScreen = ScreenManagerHolder.getInstance().getScreen(ScreenEnum.MENU);
             new FadeIn(menuScreen).play();
             ScreenManagerHolder.getInstance().switchTo(ScreenEnum.MENU);
+
+            // Obtém a referência do MenuController
+            MenuController menuController = (MenuController) ScreenManagerHolder.getInstance()
+                    .getMenuController();
+
+            // Chama o método para ativar a tela inicial
+            menuController.activateInitialScreen();
 
         } catch (Exception e) {
             showAlert("Erro", "Ocorreu um erro ao verificar as credenciais: " + e.getMessage());
