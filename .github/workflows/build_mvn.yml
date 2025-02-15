@@ -15,9 +15,9 @@ jobs:
         ports:
           - 5432:5432  # Porta padrão do PostgreSQL
         env:
-          POSTGRES_USER: postgres  # Usuário do banco
-          POSTGRES_PASSWORD: password  # Senha do banco
-          POSTGRES_DB: mundoanimal  # Banco de dados usado nos testes
+          POSTGRES_USER: engstrategy  # Usuário do banco
+          POSTGRES_PASSWORD: engstrategy1234@  # Senha do banco
+          POSTGRES_DB: db_mundo_animal  # Banco de dados usado nos testes
 
     steps:
       - name: Checkout code
@@ -34,9 +34,25 @@ jobs:
 
       - name: Configure persistence.xml for tests
         run: |
-          sed -i 's|<property name="jakarta.persistence.jdbc.url" value=".*"/>|<property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/mundoanimal"/>|' src/main/resources/META-INF/persistence.xml
-          sed -i 's|<property name="jakarta.persistence.jdbc.user" value=".*"/>|<property name="jakarta.persistence.jdbc.user" value="postgres"/>|' src/main/resources/META-INF/persistence.xml
-          sed -i 's|<property name="jakarta.persistence.jdbc.password" value=".*"/>|<property name="jakarta.persistence.jdbc.password" value="password"/>|' src/main/resources/META-INF/persistence.xml
+          sed -i 's|<property name="jakarta.persistence.jdbc.url" value=".*"/>|<property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/db_mundo_animal"/>|' src/main/resources/META-INF/persistence.xml
+          sed -i 's|<property name="jakarta.persistence.jdbc.user" value=".*"/>|<property name="jakarta.persistence.jdbc.user" value="engstrategy"/>|' src/main/resources/META-INF/persistence.xml
+          sed -i 's|<property name="jakarta.persistence.jdbc.password" value=".*"/>|<property name="jakarta.persistence.jdbc.password" value="engstrategy1234@"/>|' src/main/resources/META-INF/persistence.xml
+
+      - name: Wait for PostgreSQL
+        run: |
+          for i in {1..15}; do
+            if pg_isready -h localhost -p 5432 -U engstrategy; then
+              echo "PostgreSQL is ready!"
+              exit 0
+            fi
+            echo "Waiting for PostgreSQL..."
+            sleep 2
+          done
+          echo "PostgreSQL failed to start"
+          exit 1
+
+      - name: Show PostgreSQL Logs
+        run: docker logs $(docker ps -q --filter "name=postgres")
 
       - name: Run Tests
         run: mvn test
