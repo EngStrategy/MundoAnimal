@@ -8,7 +8,10 @@ import jakarta.persistence.TypedQuery;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class AgendamentoRepository {
     public Agendamento save(Agendamento agendamento) {
@@ -118,10 +121,25 @@ public class AgendamentoRepository {
         }
     }
 
-    public List<Agendamento> findFinalizadosUltimaSemana() {
+    public List<Agendamento> findFinalizadosPorPeriodo(String periodo) {
         try (EntityManager em = JPAutil.getEntityManager()) {
             LocalDate hoje = LocalDate.now();
-            LocalDate semanaPassada = hoje.minusDays(7);
+            LocalDate dataInicial;
+
+            switch (periodo) {
+                case "Última semana":
+                    dataInicial = hoje.minusDays(7);
+                    break;
+                case "Último mês":
+                    dataInicial = hoje.minusMonths(1);
+                    break;
+                case "Últimos 6 meses":
+                    dataInicial = hoje.minusMonths(6);
+                    break;
+                default: // Total
+                    dataInicial = LocalDate.of(2000, 1, 1); // Data bem antiga para pegar todos
+                    break;
+            }
 
             String jpql = "SELECT a FROM Agendamento a " +
                     "WHERE a.status = :statusFinalizado " +
@@ -129,10 +147,29 @@ public class AgendamentoRepository {
 
             return em.createQuery(jpql, Agendamento.class)
                     .setParameter("statusFinalizado", StatusAgendamento.FINALIZADO)
-                    .setParameter("inicio", semanaPassada)
+                    .setParameter("inicio", dataInicial)
                     .setParameter("fim", hoje)
                     .getResultList();
         }
+    }
+
+    public Map<String, Long> getServicosMaisUtilizados(String periodo) {
+        List<Agendamento> agendamentos = findFinalizadosPorPeriodo(periodo);
+
+        return agendamentos.stream()
+                .collect(Collectors.groupingBy(
+                        agendamento -> agendamento.getServico().getNomeServico(),
+                        Collectors.counting()
+                ))
+                .entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .limit(10) // Pegando os 10 mais utilizados
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new
+                ));
     }
 
     public List<Agendamento> buscarAgendamentosPorIntervalo(LocalDate dataInicio, LocalDate dataFim) {
@@ -148,5 +185,4 @@ public class AgendamentoRepository {
                     .getResultList();
         }
     }
-
 }

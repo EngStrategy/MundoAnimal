@@ -6,7 +6,6 @@ import com.carvalhotechsolutions.mundoanimal.model.Animal;
 import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.model.Servico;
 import com.carvalhotechsolutions.mundoanimal.repositories.AgendamentoRepository;
-import com.carvalhotechsolutions.mundoanimal.repositories.AnimalRepository;
 import com.carvalhotechsolutions.mundoanimal.repositories.ClienteRepository;
 import com.carvalhotechsolutions.mundoanimal.repositories.ServicoRepository;
 import javafx.fxml.FXML;

@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="700.0" prefWidth="1100.0" spacing="30.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.InicioController">
    <padding>
-      <Insets bottom="80.0" left="37.0" right="37.0" top="37.0" />
+      <Insets bottom="37.0" left="37.0" right="37.0" top="37.0" />
    </padding>
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" spacing="74.0" VBox.vgrow="ALWAYS">
@@ -27,9 +25,10 @@
                   </Label>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="36.0">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0" styleClass="inicio_boxes" HBox.hgrow="ALWAYS">
+                        <HBox onMouseClicked="#handleHBoxClick" prefHeight="100.0" prefWidth="200.0" styleClass="inicio_boxes, card_inicio" HBox.hgrow="ALWAYS">
                            <children>
                               <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <TextField fx:id="agendamento1_id" managed="false" visible="false" />
                                  <padding>
                                     <Insets bottom="21.0" left="24.0" right="24.0" top="21.0" />
                                  </padding>
@@ -53,9 +52,10 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0" styleClass="inicio_boxes" HBox.hgrow="ALWAYS">
+                        <HBox onMouseClicked="#handleHBoxClick" prefHeight="100.0" prefWidth="200.0" styleClass="inicio_boxes, card_inicio" HBox.hgrow="ALWAYS">
                            <children>
                               <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <TextField fx:id="agendamento2_id" managed="false" visible="false" />
                                  <padding>
                                     <Insets bottom="21.0" left="24.0" right="24.0" top="21.0" />
                                  </padding>
@@ -79,9 +79,10 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0" styleClass="inicio_boxes" HBox.hgrow="ALWAYS">
+                        <HBox onMouseClicked="#handleHBoxClick" prefHeight="100.0" prefWidth="200.0" styleClass="inicio_boxes, card_inicio" HBox.hgrow="ALWAYS">
                            <children>
                               <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <TextField fx:id="agendamento3_id" managed="false" visible="false" />
                                  <padding>
                                     <Insets bottom="21.0" left="24.0" right="24.0" top="21.0" />
                                  </padding>
@@ -105,9 +106,10 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0" styleClass="inicio_boxes" HBox.hgrow="ALWAYS">
+                        <HBox onMouseClicked="#handleHBoxClick" prefHeight="100.0" prefWidth="200.0" styleClass="inicio_boxes, card_inicio" HBox.hgrow="ALWAYS">
                            <children>
                               <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <TextField fx:id="agendamento4_id" managed="false" visible="false" />
                                  <padding>
                                     <Insets bottom="21.0" left="24.0" right="24.0" top="21.0" />
                                  </padding>
@@ -135,39 +137,168 @@
                   </HBox>
                </children>
             </VBox>
-            <HBox maxHeight="440.0" spacing="36.0" VBox.vgrow="ALWAYS">
+            <HBox spacing="36.0" VBox.vgrow="ALWAYS">
                <children>
                   <VBox spacing="14.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label styleClass="black_large_smooth_text" text="Atividades finalizadas recentemente">
+                        <Label styleClass="black_large_smooth_text" text="Clientes mais frequentes">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="tableView" minHeight="300.0" minWidth="-Infinity" prefWidth="495.0" style="-fx-background-radius: 3px;" VBox.vgrow="ALWAYS">
-                          <columns>
-                              <TableColumn fx:id="clienteColumn" editable="false" prefWidth="75.0" sortable="false" text="Cliente" />
-                              <TableColumn fx:id="servicoColumn" editable="false" prefWidth="75.0" sortable="false" text="Serviço" />
-                              <TableColumn fx:id="dataColumn" editable="false" prefWidth="75.0" sortable="false" text="Data" />
-                          </columns>
-                        </TableView>
+                        <VBox prefWidth="495.0" spacing="21.0" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-background-radius: 4px; -fx-border-radius: 4px;" VBox.vgrow="ALWAYS">
+                           <children>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <Label styleClass="small_label" text="Período" />
+                                    <ChoiceBox fx:id="periodoChoiceBox1" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" prefWidth="150.0" style="-fx-font-size: 12px;" styleClass="choice-box_input" />
+                                 </children>
+                              </VBox>
+                              <HBox prefWidth="200.0">
+                                 <children>
+                                    <HBox prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label styleClass="small_label" text="Cliente" HBox.hgrow="ALWAYS" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="TOP_RIGHT" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label styleClass="small_label" text="Número de serviços utilizados" HBox.hgrow="ALWAYS" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" style="-fx-border-color: transparent transparent #ccc transparent; -fx-border-width: 2px;" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT">
+                                                   <children>
+                                                      <Label styleClass="regular_black_label" text="#1  " />
+                                                      <Label fx:id="first_client" styleClass="regular_label" text="Fulano de tal" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_RIGHT" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label fx:id="first_client_services" styleClass="regular_label" text="5" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" style="-fx-border-color: transparent transparent #ccc transparent; -fx-border-width: 2px;" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT">
+                                                   <children>
+                                                      <Label styleClass="regular_black_label" text="#2  " />
+                                                      <Label fx:id="second_client" styleClass="regular_label" text="Fulano de tal" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_RIGHT" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label fx:id="second_client_services" styleClass="regular_label" text="5" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" style="-fx-border-color: transparent transparent #ccc transparent; -fx-border-width: 2px;" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT">
+                                                   <children>
+                                                      <Label styleClass="regular_black_label" text="#3  " />
+                                                      <Label fx:id="third_client" styleClass="regular_label" text="Fulano de tal" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_RIGHT" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label fx:id="third_client_services" styleClass="regular_label" text="5" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" style="-fx-border-color: transparent transparent #ccc transparent; -fx-border-width: 2px;" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT">
+                                                   <children>
+                                                      <Label styleClass="regular_black_label" text="#4  " />
+                                                      <Label fx:id="fourth_client" styleClass="regular_label" text="Fulano de tal" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_RIGHT" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label fx:id="fourth_client_services" styleClass="regular_label" text="5" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" style="-fx-border-color: transparent transparent #ccc transparent; -fx-border-width: 2px;" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT">
+                                                   <children>
+                                                      <Label styleClass="regular_black_label" text="#5  " />
+                                                      <Label fx:id="fifth_client" styleClass="regular_label" text="Fulano de tal" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_RIGHT" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label fx:id="fifth_client_services" styleClass="regular_label" text="5" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="21.0" left="21.0" right="21.0" top="21.0" />
+                           </padding>
+                        </VBox>
                      </children>
                   </VBox>
                   <VBox prefWidth="495.0" spacing="14.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label styleClass="black_large_smooth_text" text="Serviços mais utilizados nesta semana">
+                        <Label styleClass="black_large_smooth_text" text="Serviços mais utilizados">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <BarChart fx:id="barChart" barGap="2.0" prefWidth="495.0" styleClass="inicio_boxes" VBox.vgrow="ALWAYS">
-                           <xAxis>
-                              <CategoryAxis side="BOTTOM" fx:id="xAxis" />
-                           </xAxis>
-                           <yAxis>
-                              <NumberAxis fx:id="yAxis" side="LEFT" />
-                           </yAxis>
-                        </BarChart>
+                        <VBox prefWidth="495.0" spacing="21.0" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-background-radius: 4px; -fx-border-radius: 4px;" VBox.vgrow="ALWAYS">
+                           <children>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <Label styleClass="small_label" text="Período" />
+                                    <ChoiceBox fx:id="periodoChoiceBox2" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" prefWidth="150.0" style="-fx-font-size: 12px;" styleClass="choice-box_input" />
+                                 </children>
+                              </VBox>
+                              <VBox fx:id="pieChartContainer" alignment="CENTER" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <PieChart fx:id="pieChart" />
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="21.0" left="21.0" right="21.0" top="21.0" />
+                           </padding>
+                        </VBox>
                      </children>
                   </VBox>
                </children>

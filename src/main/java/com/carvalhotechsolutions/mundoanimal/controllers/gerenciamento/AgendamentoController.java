@@ -428,8 +428,8 @@ public class AgendamentoController implements Initializable {
         handleSuccessfulOperation("Agendamento finalizado com sucesso!");
 
         Platform.runLater(() -> ScreenManagerHolder.getInstance().getInicioController().atualizarProximosAgendamentos());
-        Platform.runLater(() -> ScreenManagerHolder.getInstance().getInicioController().atualizarAgendamentosFinalizados());
-        Platform.runLater(() -> ScreenManagerHolder.getInstance().getInicioController().atualizarGraficoServicos());
+        Platform.runLater(() -> ScreenManagerHolder.getInstance().getInicioController().atualizarClientesFrequentes());
+        Platform.runLater(() -> ScreenManagerHolder.getInstance().getInicioController().atualizarServicosUtilizados());
     }
 
 }
