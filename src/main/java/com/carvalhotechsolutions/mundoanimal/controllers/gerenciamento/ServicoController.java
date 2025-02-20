@@ -6,6 +6,7 @@ import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.model.Servico;
 import com.carvalhotechsolutions.mundoanimal.repositories.ServicoRepository;
 import com.carvalhotechsolutions.mundoanimal.utils.FeedbackManager;
+import com.carvalhotechsolutions.mundoanimal.utils.ScreenManagerHolder;
 import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.IntegerProperty;
@@ -269,6 +270,8 @@ public class ServicoController implements Initializable {
             modalStage.showAndWait();
 
             atualizarTableView();
+
+            Platform.runLater(() -> ScreenManagerHolder.getInstance().getInicioController().atualizarServicosUtilizados());
 
         } catch (IOException e) {
             e.printStackTrace();

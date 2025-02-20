@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="255.0" prefWidth="610.0" spacing="20.0" styleClass="white_bg_color" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalDetalhesAgendamentoController">
+    <padding>
+        <Insets bottom="20.0" top="20.0" />
+    </padding>
+    <children>
+        <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="610.0">
+            <children>
+                <Label fx:id="titleLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="537.0" styleClass="modal_title" text="Detalhes do Agendamento" />
+            </children>
+            <padding>
+                <Insets left="30.0" right="30.0" />
+            </padding>
+        </HBox>
+        <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0" style="-fx-border-color: #cccccc transparent #cccccc transparent;">
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+            <padding>
+                <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+            </padding>
+            <children>
+                <TextFlow prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_label" text="Cliente: " />
+                        <Text fx:id="client_name_label" fill="#4c4c4c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_text" text="Text" />
+                    </children>
+                </TextFlow>
+                <TextFlow prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_label" text="Serviço: " />
+                        <Text fx:id="service_name_label" fill="#4c4c4c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_text" text="Text" />
+                    </children>
+                </TextFlow>
+                <TextFlow prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_label" text="Data e hora: " />
+                        <Text fx:id="date_hour_label" fill="#4c4c4c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_text" text="Text" />
+                    </children>
+                </TextFlow>
+                <TextFlow prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_label" text="Contato do cliente: " />
+                        <Text fx:id="client_phone_label" fill="#4c4c4c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_text" text="Text" />
+                    </children>
+                </TextFlow>
+                <TextFlow prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_label" text="Nome do pet: " />
+                        <Text fx:id="pet_name_label" fill="#4c4c4c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="default_text" text="Text" />
+                    </children>
+                </TextFlow>
+            </children>
+        </VBox>
+        <HBox alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="610.0">
+            <children>
+                <Button fx:id="actionButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#fecharModal" prefHeight="34.0" prefWidth="105.0" styleClass="modal_btn, cancel_btn" text="Sair" />
+            </children>
+            <VBox.margin>
+                <Insets left="30.0" right="30.0" />
+            </VBox.margin>
+        </HBox>
+    </children>
+</VBox>

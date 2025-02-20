@@ -268,6 +268,8 @@ public class ClienteController implements Initializable {
             modalStage.showAndWait();
 
             atualizarTableView();
+
+            Platform.runLater(() -> ScreenManagerHolder.getInstance().getInicioController().atualizarClientesFrequentes());
         } catch (IOException e) {
             e.printStackTrace();
         }

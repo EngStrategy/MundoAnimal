@@ -30,6 +30,9 @@ public class RelatorioController {
         LocalDate inicio = dataInicialPicker.getValue();
         LocalDate fim = dataFinalPicker.getValue();
 
+        dataInicialPicker.getEditor().clear();
+        dataFinalPicker.getEditor().clear();
+
         if (inicio == null || fim == null) {
             mostrarAlerta("Erro", "Selecione um intervalo de datas válido.");
             return;

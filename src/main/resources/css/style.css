@@ -40,6 +40,39 @@ root {
     -fx-background-insets: 0;
 }
 
+.choice-box_input {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 400;
+    -fx-font-style: normal;
+    -fx-font-size: 14px;
+    -fx-background-color: transparent;
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 5px;
+    -fx-background-insets: 0;
+}
+
+.small_label {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 700;
+    -fx-font-style: normal;
+    -fx-font-size: 14px;
+}
+
+.regular_label {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 400;
+    -fx-font-style: normal;
+    -fx-font-size: 16px;
+    -fx-text-fill: #666666;
+}
+
+.regular_black_label {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 700;
+    -fx-font-style: normal;
+    -fx-font-size: 16px;
+}
+
 .date_picker_input {
     -fx-pref-height: 47px;
 }
@@ -117,6 +150,12 @@ root {
     -fx-background-color: white;
     -fx-border-color: #cccccc;
     -fx-background-radius: 3px;
+}
+
+.card_inicio:hover {
+    -fx-cursor: hand;
+    -fx-border-color: #1916A1;
+    -fx-effect: dropshadow(gaussian, rgba(33, 150, 243, 0.2), 15, 0, 0, 0);
 }
 
 /* CSS GENÉRICO - FIM */
@@ -371,8 +410,8 @@ root {
 
 /* CSS CHARTS - INÍCIO */
 
-.default-color0.chart-bar {
-    -fx-bar-fill: #1916A1;
+.chart-legend {
+    -fx-background-color: white;
 }
 
 /* CSS CHARTS - FIM */

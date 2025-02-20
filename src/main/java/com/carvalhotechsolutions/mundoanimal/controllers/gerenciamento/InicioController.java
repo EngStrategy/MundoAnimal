@@ -1,30 +1,35 @@
 package com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento;
 
+import com.carvalhotechsolutions.mundoanimal.controllers.modals.ModalDetalhesAgendamentoController;
 import com.carvalhotechsolutions.mundoanimal.model.Agendamento;
+import com.carvalhotechsolutions.mundoanimal.model.Cliente;
 import com.carvalhotechsolutions.mundoanimal.repositories.AgendamentoRepository;
 import javafx.application.Platform;
-import javafx.beans.binding.DoubleBinding;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Text;
-import javafx.util.StringConverter;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.geometry.Side;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class InicioController {
+    @FXML
+    private TextField agendamento1_id, agendamento2_id, agendamento3_id, agendamento4_id;
     @FXML
     private Label nomeServico1, horarioAgendamento1, nomeCliente1;
     @FXML
@@ -34,146 +39,300 @@ public class InicioController {
     @FXML
     private Label nomeServico4, horarioAgendamento4, nomeCliente4;
     @FXML
-    private TableView<Agendamento> tableView;
+    private ChoiceBox<String> periodoChoiceBox1;
     @FXML
-    private TableColumn<Agendamento, String> clienteColumn, servicoColumn, dataColumn;
+    private Label first_client, second_client, third_client, fourth_client, fifth_client;
     @FXML
-    private BarChart barChart;
+    private Label first_client_services, second_client_services, third_client_services, fourth_client_services, fifth_client_services;
     @FXML
-    private CategoryAxis xAxis;
+    private ChoiceBox<String> periodoChoiceBox2;
     @FXML
-    private NumberAxis yAxis;
+    private PieChart pieChart;
+    @FXML
+    private VBox pieChartContainer, emptyStateContainer;
 
     private AgendamentoRepository agendamentoRepository = new AgendamentoRepository();
 
     @FXML
     public void initialize() {
-        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+        List<ChoiceBox<String>> choiceBoxes = Arrays.asList(periodoChoiceBox1, periodoChoiceBox2);
+        choiceBoxes.forEach(
+                x -> x.getItems().addAll(
+                        "Total",
+                        "Última semana",
+                        "Último mês",
+                        "Últimos 6 meses"
+                )
+        );
+        choiceBoxes.forEach(x -> x.setValue("Total"));
 
-        DoubleBinding larguraDisponivel = tableView.widthProperty().subtract(354);
+        // Listener para atualizar os clientes frequentes quando mudar o período
+        periodoChoiceBox1.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> atualizarClientesFrequentes()
+        );
 
-        clienteColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.35));
-        servicoColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.35));
-        dataColumn.prefWidthProperty().bind(larguraDisponivel.multiply(0.30));
-
-        clienteColumn.setCellValueFactory(new PropertyValueFactory<>("cliente"));
-        servicoColumn.setCellValueFactory(new PropertyValueFactory<>("servico"));
-        dataColumn.setCellValueFactory(new PropertyValueFactory<>("dataFormatada"));
+        // Listener para atualizar o gráfico quando mudar a seleção
+        periodoChoiceBox2.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> atualizarGraficoServicos()
+        );
 
         carregarProximosAgendamentos();
-        atualizarAgendamentosFinalizados();
-        configurarGrafico();
+        carregarClientesFrequentes();
+        setupEmptyState();
         atualizarGraficoServicos();
+    }
+
+    @FXML
+    private void handleHBoxClick(MouseEvent event) {
+        HBox clickedHBox = (HBox) event.getSource();
+        // Find the VBox within the clicked HBox
+        VBox vbox = (VBox) clickedHBox.getChildren().get(0);
+        // Find the hidden TextField within the VBox
+        TextField idField = (TextField) vbox.getChildren().stream()
+                .filter(node -> node instanceof TextField)
+                .findFirst()
+                .orElse(null);
+
+        if (idField != null && !idField.getText().isEmpty()) {
+            Long agendamentoId = Long.parseLong(idField.getText());
+            abrirModalDetalhes(agendamentoId);
+        }
     }
 
     private void carregarProximosAgendamentos() {
         List<Agendamento> agendamentos = agendamentoRepository.findStatusPendente();
 
         // Lista de Labels para facilitar a atribuição
+        List<TextField> ids = Arrays.asList(agendamento1_id, agendamento2_id, agendamento3_id, agendamento4_id);
         List<Label> servicos = Arrays.asList(nomeServico1, nomeServico2, nomeServico3, nomeServico4);
         List<Label> horarios = Arrays.asList(horarioAgendamento1, horarioAgendamento2, horarioAgendamento3, horarioAgendamento4);
         List<Label> clientes = Arrays.asList(nomeCliente1, nomeCliente2, nomeCliente3, nomeCliente4);
 
         for (int i = 0; i < 4; i++) {
+            // Get the parent HBox of the TextField
+            HBox currentHBox = (HBox) ids.get(i).getParent().getParent();
+
             if (i < agendamentos.size()) {
                 Agendamento agendamento = agendamentos.get(i);
+                ids.get(i).setText(agendamento.getId().toString());
                 servicos.get(i).setText(agendamento.getServico().getNomeServico());
                 horarios.get(i).setText(agendamento.getDataHoraFormatada());
                 clientes.get(i).setText(agendamento.getCliente().getNome());
+
+                // Enable click handling for HBoxes with appointments
+                currentHBox.setDisable(false);
             } else {
                 // Definir mensagens padrão para os HBox vazios
+                ids.get(i).setText("");
                 servicos.get(i).setText("Vago");
                 horarios.get(i).setText("-");
                 clientes.get(i).setText("-");
+
+                // Disable click handling for empty HBoxes
+                currentHBox.setDisable(true);
             }
         }
     }
 
-    public void atualizarAgendamentosFinalizados() {
-        List<Agendamento> ultimosFinalizados = agendamentoRepository.findUltimosFinalizados(5);
+    private void carregarClientesFrequentes() {
+        String periodoSelecionado = periodoChoiceBox1.getValue();
+        LocalDate dataInicio = null;
+        LocalDate dataFim = LocalDate.now();
 
-        // Atualiza os dados da TableView
-        tableView.getItems().setAll(ultimosFinalizados);
+        // Define o período com base na seleção
+        switch (periodoSelecionado) {
+            case "Última semana":
+                dataInicio = dataFim.minusWeeks(1);
+                break;
+            case "Último mês":
+                dataInicio = dataFim.minusMonths(1);
+                break;
+            case "Últimos 6 meses":
+                dataInicio = dataFim.minusMonths(6);
+                break;
+            case "Total":
+                dataInicio = LocalDate.of(2000, 1, 1); // Data bem antiga para pegar todos
+                break;
+        }
+
+        // Busca os agendamentos do período
+        List<Agendamento> agendamentos = agendamentoRepository.buscarAgendamentosPorIntervalo(dataInicio, dataFim);
+
+        // Agrupa por cliente e conta os serviços
+        Map<Cliente, Long> clientesContagem = agendamentos.stream()
+                .collect(Collectors.groupingBy(
+                        Agendamento::getCliente,
+                        Collectors.counting()
+                ));
+
+        // Ordena os clientes por número de serviços (decrescente) e nome (crescente) para desempate
+        List<Map.Entry<Cliente, Long>> clientesOrdenados = clientesContagem.entrySet()
+                .stream()
+                .sorted((e1, e2) -> {
+                    int compareByCount = e2.getValue().compareTo(e1.getValue());
+                    if (compareByCount == 0) {
+                        // Se tiver mesmo número de serviços, desempata por ordem alfabética
+                        return e1.getKey().getNome().compareTo(e2.getKey().getNome());
+                    }
+                    return compareByCount;
+                })
+                .limit(5)
+                .toList();
+
+        // Lista de labels para facilitar a atualização
+        List<Label> clienteLabels = Arrays.asList(
+                first_client, second_client, third_client, fourth_client, fifth_client
+        );
+        List<Label> servicosLabels = Arrays.asList(
+                first_client_services, second_client_services, third_client_services,
+                fourth_client_services, fifth_client_services
+        );
+
+        // Atualiza os labels com os dados dos clientes
+        for (int i = 0; i < 5; i++) {
+            if (i < clientesOrdenados.size()) {
+                // Tem cliente para essa posição
+                Map.Entry<Cliente, Long> entry = clientesOrdenados.get(i);
+                Cliente cliente = entry.getKey();
+                Long quantidade = entry.getValue();
+
+                // Atualiza o nome do cliente
+                clienteLabels.get(i).setText(cliente.getNome());
+                // Atualiza a quantidade de serviços
+                servicosLabels.get(i).setText(quantidade.toString());
+            } else {
+                // Não tem cliente para essa posição
+                clienteLabels.get(i).setText("Posição não ocupada");
+                servicosLabels.get(i).setText("-");
+            }
+        }
+
+        // Adiciona estilo diferente para posições não ocupadas
+        for (int i = 0; i < 5; i++) {
+            if (i >= clientesOrdenados.size()) {
+                clienteLabels.get(i).setStyle("-fx-text-fill: #999999; -fx-font-style: italic;");
+                servicosLabels.get(i).setStyle("-fx-text-fill: #999999; -fx-font-style: italic;");
+            } else {
+                clienteLabels.get(i).setStyle("");
+                servicosLabels.get(i).setStyle("");
+            }
+        }
     }
 
-    public void atualizarGraficoServicos() {
-        // Executar dentro do thread do JavaFX
-        Platform.runLater(() -> {
-            List<Agendamento> agendamentos = agendamentoRepository.findFinalizadosUltimaSemana();
+    private void setupEmptyState() {
+        pieChart.setVisible(false);
+        pieChart.setManaged(false);
+        emptyStateContainer = new VBox();
+        emptyStateContainer.setAlignment(Pos.BOTTOM_CENTER);
+        emptyStateContainer.setSpacing(10);
+        emptyStateContainer.setPrefHeight(100); // Mesma altura aproximada do PieChart
+        emptyStateContainer.setStyle("-fx-background-color: white;");
 
-            // Contar quantas vezes cada serviço foi realizado
-            Map<String, Long> contagemServicos = agendamentos.stream()
-                    .collect(Collectors.groupingBy(a -> a.getServico().getNomeServico(), Collectors.counting()));
+        // Ícone de gráfico
+        Label iconLabel = new Label("📊");
+        iconLabel.setStyle("-fx-font-size: 48px;");
 
-            // Encontrar o maior valor
-            long maxValue = contagemServicos.values().stream()
-                    .mapToLong(Long::longValue)
-                    .max()
-                    .orElse(0);
+        // Mensagem principal
+        Label messageLabel = new Label("Nenhum serviço realizado no período");
+        messageLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #666666;");
 
-            // Configurar o eixo Y com base no valor máximo
-            yAxis = (NumberAxis) barChart.getYAxis();
-            // Arredondar para cima para o próximo número inteiro
-            int upperBound = (int) Math.ceil(maxValue);
-            yAxis.setUpperBound(upperBound);
-            yAxis.setLowerBound(0);
-            // Definir o número de marcações desejado
-            int tickUnit = calculateTickUnit(upperBound);
-            yAxis.setTickUnit(tickUnit);
-            // Forçar apenas números inteiros
-            yAxis.setAutoRanging(false);
+        // Mensagem secundária
+        Label subMessageLabel = new Label("Os serviços realizados aparecerão aqui após o primeiro atendimento");
+        subMessageLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #999999;");
 
-            // Criar nova série de dados
-            XYChart.Series<String, Number> series = new XYChart.Series<>();
-            series.setName("Quantidade");
+        emptyStateContainer.getChildren().addAll(iconLabel, messageLabel, subMessageLabel);
+    }
 
-            // Limpar dados existentes
-            barChart.getData().clear();
 
-            // Atualizar categorias do eixo X
-            CategoryAxis xAxis = (CategoryAxis) barChart.getXAxis();
-            xAxis.getCategories().clear();
+    private void atualizarGraficoServicos() {
+        pieChart.setVisible(true);
+        pieChart.setManaged(true);
 
-            // Adicionar novas categorias
-            ObservableList<String> categorias = FXCollections.observableArrayList(contagemServicos.keySet());
-            xAxis.setCategories(categorias);
+        String periodoSelecionado = periodoChoiceBox2.getValue();
+        Map<String, Long> servicosCounts = agendamentoRepository.getServicosMaisUtilizados(periodoSelecionado);
 
-            // Adicionar dados à série
-            contagemServicos.forEach((servico, quantidade) ->
-                    series.getData().add(new XYChart.Data<>(servico, quantidade))
+        // Remover qualquer visualização anterior
+        pieChartContainer.getChildren().remove(emptyStateContainer);
+        pieChart.setVisible(true);
+
+        // Verificar se há dados
+        if (servicosCounts.isEmpty()) {
+            // Mostrar estado vazio
+            pieChart.setVisible(false);
+            if (!pieChartContainer.getChildren().contains(emptyStateContainer)) {
+                pieChartContainer.getChildren().add(emptyStateContainer);
+            }
+            return;
+        }
+
+        // Limpar dados anteriores
+        pieChart.getData().clear();
+        pieChart.setLabelsVisible(false);
+        pieChart.setLegendVisible(true);
+        pieChart.setLegendSide(Side.RIGHT);
+
+        // Adicionar novos dados
+        servicosCounts.forEach((servico, quantidade) -> {
+            PieChart.Data slice = new PieChart.Data(
+                    servico + " - " + quantidade,
+                    quantidade.doubleValue()
             );
+            pieChart.getData().add(slice);
+        });
 
-            // Adicionar série ao gráfico
-            barChart.getData().add(series);
+        // Adicionar tooltips e animações
+        pieChart.getData().forEach(data -> {
+            double percentagem = (data.getPieValue() / servicosCounts.values().stream()
+                    .mapToDouble(Long::doubleValue).sum() * 100);
+            String nomeServico = data.getName().split(" - ")[0];
+            String texto = String.format("%s: %.1f%%", nomeServico, percentagem);
 
+            Tooltip tooltip = new Tooltip(texto);
+            tooltip.setShowDelay(Duration.ZERO);
+            Tooltip.install(data.getNode(), tooltip);
 
-            // Forçar atualização do layout
-            barChart.layout();
+            data.getNode().setOnMouseEntered(event ->
+                    data.getNode().setStyle("-fx-scale-x: 1.1; -fx-scale-y: 1.1;"));
+            data.getNode().setOnMouseExited(event ->
+                    data.getNode().setStyle("-fx-scale-x: 1; -fx-scale-y: 1;"));
         });
     }
 
-    // Método auxiliar para calcular o intervalo de marcação ideal
-    private int calculateTickUnit(int maxValue) {
-        if (maxValue <= 5) return 1;
-        if (maxValue <= 10) return 2;
-        if (maxValue <= 20) return 4;
-        if (maxValue <= 50) return 5;
-        if (maxValue <= 100) return 10;
-        return Math.max(1, maxValue / 10); // Para valores maiores, dividir em aproximadamente 10 intervalos
+    private void abrirModalDetalhes(Long agendamentoId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modals/modalDetalhesAgendamento.fxml"));
+            Parent modalContent = loader.load();
+
+            // Obter o controlador do modal
+            ModalDetalhesAgendamentoController modalController = loader.getController();
+
+            // Buscar o serviço pelo ID
+            Agendamento agendamento = agendamentoRepository.findById(agendamentoId);
+
+            // Configurar o modal para edição
+            modalController.configurarParaExibicao(agendamento);
+
+            // Configurar o Stage do modal
+            Stage modalStage = new Stage();
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.setTitle("Detalhes do Agendamento");
+            modalStage.setScene(new Scene(modalContent));
+            modalStage.setResizable(false);
+            modalStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    public void atualizarServicosUtilizados() {
+        Platform.runLater((this::atualizarGraficoServicos));
+    }
 
-    // Método auxiliar para configuração inicial do gráfico
-    public void configurarGrafico() {
-        yAxis.setTickUnit(1); // Incremento de 1 em 1
-        yAxis.setMinorTickVisible(false);
-        barChart.setAnimated(false); // Desabilitar animações para evitar problemas de atualização
-        barChart.setLegendVisible(false);
-        barChart.setStyle("-fx-font-size: 14px;");
+    public void atualizarClientesFrequentes() {
+        Platform.runLater((this::carregarClientesFrequentes));
     }
 
     public void atualizarProximosAgendamentos() {
         Platform.runLater(this::carregarProximosAgendamentos);
     }
-
 }
