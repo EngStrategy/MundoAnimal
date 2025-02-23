@@ -12,6 +12,7 @@ module com.carvalhotechsolutions.mundoanimal {
     requires java.desktop;
     requires itextpdf;
     requires jfreechart;
+    requires com.jcraft.jsch;
 
     // Export and open the controllers package
 
