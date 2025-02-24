@@ -220,8 +220,6 @@ public class InicioController {
     }
 
     private void setupEmptyState() {
-        pieChart.setVisible(false);
-        pieChart.setManaged(false);
         emptyStateContainer = new VBox();
         emptyStateContainer.setAlignment(Pos.BOTTOM_CENTER);
         emptyStateContainer.setSpacing(10);
@@ -243,7 +241,6 @@ public class InicioController {
         emptyStateContainer.getChildren().addAll(iconLabel, messageLabel, subMessageLabel);
     }
 
-
     private void atualizarGraficoServicos() {
         pieChart.setVisible(true);
         pieChart.setManaged(true);
@@ -259,6 +256,7 @@ public class InicioController {
         if (servicosCounts.isEmpty()) {
             // Mostrar estado vazio
             pieChart.setVisible(false);
+            pieChart.setManaged(false);
             if (!pieChartContainer.getChildren().contains(emptyStateContainer)) {
                 pieChartContainer.getChildren().add(emptyStateContainer);
             }

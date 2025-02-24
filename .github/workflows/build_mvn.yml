@@ -3,7 +3,7 @@ name: Build, Test, and Validate with PostgreSQL
 on:
   push:
     branches:
-      - develop  # Aciona a ação ao enviar mudanças para a branch "develop"
+      - main  # Aciona a ação ao enviar mudanças para a branch "develop"
 
 jobs:
   build:
