@@ -1,0 +1,418 @@
+
+
+/* CSS PARA ADICIONAR FONTS - INÍCIO */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+root {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 400;
+    -fx-font-style: normal;
+    -fx-font-size: 18px;
+}
+
+/* CSS PARA ADICIONAR FONTS - FIM */
+
+/* CSS GENÉRICO - INÍCIO */
+
+.root * {
+    -fx-font-family: "Roboto", serif;
+}
+
+.search_input {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 400;
+    -fx-font-style: normal;
+    -fx-font-size: 18px;
+    -fx-background-color: white;
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 5px;
+}
+
+.default_text_input {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 400;
+    -fx-font-style: normal;
+    -fx-font-size: 18px;
+    -fx-background-color: transparent;
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 5px;
+    -fx-background-insets: 0;
+}
+
+.choice-box_input {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 400;
+    -fx-font-style: normal;
+    -fx-font-size: 14px;
+    -fx-background-color: transparent;
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 5px;
+    -fx-background-insets: 0;
+}
+
+.small_label {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 700;
+    -fx-font-style: normal;
+    -fx-font-size: 14px;
+}
+
+.regular_label {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 400;
+    -fx-font-style: normal;
+    -fx-font-size: 16px;
+    -fx-text-fill: #666666;
+}
+
+.regular_black_label {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 700;
+    -fx-font-style: normal;
+    -fx-font-size: 16px;
+}
+
+.date_picker_input {
+    -fx-pref-height: 47px;
+}
+
+.text-area .content {
+    -fx-background-insets: 0;
+    -fx-background-color:white;
+}
+
+.default_label {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-style: normal;
+    -fx-font-weight: 900;
+    -fx-font-size: 18px;
+}
+
+.default_text {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-style: normal;
+    -fx-font-weight: 200;
+    -fx-font-size: 18px;
+}
+
+.white_bold_text {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 700;
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+}
+
+.black_bold_text {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 500;
+    -fx-font-size: 22px;
+    -fx-text-fill: black;
+}
+
+.black_large_smooth_text {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 200;
+    -fx-text-fill: #666666;
+    -fx-font-size: 22px;
+}
+
+.black_small_smooth_text {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 200;
+    -fx-text-fill: #666666;
+    -fx-font-size: 16px;
+}
+
+.white_regular_text {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 700;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+}
+
+.white_icon {
+    -fx-fill: white;
+}
+
+.default_btn {
+    -fx-background-color: #1916A1;
+    -fx-border-radius: 5px;
+}
+
+.default_btn:hover {
+    -fx-opacity: 0.85;
+    -fx-cursor: hand;
+}
+
+.inicio_boxes {
+    -fx-border-radius: 3px;
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-background-radius: 3px;
+}
+
+.card_inicio:hover {
+    -fx-cursor: hand;
+    -fx-border-color: #1916A1;
+    -fx-effect: dropshadow(gaussian, rgba(33, 150, 243, 0.2), 15, 0, 0, 0);
+}
+
+/* CSS GENÉRICO - FIM */
+
+
+/*  CSS AUTENTICAÇÃO - INÍCIO  */
+
+.default_bg_color {
+    -fx-background-color: #E9E9E9;
+}
+
+.white_bg_color {
+    -fx-background-color: #FFFFFF;
+}
+
+.auth_container{
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5px;
+}
+
+.login_btn {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-style: normal;
+    -fx-font-weight: 900;
+    -fx-font-size: 18px;
+    -fx-background-color: #1916A1;
+    -fx-border-radius: 5px;
+    -fx-text-fill: white;
+}
+
+.login_btn:hover {
+    -fx-opacity: 0.85;
+    -fx-cursor: hand;
+}
+
+.hyperlink {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 400;
+    -fx-font-style: normal;
+    -fx-font-size: 18px;
+    -fx-text-fill: black;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #1916A1;
+    -fx-underline: false;
+}
+
+.hyperlink:visited {
+    -fx-underline: false;
+}
+
+/*  CSS AUTENTICAÇÃO - FIM  */
+
+/* CSS MENU - INÍCIO */
+
+.top_pane {
+    -fx-background-color: FFF;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: transparent transparent #CCCCCC transparent;
+}
+
+.side_menu {
+    -fx-background-color: FFF;
+    -fx-border-width: 0 1px 0 0;
+    -fx-border-color: transparent #CCCCCC transparent transparent;
+}
+
+.menu_text {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-style: normal;
+    -fx-font-weight: 400;
+    -fx-font-size: 20px;
+}
+
+#top_pane_user_name {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 900;
+    -fx-font-style: normal;
+    -fx-font-size: 20px;
+}
+
+#top_pane_user_role {
+    -fx-text-fill: #9C9C9C;
+    -fx-font-family: "Roboto", serif;
+    -fx-font-weight: 300;
+    -fx-font-style: normal;
+    -fx-font-size: 14px;
+}
+
+.menu_btn, .menu_btn_red {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 24px;
+}
+
+.menu_btn:hover {
+    -fx-background-color: #F2F5FA;
+    -fx-text-fill: #1916a1;
+    -fx-cursor: hand;
+}
+
+.menu_btn_red:hover {
+    -fx-background-color: #FFEAEA;
+    -fx-cursor: hand;
+}
+
+.menu_btn:hover .menu_icon {
+    -fx-fill: #1916A1;
+}
+
+
+.menu_btn:hover .menu_text {
+    -fx-text-fill: #1916A1;
+}
+
+.menu_btn.active {
+    -fx-background-color: #E8EAF6; /* Cor de fundo */
+    -fx-text-fill: #1916A1; /* Cor do texto */
+}
+
+.menu_btn.active .menu_icon {
+    -fx-fill: #1916A1; /* Cor do ícone */
+}
+
+.menu_btn.active .menu_text {
+    -fx-text-fill: #1916A1; /* Cor do texto */
+}
+
+/* CSS MENU - FIM */
+
+
+/* CSS TABELAS - INÍCIO */
+
+.table-view .scroll-bar * {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}
+
+.table-column {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-size: 18px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 0 0 16px;
+    -fx-pref-height: 79px;
+    -fx-border-color: transparent #e2e2e2 #e2e2e2 transparent;
+}
+
+.column-header {
+    -fx-background-color: #F2F5FA;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-color: transparent #e2e2e2 #e2e2e2 transparent;
+}
+
+#acaoColumn.table-column {
+    -fx-border-color: transparent transparent #e2e2e2 transparent;
+}
+
+#acaoColumn.column-header {
+    -fx-border-color: transparent transparent #e2e2e2 transparent;
+}
+
+/* CSS TABELAS - FIM */
+
+/* CSS MODALS - INÍCIO */
+
+.modal_title {
+    -fx-font-weight: 900;
+    -fx-font-size: 20px;
+}
+
+.modal_label {
+    -fx-font-family: "Roboto", serif;
+    -fx-font-style: normal;
+    -fx-font-size: 18px;
+}
+
+.modal_btn {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: 800;
+    -fx-font-size: 18px;
+    -fx-background-color: #1916a1;;
+}
+
+.large_btn {
+    -fx-font-size: 22px;
+}
+
+.modal_btn:hover {
+    -fx-opacity: 0.85;
+    -fx-cursor: hand;
+}
+
+.delete_btn {
+    -fx-background-color: #FF6F6F;
+}
+
+.cancel_btn {
+    -fx-background-color: #848484;
+}
+
+/* CSS MODALS - FIM */
+
+/* CSS POPUP - INÍCIO */
+
+.popup {
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+    -fx-font-weight: 800;
+}
+
+/* CSS POPUP - FIM */
+
+/* CSS PAGINATOR - INÍCIO */
+
+.pagination > .pagination-control > .control-box > .number-button:selected,
+.pagination > .pagination-control > .control-box > .bullet-button:selected{
+    -fx-background-insets: 0;
+    -fx-background-color: #1916A1;
+    -fx-text-fill: white;
+    -fx-font-weight: 800;
+}
+
+/* hover */
+.pagination > .pagination-control > .control-box > .number-button:hover,
+.pagination > .pagination-control > .control-box > .bullet-button:hover,
+.pagination > .pagination-control > .control-box > .left-arrow-button:hover,
+.pagination > .pagination-control > .control-box > .right-arrow-button:hover {
+    -fx-cursor: hand;
+}
+
+/* tamanho botões */
+.pagination > .pagination-control > .control-box > .number-button,
+.pagination > .pagination-control > .control-box > .bullet-button,
+.pagination > .pagination-control > .control-box > .left-arrow-button,
+.pagination > .pagination-control > .control-box > .right-arrow-button {
+    -fx-min-width: 28;
+    -fx-min-height: 28;
+    -fx-border-radius: 2px;
+    -fx-background-radius: 2px;
+    -fx-font-size: 16px;
+    -fx-page-information-size: 12px;
+}
+
+/* CSS PAGINATOR - FIM */
+
+/* CSS CHARTS - INÍCIO */
+
+.chart-legend {
+    -fx-background-color: white;
+}
+
+/* CSS CHARTS - FIM */
+

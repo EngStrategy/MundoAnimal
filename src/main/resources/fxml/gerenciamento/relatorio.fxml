@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="256.0" prefWidth="500.0" spacing="30.0" style="-fx-background-radius: 4px; -fx-border-radius: 4px; -fx-border-color: #cccccc;" styleClass="white_bg_color" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.RelatorioController">
+    <children>
+        <TextField fx:id="pet_id_field" managed="false" visible="false" />
+      <VBox spacing="20.0">
+         <children>
+              <HBox alignment="CENTER_LEFT" prefHeight="39.0">
+                  <children>
+                      <Label fx:id="titleLabel" styleClass="modal_title" text="Selecione um intervalo de tempo" />
+                  </children>
+              </HBox>
+              <HBox alignment="CENTER" spacing="20.0">
+                  <children>
+                      <VBox alignment="BOTTOM_LEFT" spacing="5.0">
+                     <children>
+                        <DatePicker fx:id="dataInicialPicker" layoutX="10.0" layoutY="38.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="55.0" promptText="Data inicial" styleClass="default_text_input" />
+                     </children>
+                      </VBox>
+                      <VBox alignment="BOTTOM_LEFT" spacing="5.0">
+                     <children>
+                        <DatePicker fx:id="dataFinalPicker" layoutX="10.0" layoutY="38.0" prefHeight="55.0" promptText="Data Final" styleClass="default_text_input" />
+                     </children>
+                      </VBox>
+                  </children>
+              </HBox>
+         </children>
+      </VBox>
+        <HBox alignment="CENTER_RIGHT">
+            <children>
+                <Button fx:id="actionButton" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#gerarRelatorio" prefHeight="55.0" prefWidth="479.0" text="Confirmar">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="modal_btn" />
+                  <String fx:value="large_btn" />
+               </styleClass></Button>
+            </children>
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+        </HBox>
+    </children>
+   <padding>
+      <Insets bottom="35.0" left="35.0" right="35.0" top="20.0" />
+   </padding>
+</VBox>

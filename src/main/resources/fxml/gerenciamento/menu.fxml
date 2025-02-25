@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21.0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carvalhotechsolutions.mundoanimal.controllers.gerenciamento.MenuController">
+   <top>
+      <HBox minHeight="100.0" styleClass="top_pane" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" maxWidth="300.0" minWidth="300.0" HBox.hgrow="NEVER">
+               <children>
+                  <ImageView fitHeight="77.0" fitWidth="148.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/images/logo_sem_fundo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" spacing="14.0">
+                     <children>
+                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/images/profile.png" />
+                           </image>
+                        </ImageView>
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" spacing="4.0">
+                           <children>
+                              <Label id="top_pane_user_name" fx:id="userNameLabel" text="Fulano">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label id="top_pane_user_role" fx:id="userTypeLabel" text="Administrador">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets right="40.0" />
+               </padding>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox spacing="8.0" styleClass="side_menu" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="inicio_btn" maxHeight="58.0" maxWidth="300.0" minHeight="58.0" minWidth="299.0" mnemonicParsing="false" styleClass="menu_btn">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
+                     <children>
+                        <FontAwesomeIcon glyphName="HOME" size="26px" styleClass="menu_icon" />
+                        <Label styleClass="menu_text" text="Início">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+               <padding>
+                  <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+               </padding>
+            </Button>
+            <Button fx:id="clientes_btn" maxHeight="58.0" maxWidth="300.0" minHeight="58.0" minWidth="299.0" mnemonicParsing="false" styleClass="menu_btn">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="28.0">
+                     <children>
+                        <FontAwesomeIcon glyphName="USER" size="26px" styleClass="menu_icon" />
+                        <Label styleClass="menu_text" text="Clientes">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+               <padding>
+                  <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+               </padding>
+            </Button>
+            <Button fx:id="agendamentos_btn" maxHeight="58.0" maxWidth="300.0" minHeight="58.0" minWidth="299.0" mnemonicParsing="false" styleClass="menu_btn">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
+                     <children>
+                        <FontAwesomeIcon glyphName="CALENDAR" size="26px" styleClass="menu_icon" />
+                        <Label styleClass="menu_text" text="Agendamentos">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+               <padding>
+                  <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+               </padding>
+            </Button>
+            <Button fx:id="historico_btn" maxHeight="58.0" maxWidth="300.0" minHeight="58.0" minWidth="299.0" mnemonicParsing="false" styleClass="menu_btn">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
+                     <children>
+                        <FontAwesomeIcon glyphName="HISTORY" size="26px" styleClass="menu_icon" />
+                        <Label styleClass="menu_text" text="Histórico">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+               <padding>
+                  <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+               </padding>
+            </Button>
+            <Button fx:id="relatorio_btn" maxHeight="58.0" maxWidth="300.0" minHeight="58.0" minWidth="299.0" mnemonicParsing="false" styleClass="menu_btn">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
+                     <children>
+                        <FontAwesomeIcon glyphName="FILE" size="26px" styleClass="menu_icon" />
+                        <Label styleClass="menu_text" text="Relatório">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+               <padding>
+                  <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+               </padding>
+            </Button>
+            <Button fx:id="secretarios_btn" maxHeight="58.0" maxWidth="300.0" minHeight="58.0" minWidth="299.0" mnemonicParsing="false" styleClass="menu_btn">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="26.0">
+                     <children>
+                        <FontAwesomeIcon glyphName="USER" size="26px" styleClass="menu_icon" />
+                        <Label styleClass="menu_text" text="Secretários">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+               <padding>
+                  <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+               </padding>
+            </Button>
+            <Button fx:id="servicos_btn" maxHeight="58.0" maxWidth="300.0" minHeight="58.0" minWidth="299.0" mnemonicParsing="false" styleClass="menu_btn">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT" spacing="24.0">
+                     <children>
+                        <FontAwesomeIcon glyphName="COG" size="26px" styleClass="menu_icon" text="" />
+                        <Label styleClass="menu_text" text="Serviços">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+               <padding>
+                  <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+               </padding>
+            </Button>
+            <VBox alignment="BOTTOM_LEFT" maxWidth="300.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Button fx:id="sair_btn" maxHeight="58.0" maxWidth="300.0" minHeight="58.0" minWidth="299.0" mnemonicParsing="false" styleClass="menu_btn_red">
+                     <graphic>
+                        <HBox alignment="CENTER_LEFT" spacing="22.0">
+                           <children>
+                              <FontAwesomeIcon fill="RED" glyphName="SIGN_OUT" size="26px" />
+                              <Label styleClass="menu_text" text="Sair" textFill="RED">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </graphic>
+                     <padding>
+                        <Insets bottom="19.0" left="37.0" right="37.0" top="19.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="40.0" top="40.0" />
+         </padding>
+      </VBox>
+   </left>
+   <center>
+      <StackPane fx:id="contentArea" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
