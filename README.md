@@ -4,11 +4,13 @@ Mundo Animal é um sistema desktop desenvolvido em **JavaFX** com **PostgreSQL**
 
 ## 🚀 Tecnologias Utilizadas
 - **Java 23**
-- **JavaFX** (para interface gráfica)
-- **PostgreSQL** (banco de dados relacional)
-- **Hibernate/JPA** (persistência de dados)
-- **Maven** (gerenciador de dependências)
-- **BCrypt** (para criptografar senhas)
+
+- **JavaFX** 
+- **PostgreSQL** 
+- **Hibernate/JPA** 
+- **Maven** 
+- **Docker** 
+
 
 ## 📌Funcionalidades Principais
 - **Autenticação:** Login seguro para administradores e secretários.
@@ -23,33 +25,14 @@ Mundo Animal é um sistema desktop desenvolvido em **JavaFX** com **PostgreSQL**
 - PostgreSQL instalado 
 - Maven instalado
 
-## 📂 Estrutura do Projeto
-```
-MundoAnimal/
-│── src/
-│   ├── main/
-│   │   ├── java/com/carvalhotechsolutions/mundoanimal/
-│   │   │   ├── controllers/
-│   │   │   ├── models/
-│   │   │   ├── repository/
-│   │   │   ├── services/
-│   │   ├── resources/
-│   │   │   ├── fxml/
-│   │   │   ├── images/
-│   │   │   ├── styles/
-│── pom.xml
-│── README.md
-```
+## 📷 Screenshots
 
-## 🤝 Contribuição
-Se deseja contribuir, siga os passos:
-1. Fork este repositório
-2. Crie uma branch (`git checkout -b feature/nova-funcionalidade`)
-3. Commit suas alterações (`git commit -m 'Adiciona nova funcionalidade'`)
-4. Envie um push para a branch (`git push origin feature/nova-funcionalidade`)
-5. Abra um Pull Request
+![Tela inicial](screenshots/home_screen.png)
+
+![Tela de clientes](screenshots/clients_screen.png)
+
+![Tela de histórico](screenshots/history_screen.png)
+
 
 ## 📜 Licença
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
----
