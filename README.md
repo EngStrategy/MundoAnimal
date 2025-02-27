@@ -4,11 +4,13 @@ Mundo Animal é um sistema desktop desenvolvido em **JavaFX** com **PostgreSQL**
 
 ## 🚀 Tecnologias Utilizadas
 - **Java 23**
+
 - **JavaFX** 
 - **PostgreSQL** 
 - **Hibernate/JPA** 
 - **Maven** 
 - **Docker** 
+
 
 ## 📌Funcionalidades Principais
 - **Autenticação:** Login seguro para administradores e secretários.
@@ -31,7 +33,6 @@ Mundo Animal é um sistema desktop desenvolvido em **JavaFX** com **PostgreSQL**
 
 ![Tela de histórico](screenshots/history_screen.png)
 
+
 ## 📜 Licença
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
----

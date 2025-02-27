@@ -16,7 +16,7 @@ jobs:
           - 5432:5432  # Porta padrão do PostgreSQL
         env:
           POSTGRES_USER: engstrategy  # Usuário do banco
-          POSTGRES_PASSWORD: engstrategy1234@  # Senha do banco
+          POSTGRES_PASSWORD: engstrategy1234  # Senha do banco
           POSTGRES_DB: db_mundo_animal  # Banco de dados usado nos testes
 
     steps:

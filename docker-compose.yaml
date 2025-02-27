@@ -5,7 +5,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: engstrategy
-      POSTGRES_PASSWORD: engstrategy1234@
+      POSTGRES_PASSWORD: engstrategy1234
       POSTGRES_DB: db_mundo_animal
     ports:
       - "5432:5432"

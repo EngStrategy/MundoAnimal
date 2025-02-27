@@ -15,7 +15,8 @@
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/db_mundo_animal" />
             <property name="jakarta.persistence.jdbc.user" value="engstrategy" />
-            <property name="jakarta.persistence.jdbc.password" value="engstrategy1234@" />
+            <property name="jakarta.persistence.jdbc.password" value="engstrategy1234" />
+
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="create-drop" />
